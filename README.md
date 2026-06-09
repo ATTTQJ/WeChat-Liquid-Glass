@@ -1,4 +1,4 @@
-# WCLG Custom Top Glass
+# WeChat-Liquid-Glass
 
 Minimal UIKit tweak that avoids system navigation-bar Liquid Glass/material backgrounds and draws a custom Telegram-style top glass overlay instead.
 
