@@ -63,7 +63,9 @@ static WCLGTopGlassOverlayView *WCLGEnsureOverlay(UINavigationController *naviga
         overlay.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
         overlay.tag = 0x57434C47;
         objc_setAssociatedObject(host, WCLGTopGlassOverlayKey, overlay, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        [host addSubview:overlay];
+        [host insertSubview:overlay belowSubview:navigationController.navigationBar];
+    } else if (overlay.superview == host) {
+        [host insertSubview:overlay belowSubview:navigationController.navigationBar];
     }
     return overlay;
 }
@@ -84,7 +86,6 @@ static void WCLGUpdateOverlay(UINavigationController *navigationController, BOOL
     WCLGMakeNavigationBarTransparent(navigationBar);
 
     WCLGTopGlassOverlayView *overlay = WCLGEnsureOverlay(navigationController);
-    [navigationController.view bringSubviewToFront:overlay];
     [overlay updateForNavigationBar:navigationBar topItem:navigationBar.topItem transition:animated];
 }
 

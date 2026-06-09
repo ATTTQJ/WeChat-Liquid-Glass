@@ -1,5 +1,6 @@
 #import "WCLGTopGlassOverlayView.h"
 #import <QuartzCore/QuartzCore.h>
+#import <objc/message.h>
 
 static CGFloat WCLGScreenScale(void) {
     CGFloat scale = UIScreen.mainScreen.scale;
@@ -14,11 +15,57 @@ static CGFloat WCLGPixel(void) {
 @property (nonatomic, strong) UIVisualEffectView *effectView;
 @property (nonatomic, strong) UIView *tintView;
 @property (nonatomic, strong) CAGradientLayer *highlightLayer;
+@property (nonatomic, strong) UIButton *systemGlassButton;
+@property (nonatomic, assign) BOOL usingSystemGlassButton;
 @property (nonatomic, assign) BOOL forceDarkTint;
 - (void)refreshAppearance;
 @end
 
 @implementation WCLGGlassCapsuleView
+
++ (id)systemGlassButtonConfiguration {
+    Class configurationClass = NSClassFromString(@"UIButtonConfiguration");
+    if (!configurationClass) {
+        return nil;
+    }
+
+    NSArray<NSString *> *selectors = @[
+        @"glassButtonConfiguration",
+        @"clearGlassButtonConfiguration"
+    ];
+
+    for (NSString *selectorName in selectors) {
+        SEL selector = NSSelectorFromString(selectorName);
+        if ([configurationClass respondsToSelector:selector]) {
+            return ((id (*)(id, SEL))objc_msgSend)(configurationClass, selector);
+        }
+    }
+
+    return nil;
+}
+
++ (void)configureGlassButton:(UIButton *)button {
+    id configuration = [self systemGlassButtonConfiguration];
+    if (!configuration) {
+        return;
+    }
+
+    SEL setContentInsetsSelector = NSSelectorFromString(@"setContentInsets:");
+    if ([configuration respondsToSelector:setContentInsetsSelector]) {
+        NSDirectionalEdgeInsets zeroInsets = NSDirectionalEdgeInsetsMake(0.0, 0.0, 0.0, 0.0);
+        ((void (*)(id, SEL, NSDirectionalEdgeInsets))objc_msgSend)(configuration, setContentInsetsSelector, zeroInsets);
+    }
+
+    SEL setCornerStyleSelector = NSSelectorFromString(@"setCornerStyle:");
+    if ([configuration respondsToSelector:setCornerStyleSelector]) {
+        ((void (*)(id, SEL, NSInteger))objc_msgSend)(configuration, setCornerStyleSelector, 4);
+    }
+
+    SEL setConfigurationSelector = NSSelectorFromString(@"setConfiguration:");
+    if ([button respondsToSelector:setConfigurationSelector]) {
+        ((void (*)(id, SEL, id))objc_msgSend)(button, setConfigurationSelector, configuration);
+    }
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -26,13 +73,30 @@ static CGFloat WCLGPixel(void) {
         self.userInteractionEnabled = NO;
         self.clipsToBounds = NO;
         self.layer.shadowOffset = CGSizeMake(0.0, 2.0);
-        self.layer.shadowRadius = 8.0;
-        self.layer.shadowOpacity = 0.08;
+        self.layer.shadowRadius = 6.0;
+        self.layer.shadowOpacity = 0.05;
+
+        id systemConfiguration = [WCLGGlassCapsuleView systemGlassButtonConfiguration];
+        if (systemConfiguration) {
+            _usingSystemGlassButton = YES;
+            _systemGlassButton = [UIButton buttonWithType:UIButtonTypeSystem];
+            _systemGlassButton.userInteractionEnabled = NO;
+            _systemGlassButton.enabled = YES;
+            _systemGlassButton.adjustsImageWhenHighlighted = NO;
+            _systemGlassButton.adjustsImageWhenDisabled = NO;
+            _systemGlassButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentFill;
+            _systemGlassButton.contentVerticalAlignment = UIControlContentVerticalAlignmentFill;
+            [_systemGlassButton setTitle:nil forState:UIControlStateNormal];
+            [_systemGlassButton setImage:nil forState:UIControlStateNormal];
+            [WCLGGlassCapsuleView configureGlassButton:_systemGlassButton];
+            [self addSubview:_systemGlassButton];
+        }
 
         UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemUltraThinMaterial];
         _effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
         _effectView.userInteractionEnabled = NO;
         _effectView.clipsToBounds = YES;
+        _effectView.hidden = _usingSystemGlassButton;
         [self addSubview:_effectView];
 
         _tintView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -53,6 +117,8 @@ static CGFloat WCLGPixel(void) {
     [super layoutSubviews];
 
     CGFloat radius = CGRectGetHeight(self.bounds) * 0.5;
+    self.systemGlassButton.frame = self.bounds;
+    self.systemGlassButton.layer.cornerRadius = radius;
     self.effectView.frame = self.bounds;
     self.effectView.layer.cornerRadius = radius;
     self.tintView.frame = self.effectView.contentView.bounds;
@@ -76,20 +142,25 @@ static CGFloat WCLGPixel(void) {
     BOOL dark = self.forceDarkTint || self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
 
     UIColor *tint = dark
-        ? [UIColor colorWithWhite:0.0 alpha:0.18]
-        : [UIColor colorWithWhite:1.0 alpha:0.16];
+        ? [UIColor colorWithWhite:0.0 alpha:0.11]
+        : [UIColor colorWithWhite:1.0 alpha:0.10];
     UIColor *border = dark
-        ? [UIColor colorWithWhite:1.0 alpha:0.13]
-        : [UIColor colorWithWhite:1.0 alpha:0.42];
+        ? [UIColor colorWithWhite:1.0 alpha:0.10]
+        : [UIColor colorWithWhite:1.0 alpha:0.30];
 
+    self.effectView.hidden = self.usingSystemGlassButton;
     self.tintView.backgroundColor = tint;
     self.effectView.layer.borderColor = border.CGColor;
     self.layer.shadowColor = (dark ? UIColor.blackColor : UIColor.grayColor).CGColor;
 
+    if (self.usingSystemGlassButton) {
+        [WCLGGlassCapsuleView configureGlassButton:self.systemGlassButton];
+    }
+
     self.highlightLayer.colors = @[
-        (__bridge id)[UIColor colorWithWhite:1.0 alpha:(dark ? 0.12 : 0.28)].CGColor,
+        (__bridge id)[UIColor colorWithWhite:1.0 alpha:(dark ? 0.08 : 0.18)].CGColor,
         (__bridge id)[UIColor colorWithWhite:1.0 alpha:0.03].CGColor,
-        (__bridge id)[UIColor colorWithWhite:0.0 alpha:(dark ? 0.08 : 0.03)].CGColor
+        (__bridge id)[UIColor colorWithWhite:0.0 alpha:(dark ? 0.05 : 0.02)].CGColor
     ];
     self.highlightLayer.locations = @[@0.0, @0.42, @1.0];
 }
@@ -128,10 +199,10 @@ static CGFloat WCLGPixel(void) {
         _fadeMaskLayer.endPoint = CGPointMake(0.5, 1.0);
         _fadeMaskLayer.colors = @[
             (__bridge id)UIColor.blackColor.CGColor,
-            (__bridge id)[UIColor colorWithWhite:0.0 alpha:0.72].CGColor,
+            (__bridge id)[UIColor colorWithWhite:0.0 alpha:0.38].CGColor,
             (__bridge id)UIColor.clearColor.CGColor
         ];
-        _fadeMaskLayer.locations = @[@0.0, @0.62, @1.0];
+        _fadeMaskLayer.locations = @[@0.0, @0.42, @1.0];
         _fadeBlurView.layer.mask = _fadeMaskLayer;
 
         _backCapsule = [[WCLGGlassCapsuleView alloc] initWithFrame:CGRectZero];
@@ -170,8 +241,8 @@ static CGFloat WCLGPixel(void) {
 - (void)refreshAppearance {
     BOOL dark = self.forceDarkTint || self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
     self.fadeTintView.backgroundColor = dark
-        ? [UIColor colorWithWhite:0.0 alpha:0.08]
-        : [UIColor colorWithWhite:1.0 alpha:0.08];
+        ? [UIColor colorWithWhite:0.0 alpha:0.035]
+        : [UIColor colorWithWhite:1.0 alpha:0.035];
 }
 
 - (void)updateForNavigationBar:(UINavigationBar *)navigationBar
@@ -189,7 +260,7 @@ static CGFloat WCLGPixel(void) {
         safeTop = host.safeAreaInsets.top;
     }
 
-    CGFloat overlayHeight = MAX(CGRectGetMaxY(navFrame) + 22.0, safeTop + 76.0);
+    CGFloat overlayHeight = MAX(CGRectGetMaxY(navFrame) + 8.0, safeTop + 58.0);
     CGRect targetFrame = CGRectMake(0.0, 0.0, CGRectGetWidth(host.bounds), overlayHeight);
 
     BOOL hasBack = topItem.backBarButtonItem != nil || navigationBar.items.count > 1;
