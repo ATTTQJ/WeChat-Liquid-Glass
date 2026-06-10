@@ -1,10 +1,11 @@
 # WeChat-Liquid-Glass
 
-This repository now contains only one independent tweak:
+This repository contains small independent UIKit tweaks:
 
 - [SoftScrollEdge](SoftScrollEdge): forces available UIKit scroll edge effects to use the system soft style in WeChat.
+- [TabBarGlassFix](TabBarGlassFix): keeps plugin-created tab bar glass behind native tab item labels and icons.
 
-It does not modify the original Liquid Glass dylib and does not include custom top glass overlays, navigation bar replacement, signing bypass, anti-detection, privacy access, or business-logic changes.
+They do not modify the original Liquid Glass dylib and do not include custom top glass overlays, navigation bar replacement, signing bypass, anti-detection, privacy access, or business-logic changes.
 
 ## Build
 

@@ -1,0 +1,9 @@
+Package: com.local.wclgtabbarglassfix
+Name: WCLG TabBar Glass Fix
+Version: 0.1.0
+Architecture: iphoneos-arm
+Description: Keep plugin tab bar glass behind native tab item labels and icons.
+Maintainer: local
+Author: local
+Section: Tweaks
+Depends: mobilesubstrate
