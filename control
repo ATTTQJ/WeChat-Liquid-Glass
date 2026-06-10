@@ -1,9 +1,0 @@
-Package: com.local.wclgcustomtopglass
-Name: WCLG Custom Top Glass
-Version: 0.1.0
-Architecture: iphoneos-arm
-Description: Custom component-level glass overlay for WeChat top navigation.
-Maintainer: local
-Author: local
-Section: Tweaks
-Depends: mobilesubstrate
