@@ -25,6 +25,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          brew install openjdk@21
+          echo "/opt/homebrew/opt/openjdk@21/bin" >> "$GITHUB_PATH"
           python3 scripts/download_latest_ghidra.py /tmp/ghidra.zip
           unzip -q /tmp/ghidra.zip -d /tmp
           GHIDRA_DIR="$(find /tmp -maxdepth 1 -type d -name 'ghidra_*' | head -n 1)"

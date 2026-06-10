@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import subprocess
 import sys
 import urllib.request
 
@@ -31,8 +32,17 @@ def main() -> int:
         return 1
 
     name, url = sorted(candidates)[-1]
-    print(f"downloading {name} from {url}")
-    urllib.request.urlretrieve(url, sys.argv[1])
+    print(f"downloading {name} from {url}", flush=True)
+    subprocess.check_call([
+        "curl",
+        "-L",
+        "--fail",
+        "--retry", "5",
+        "--retry-delay", "5",
+        "--connect-timeout", "30",
+        "--output", sys.argv[1],
+        url,
+    ])
     return 0
 
 
