@@ -1,0 +1,9 @@
+Package: com.local.wclgsoftscrolledge
+Name: WCLG Soft Scroll Edge
+Version: 0.1.0
+Architecture: iphoneos-arm
+Description: Force UIKit scroll edge effects to soft style in WeChat.
+Maintainer: local
+Author: local
+Section: Tweaks
+Depends: mobilesubstrate
