@@ -14,3 +14,14 @@ Use the included GitHub Actions workflow, or build locally with Theos:
 cd SoftScrollEdge
 make package
 ```
+
+## dylib analysis
+
+The `Analyze dylib` workflow can generate static analysis artifacts for a Mach-O dylib.
+
+Use either:
+
+- commit a file at `input/WeChatLiquidGlass.dylib`, or
+- run the workflow manually with a temporary HTTPS `dylib_url`.
+
+The workflow outputs metadata, symbols, Objective-C metadata, and filtered strings as artifacts.

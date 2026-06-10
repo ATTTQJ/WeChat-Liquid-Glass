@@ -1,0 +1,72 @@
+name: Analyze dylib
+
+on:
+  workflow_dispatch:
+    inputs:
+      dylib_url:
+        description: "Optional HTTPS URL to a dylib. If empty, workflow expects input/WeChatLiquidGlass.dylib in the repo."
+        required: false
+        type: string
+
+jobs:
+  analyze:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare input
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p input analysis
+          if [[ -n "${{ inputs.dylib_url }}" ]]; then
+            curl -L "${{ inputs.dylib_url }}" -o input/WeChatLiquidGlass.dylib
+          fi
+          test -f input/WeChatLiquidGlass.dylib
+
+      - name: Basic Mach-O metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "## file"
+            file input/WeChatLiquidGlass.dylib
+            echo
+            echo "## sha256"
+            shasum -a 256 input/WeChatLiquidGlass.dylib
+            echo
+            echo "## lipo"
+            xcrun lipo -info input/WeChatLiquidGlass.dylib || true
+            echo
+            echo "## dependencies"
+            otool -L input/WeChatLiquidGlass.dylib || true
+            echo
+            echo "## load commands"
+            otool -l input/WeChatLiquidGlass.dylib || true
+          } > analysis/00_metadata.txt
+
+      - name: Symbols and Objective-C metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          nm -m input/WeChatLiquidGlass.dylib > analysis/01_symbols_nm.txt || true
+          otool -Iv input/WeChatLiquidGlass.dylib > analysis/02_indirect_symbols.txt || true
+          otool -ov input/WeChatLiquidGlass.dylib > analysis/03_objc_metadata.txt || true
+
+      - name: Strings report
+        shell: bash
+        run: |
+          set -euo pipefail
+          strings -a input/WeChatLiquidGlass.dylib > analysis/04_strings_all.txt || true
+          python3 scripts/filter_dylib_strings.py \
+            input/WeChatLiquidGlass.dylib \
+            analysis/05_strings_interesting.md
+
+      - name: Upload analysis artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dylib-static-analysis
+          path: analysis/*
+          if-no-files-found: error
