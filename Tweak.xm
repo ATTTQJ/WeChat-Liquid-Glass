@@ -1,5 +1,4 @@
 #import <UIKit/UIKit.h>
-#import <objc/message.h>
 #import <objc/runtime.h>
 #import "WCLGTopGlassOverlayView.h"
 
@@ -29,56 +28,6 @@ static BOOL WCLGShouldSkipController(UIViewController *controller) {
         }
     }
     return NO;
-}
-
-static id WCLGSoftScrollEdgeEffectStyle(void) {
-    Class styleClass = NSClassFromString(@"UIScrollEdgeEffectStyle");
-    if (!styleClass) {
-        styleClass = NSClassFromString(@"UIScrollEdgeEffect.Style");
-    }
-
-    SEL softStyleSelector = NSSelectorFromString(@"softStyle");
-    if (styleClass && [styleClass respondsToSelector:softStyleSelector]) {
-        return ((id (*)(id, SEL))objc_msgSend)(styleClass, softStyleSelector);
-    }
-
-    SEL softSelector = NSSelectorFromString(@"soft");
-    if (styleClass && [styleClass respondsToSelector:softSelector]) {
-        return ((id (*)(id, SEL))objc_msgSend)(styleClass, softSelector);
-    }
-
-    return nil;
-}
-
-static void WCLGApplySoftEdgeEffect(UIScrollView *scrollView) {
-    if (!WCLGIsTargetProcess() || !scrollView) {
-        return;
-    }
-
-    id softStyle = WCLGSoftScrollEdgeEffectStyle();
-    if (!softStyle) {
-        return;
-    }
-
-    SEL topEdgeEffectSelector = NSSelectorFromString(@"topEdgeEffect");
-    if (![scrollView respondsToSelector:topEdgeEffectSelector]) {
-        return;
-    }
-
-    id topEdgeEffect = ((id (*)(id, SEL))objc_msgSend)(scrollView, topEdgeEffectSelector);
-    if (!topEdgeEffect) {
-        return;
-    }
-
-    SEL setStyleSelector = NSSelectorFromString(@"setStyle:");
-    if ([topEdgeEffect respondsToSelector:setStyleSelector]) {
-        ((void (*)(id, SEL, id))objc_msgSend)(topEdgeEffect, setStyleSelector, softStyle);
-    }
-
-    SEL setHiddenSelector = NSSelectorFromString(@"setHidden:");
-    if ([topEdgeEffect respondsToSelector:setHiddenSelector]) {
-        ((void (*)(id, SEL, BOOL))objc_msgSend)(topEdgeEffect, setHiddenSelector, NO);
-    }
 }
 
 static void WCLGMakeNavigationBarTransparent(UINavigationBar *navigationBar) {
@@ -161,20 +110,6 @@ static void WCLGUpdateOverlay(UINavigationController *navigationController, BOOL
     UIViewController *result = %orig;
     WCLGUpdateOverlay(self, animated);
     return result;
-}
-
-%end
-
-%hook UIScrollView
-
-- (void)didMoveToWindow {
-    %orig;
-    WCLGApplySoftEdgeEffect(self);
-}
-
-- (void)layoutSubviews {
-    %orig;
-    WCLGApplySoftEdgeEffect(self);
 }
 
 %end

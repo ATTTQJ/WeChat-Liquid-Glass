@@ -199,10 +199,10 @@ static CGFloat WCLGPixel(void) {
         _fadeMaskLayer.endPoint = CGPointMake(0.5, 1.0);
         _fadeMaskLayer.colors = @[
             (__bridge id)UIColor.blackColor.CGColor,
-            (__bridge id)[UIColor colorWithWhite:0.0 alpha:0.24].CGColor,
+            (__bridge id)[UIColor colorWithWhite:0.0 alpha:0.38].CGColor,
             (__bridge id)UIColor.clearColor.CGColor
         ];
-        _fadeMaskLayer.locations = @[@0.0, @0.28, @1.0];
+        _fadeMaskLayer.locations = @[@0.0, @0.42, @1.0];
         _fadeBlurView.layer.mask = _fadeMaskLayer;
 
         _backCapsule = [[WCLGGlassCapsuleView alloc] initWithFrame:CGRectZero];
@@ -241,8 +241,8 @@ static CGFloat WCLGPixel(void) {
 - (void)refreshAppearance {
     BOOL dark = self.forceDarkTint || self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
     self.fadeTintView.backgroundColor = dark
-        ? [UIColor colorWithWhite:0.0 alpha:0.018]
-        : [UIColor colorWithWhite:1.0 alpha:0.018];
+        ? [UIColor colorWithWhite:0.0 alpha:0.035]
+        : [UIColor colorWithWhite:1.0 alpha:0.035];
 }
 
 - (void)updateForNavigationBar:(UINavigationBar *)navigationBar
@@ -260,7 +260,7 @@ static CGFloat WCLGPixel(void) {
         safeTop = host.safeAreaInsets.top;
     }
 
-    CGFloat overlayHeight = MAX(CGRectGetMaxY(navFrame) + 4.0, safeTop + 52.0);
+    CGFloat overlayHeight = MAX(CGRectGetMaxY(navFrame) + 8.0, safeTop + 58.0);
     CGRect targetFrame = CGRectMake(0.0, 0.0, CGRectGetWidth(host.bounds), overlayHeight);
 
     BOOL hasBack = topItem.backBarButtonItem != nil || navigationBar.items.count > 1;
