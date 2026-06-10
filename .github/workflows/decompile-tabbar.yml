@@ -1,0 +1,50 @@
+name: Decompile TabBar
+
+on:
+  workflow_dispatch:
+
+jobs:
+  decompile:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check input dylib
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f input/WeChatLiquidGlass.dylib
+          mkdir -p analysis
+          shasum -a 256 input/WeChatLiquidGlass.dylib > analysis/00_sha256.txt
+          xcrun lipo -info input/WeChatLiquidGlass.dylib > analysis/01_lipo.txt
+          xcrun lipo input/WeChatLiquidGlass.dylib -thin arm64 -output analysis/WeChatLiquidGlass-arm64.dylib
+
+      - name: Install Ghidra
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/download_latest_ghidra.py /tmp/ghidra.zip
+          unzip -q /tmp/ghidra.zip -d /tmp
+          GHIDRA_DIR="$(find /tmp -maxdepth 1 -type d -name 'ghidra_*' | head -n 1)"
+          test -n "$GHIDRA_DIR"
+          echo "GHIDRA_DIR=$GHIDRA_DIR" >> "$GITHUB_ENV"
+
+      - name: Decompile tab bar related functions
+        shell: bash
+        run: |
+          set -euo pipefail
+          "$GHIDRA_DIR/support/analyzeHeadless" \
+            "$PWD/analysis/ghidra-project" WCLG \
+            -import "$PWD/analysis/WeChatLiquidGlass-arm64.dylib" \
+            -scriptPath "$PWD/scripts/ghidra" \
+            -postScript ExportInterestingFunctions.java "$PWD/analysis/02_tabbar_decompile.txt" \
+            -deleteProject
+
+      - name: Upload decompile artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: tabbar-decompile
+          path: analysis/*
+          if-no-files-found: error
