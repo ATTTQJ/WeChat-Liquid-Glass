@@ -1,0 +1,3188 @@
+[
+  {
+    "name": "WCLGChatBottomFadeOverlayHost",
+    "class_addr": 7046152,
+    "superclass_addr": 230,
+    "flags": 388,
+    "instance_size": 32,
+    "methods": [
+      {
+        "selector": "initWithFrame:",
+        "types": "@48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16",
+        "imp": 2424932
+      },
+      {
+        "selector": "layoutSubviews",
+        "types": "v16@0:8",
+        "imp": 2425996
+      },
+      {
+        "selector": "scrollView",
+        "types": "@16@0:8",
+        "imp": 2426700
+      },
+      {
+        "selector": "setScrollView:",
+        "types": "v24@0:8@16",
+        "imp": 2426792
+      },
+      {
+        "selector": "edgeView",
+        "types": "@16@0:8",
+        "imp": 2426852
+      },
+      {
+        "selector": "setEdgeView:",
+        "types": "v24@0:8@16",
+        "imp": 2426908
+      },
+      {
+        "selector": "configuredBlurRadius",
+        "types": "d16@0:8",
+        "imp": 2427032
+      },
+      {
+        "selector": "setConfiguredBlurRadius:",
+        "types": "v24@0:8d16",
+        "imp": 2427088
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 2427144
+      }
+    ],
+    "ivar_list": 7018768,
+    "property_list": 7018872
+  },
+  {
+    "name": "WCLGChatBottomSMSProxySendTarget",
+    "class_addr": 7045872,
+    "superclass_addr": 298,
+    "flags": 128,
+    "instance_size": 8,
+    "methods": [
+      {
+        "selector": "wclg_smsSendTapped:",
+        "types": "v24@0:8@16",
+        "imp": 1004628
+      },
+      {
+        "selector": "wclg_smsMoreTapped:",
+        "types": "v24@0:8@16",
+        "imp": 1009796
+      },
+      {
+        "selector": "wclg_smsEmojiTapped:",
+        "types": "v24@0:8@16",
+        "imp": 1010420
+      },
+      {
+        "selector": "wclg_smsVoiceTapped:",
+        "types": "v24@0:8@16",
+        "imp": 1010756
+      }
+    ],
+    "ivar_list": 0,
+    "property_list": 0
+  },
+  {
+    "name": "WCLGChatTopFadeOverlayHost",
+    "class_addr": 7046072,
+    "superclass_addr": 230,
+    "flags": 388,
+    "instance_size": 32,
+    "methods": [
+      {
+        "selector": "initWithFrame:",
+        "types": "@48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16",
+        "imp": 2421772
+      },
+      {
+        "selector": "layoutSubviews",
+        "types": "v16@0:8",
+        "imp": 2422788
+      },
+      {
+        "selector": "scrollView",
+        "types": "@16@0:8",
+        "imp": 2424372
+      },
+      {
+        "selector": "setScrollView:",
+        "types": "v24@0:8@16",
+        "imp": 2424460
+      },
+      {
+        "selector": "overlayMode",
+        "types": "q16@0:8",
+        "imp": 2424520
+      },
+      {
+        "selector": "setOverlayMode:",
+        "types": "v24@0:8q16",
+        "imp": 2424576
+      },
+      {
+        "selector": "edgeView",
+        "types": "@16@0:8",
+        "imp": 2424632
+      },
+      {
+        "selector": "setEdgeView:",
+        "types": "v24@0:8@16",
+        "imp": 2424688
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 2424812
+      }
+    ],
+    "ivar_list": 7018464,
+    "property_list": 7018568
+  },
+  {
+    "name": "WCLGChatTopMorphHostView",
+    "class_addr": 7046312,
+    "superclass_addr": 230,
+    "flags": 388,
+    "instance_size": 48,
+    "methods": [
+      {
+        "selector": "initWithFrame:",
+        "types": "@48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16",
+        "imp": 2496924
+      },
+      {
+        "selector": "updateChrome",
+        "types": "v16@0:8",
+        "imp": 2498184
+      },
+      {
+        "selector": "layoutSubviews",
+        "types": "v16@0:8",
+        "imp": 2499008
+      },
+      {
+        "selector": "traitCollectionDidChange:",
+        "types": "v24@0:8@16",
+        "imp": 2499264
+      },
+      {
+        "selector": "handleTap:",
+        "types": "v24@0:8@16",
+        "imp": 2499540
+      },
+      {
+        "selector": "menuContainerView",
+        "types": "@16@0:8",
+        "imp": 2503564
+      },
+      {
+        "selector": "showMenuFromHost",
+        "types": "v16@0:8",
+        "imp": 2503940
+      },
+      {
+        "selector": "hideMenu",
+        "types": "v16@0:8",
+        "imp": 2505824
+      },
+      {
+        "selector": "handleLongPress:",
+        "types": "v24@0:8@16",
+        "imp": 2506564
+      },
+      {
+        "selector": "controller",
+        "types": "@16@0:8",
+        "imp": 2507960
+      },
+      {
+        "selector": "setController:",
+        "types": "v24@0:8@16",
+        "imp": 2508052
+      },
+      {
+        "selector": "isGroup",
+        "types": "B16@0:8",
+        "imp": 2508112
+      },
+      {
+        "selector": "setIsGroup:",
+        "types": "v20@0:8B16",
+        "imp": 2508168
+      },
+      {
+        "selector": "defaultAction",
+        "types": "q16@0:8",
+        "imp": 2508224
+      },
+      {
+        "selector": "setDefaultAction:",
+        "types": "v24@0:8q16",
+        "imp": 2508280
+      },
+      {
+        "selector": "ready",
+        "types": "B16@0:8",
+        "imp": 2508336
+      },
+      {
+        "selector": "setReady:",
+        "types": "v20@0:8B16",
+        "imp": 2508392
+      },
+      {
+        "selector": "iconView",
+        "types": "@16@0:8",
+        "imp": 2508448
+      },
+      {
+        "selector": "setIconView:",
+        "types": "v24@0:8@16",
+        "imp": 2508504
+      },
+      {
+        "selector": "menuView",
+        "types": "@16@0:8",
+        "imp": 2508628
+      },
+      {
+        "selector": "setMenuView:",
+        "types": "v24@0:8@16",
+        "imp": 2508684
+      },
+      {
+        "selector": "menuVisible",
+        "types": "B16@0:8",
+        "imp": 2508808
+      },
+      {
+        "selector": "setMenuVisible:",
+        "types": "v20@0:8B16",
+        "imp": 2508864
+      },
+      {
+        "selector": "longPressActive",
+        "types": "B16@0:8",
+        "imp": 2508920
+      },
+      {
+        "selector": "setLongPressActive:",
+        "types": "v20@0:8B16",
+        "imp": 2508976
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 2509032
+      }
+    ],
+    "ivar_list": 7019520,
+    "property_list": 7019784
+  },
+  {
+    "name": "WCLGChatTopMorphMenuView",
+    "class_addr": 7046232,
+    "superclass_addr": 230,
+    "flags": 388,
+    "instance_size": 56,
+    "methods": [
+      {
+        "selector": "initWithFrame:",
+        "types": "@48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16",
+        "imp": 2481388
+      },
+      {
+        "selector": "layoutSubviews",
+        "types": "v16@0:8",
+        "imp": 2483720
+      },
+      {
+        "selector": "reloadRows",
+        "types": "v16@0:8",
+        "imp": 2483964
+      },
+      {
+        "selector": "handleMenuTap:",
+        "types": "v24@0:8@16",
+        "imp": 2493800
+      },
+      {
+        "selector": "setHighlightedIndex:",
+        "types": "v24@0:8q16",
+        "imp": 2494280
+      },
+      {
+        "selector": "indexForPoint:",
+        "types": "q32@0:8{CGPoint=dd}16",
+        "imp": 2495400
+      },
+      {
+        "selector": "controller",
+        "types": "@16@0:8",
+        "imp": 2495988
+      },
+      {
+        "selector": "setController:",
+        "types": "v24@0:8@16",
+        "imp": 2496068
+      },
+      {
+        "selector": "isGroup",
+        "types": "B16@0:8",
+        "imp": 2496128
+      },
+      {
+        "selector": "setIsGroup:",
+        "types": "v20@0:8B16",
+        "imp": 2496184
+      },
+      {
+        "selector": "highlightedIndex",
+        "types": "q16@0:8",
+        "imp": 2496240
+      },
+      {
+        "selector": "selectionHandler",
+        "types": "@?16@0:8",
+        "imp": 2496296
+      },
+      {
+        "selector": "setSelectionHandler:",
+        "types": "v24@0:8@?16",
+        "imp": 2496352
+      },
+      {
+        "selector": "effectView",
+        "types": "@16@0:8",
+        "imp": 2496404
+      },
+      {
+        "selector": "setEffectView:",
+        "types": "v24@0:8@16",
+        "imp": 2496460
+      },
+      {
+        "selector": "rowViews",
+        "types": "@16@0:8",
+        "imp": 2496584
+      },
+      {
+        "selector": "setRowViews:",
+        "types": "v24@0:8@16",
+        "imp": 2496640
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 2496764
+      }
+    ],
+    "ivar_list": 7019072,
+    "property_list": 7019272
+  },
+  {
+    "name": "WCLGColorCanvasView",
+    "class_addr": 7046472,
+    "superclass_addr": 230,
+    "flags": 388,
+    "instance_size": 40,
+    "methods": [
+      {
+        "selector": "initWithFrame:",
+        "types": "@48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16",
+        "imp": 2549684
+      },
+      {
+        "selector": "setHue:",
+        "types": "v24@0:8d16",
+        "imp": 2554344
+      },
+      {
+        "selector": "layoutSubviews",
+        "types": "v16@0:8",
+        "imp": 2554824
+      },
+      {
+        "selector": "hueLayer",
+        "types": "@16@0:8",
+        "imp": 2555504
+      },
+      {
+        "selector": "setHueLayer:",
+        "types": "v24@0:8@16",
+        "imp": 2555820
+      },
+      {
+        "selector": "whiteLayer",
+        "types": "@16@0:8",
+        "imp": 2556212
+      },
+      {
+        "selector": "setWhiteLayer:",
+        "types": "v24@0:8@16",
+        "imp": 2557072
+      },
+      {
+        "selector": "blackLayer",
+        "types": "@16@0:8",
+        "imp": 2558540
+      },
+      {
+        "selector": "setBlackLayer:",
+        "types": "v24@0:8@16",
+        "imp": 2559552
+      },
+      {
+        "selector": "hue",
+        "types": "d16@0:8",
+        "imp": 2559912
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 2561176
+      }
+    ],
+    "ivar_list": 7020208,
+    "property_list": 7020344
+  },
+  {
+    "name": "WCLGColorPickerBackgroundView",
+    "class_addr": 7046392,
+    "superclass_addr": 230,
+    "flags": 128,
+    "instance_size": 8,
+    "methods": [
+      {
+        "selector": "layoutSubviews",
+        "types": "v16@0:8",
+        "imp": 2546548
+      }
+    ],
+    "ivar_list": 0,
+    "property_list": 0
+  },
+  {
+    "name": "WCLGColorPickerViewController",
+    "class_addr": 7046632,
+    "superclass_addr": 254,
+    "flags": 388,
+    "instance_size": 360,
+    "methods": [
+      {
+        "selector": "initOutgoing:handler:",
+        "types": "@28@0:8B16@?20",
+        "imp": 2568068
+      },
+      {
+        "selector": "initPurpose:handler:",
+        "types": "@32@0:8q16@?24",
+        "imp": 2568440
+      },
+      {
+        "selector": "initPurpose:lightMode:darkMode:handler:",
+        "types": "@48@0:8q16q24q32@?40",
+        "imp": 2573032
+      },
+      {
+        "selector": "initSMSBottomBarIconLightMode:darkMode:handler:",
+        "types": "@40@0:8q16q24@?32",
+        "imp": 2575836
+      },
+      {
+        "selector": "isDarkMode",
+        "types": "B16@0:8",
+        "imp": 2576212
+      },
+      {
+        "selector": "titleForPurpose",
+        "types": "@16@0:8",
+        "imp": 2577104
+      },
+      {
+        "selector": "currentMode",
+        "types": "q16@0:8",
+        "imp": 2593972
+      },
+      {
+        "selector": "componentsForMode:red:green:blue:alpha:",
+        "types": "B56@0:8q16^d24^d32^d40^d48",
+        "imp": 2616512
+      },
+      {
+        "selector": "loadCurrentColor",
+        "types": "v16@0:8",
+        "imp": 2656260
+      },
+      {
+        "selector": "updateHSVFromRGBPreservingHue:",
+        "types": "v20@0:8B16",
+        "imp": 2656752
+      },
+      {
+        "selector": "updateRGBFromHSV",
+        "types": "v16@0:8",
+        "imp": 2659308
+      },
+      {
+        "selector": "markCustomMode",
+        "types": "v16@0:8",
+        "imp": 2660728
+      },
+      {
+        "selector": "storeCurrentModeForActiveAppearance",
+        "types": "v16@0:8",
+        "imp": 2661200
+      },
+      {
+        "selector": "currentHexString",
+        "types": "@16@0:8",
+        "imp": 2663584
+      },
+      {
+        "selector": "primaryTextColor",
+        "types": "@16@0:8",
+        "imp": 2669628
+      },
+      {
+        "selector": "secondaryTextColor",
+        "types": "@16@0:8",
+        "imp": 2673208
+      },
+      {
+        "selector": "cardColor",
+        "types": "@16@0:8",
+        "imp": 2675292
+      },
+      {
+        "selector": "makeCard",
+        "types": "@16@0:8",
+        "imp": 2675740
+      },
+      {
+        "selector": "sectionLabelWithText:",
+        "types": "@24@0:8@16",
+        "imp": 2676592
+      },
+      {
+        "selector": "numberFieldWithTag:",
+        "types": "@24@0:8q16",
+        "imp": 2677796
+      },
+      {
+        "selector": "swatchImageForColor:diameter:",
+        "types": "@32@0:8@16d24",
+        "imp": 2679452
+      },
+      {
+        "selector": "defaultPaletteModes",
+        "types": "@16@0:8",
+        "imp": 2680188
+      },
+      {
+        "selector": "commonColorModes",
+        "types": "@16@0:8",
+        "imp": 2682448
+      },
+      {
+        "selector": "commonColorNames",
+        "types": "@16@0:8",
+        "imp": 2683324
+      },
+      {
+        "selector": "colorForMode:",
+        "types": "@24@0:8q16",
+        "imp": 2686860
+      },
+      {
+        "selector": "viewDidLoad",
+        "types": "v16@0:8",
+        "imp": 2687864
+      },
+      {
+        "selector": "viewDidAppear:",
+        "types": "v20@0:8B16",
+        "imp": 2723056
+      },
+      {
+        "selector": "viewWillDisappear:",
+        "types": "v20@0:8B16",
+        "imp": 2723536
+      },
+      {
+        "selector": "viewDidLayoutSubviews",
+        "types": "v16@0:8",
+        "imp": 2723984
+      },
+      {
+        "selector": "traitCollectionDidChange:",
+        "types": "v24@0:8@16",
+        "imp": 2724944
+      },
+      {
+        "selector": "refreshThemeColors",
+        "types": "v16@0:8",
+        "imp": 2725952
+      },
+      {
+        "selector": "layoutPickerViews",
+        "types": "v16@0:8",
+        "imp": 2759132
+      },
+      {
+        "selector": "layoutPaletteButtonsWithWidth:",
+        "types": "v24@0:8d16",
+        "imp": 2767540
+      },
+      {
+        "selector": "layoutCommonRowsWithWidth:",
+        "types": "v24@0:8d16",
+        "imp": 2770008
+      },
+      {
+        "selector": "updateUI",
+        "types": "v16@0:8",
+        "imp": 2773364
+      },
+      {
+        "selector": "updateKnobFrames",
+        "types": "v16@0:8",
+        "imp": 2786924
+      },
+      {
+        "selector": "confirmColor",
+        "types": "v16@0:8",
+        "imp": 2792020
+      },
+      {
+        "selector": "appearanceSegmentChanged:",
+        "types": "v24@0:8@16",
+        "imp": 2803452
+      },
+      {
+        "selector": "applyMode:",
+        "types": "v24@0:8q16",
+        "imp": 2805160
+      },
+      {
+        "selector": "channelSliderChanged:",
+        "types": "v24@0:8@16",
+        "imp": 2805604
+      },
+      {
+        "selector": "canvasGestureChanged:",
+        "types": "v24@0:8@16",
+        "imp": 2812028
+      },
+      {
+        "selector": "hueGestureChanged:",
+        "types": "v24@0:8@16",
+        "imp": 2812848
+      },
+      {
+        "selector": "paletteButtonTapped:",
+        "types": "v24@0:8@16",
+        "imp": 2813464
+      },
+      {
+        "selector": "commonButtonTapped:",
+        "types": "v24@0:8@16",
+        "imp": 2817280
+      },
+      {
+        "selector": "parseHexString:red:green:blue:alpha:",
+        "types": "B56@0:8@16^d24^d32^d40^d48",
+        "imp": 2822704
+      },
+      {
+        "selector": "hexEditingDidEnd:",
+        "types": "v24@0:8@16",
+        "imp": 2843732
+      },
+      {
+        "selector": "numberFieldEditingDidEnd:",
+        "types": "v24@0:8@16",
+        "imp": 2847192
+      },
+      {
+        "selector": "textFieldShouldReturn:",
+        "types": "B24@0:8@16",
+        "imp": 2850972
+      },
+      {
+        "selector": "outgoing",
+        "types": "B16@0:8",
+        "imp": 2851884
+      },
+      {
+        "selector": "setOutgoing:",
+        "types": "v20@0:8B16",
+        "imp": 2852900
+      },
+      {
+        "selector": "purpose",
+        "types": "q16@0:8",
+        "imp": 2854484
+      },
+      {
+        "selector": "setPurpose:",
+        "types": "v24@0:8q16",
+        "imp": 2855516
+      },
+      {
+        "selector": "selectionHandler",
+        "types": "@?16@0:8",
+        "imp": 2855828
+      },
+      {
+        "selector": "setSelectionHandler:",
+        "types": "v24@0:8@?16",
+        "imp": 2856120
+      },
+      {
+        "selector": "dualSelectionHandler",
+        "types": "@?16@0:8",
+        "imp": 2857056
+      },
+      {
+        "selector": "setDualSelectionHandler:",
+        "types": "v24@0:8@?16",
+        "imp": 2857380
+      },
+      {
+        "selector": "backgroundView",
+        "types": "@16@0:8",
+        "imp": 2857692
+      },
+      {
+        "selector": "setBackgroundView:",
+        "types": "v24@0:8@16",
+        "imp": 2858712
+      },
+      {
+        "selector": "scrollView",
+        "types": "@16@0:8",
+        "imp": 2859080
+      },
+      {
+        "selector": "setScrollView:",
+        "types": "v24@0:8@16",
+        "imp": 2859396
+      },
+      {
+        "selector": "contentView",
+        "types": "@16@0:8",
+        "imp": 2860188
+      },
+      {
+        "selector": "setContentView:",
+        "types": "v24@0:8@16",
+        "imp": 2861580
+      },
+      {
+        "selector": "pickerHeaderLabel",
+        "types": "@16@0:8",
+        "imp": 2862536
+      },
+      {
+        "selector": "setPickerHeaderLabel:",
+        "types": "v24@0:8@16",
+        "imp": 2862864
+      },
+      {
+        "selector": "paletteHeaderLabel",
+        "types": "@16@0:8",
+        "imp": 2863772
+      },
+      {
+        "selector": "setPaletteHeaderLabel:",
+        "types": "v24@0:8@16",
+        "imp": 2865112
+      },
+      {
+        "selector": "commonHeaderLabel",
+        "types": "@16@0:8",
+        "imp": 2866052
+      },
+      {
+        "selector": "setCommonHeaderLabel:",
+        "types": "v24@0:8@16",
+        "imp": 2866888
+      },
+      {
+        "selector": "controlCard",
+        "types": "@16@0:8",
+        "imp": 2867824
+      },
+      {
+        "selector": "setControlCard:",
+        "types": "v24@0:8@16",
+        "imp": 2868704
+      },
+      {
+        "selector": "paletteCard",
+        "types": "@16@0:8",
+        "imp": 2870416
+      },
+      {
+        "selector": "setPaletteCard:",
+        "types": "v24@0:8@16",
+        "imp": 2871960
+      },
+      {
+        "selector": "commonCard",
+        "types": "@16@0:8",
+        "imp": 2873056
+      },
+      {
+        "selector": "setCommonCard:",
+        "types": "v24@0:8@16",
+        "imp": 2873932
+      },
+      {
+        "selector": "hexLabel",
+        "types": "@16@0:8",
+        "imp": 2874280
+      },
+      {
+        "selector": "setHexLabel:",
+        "types": "v24@0:8@16",
+        "imp": 2875296
+      },
+      {
+        "selector": "hexHintLabel",
+        "types": "@16@0:8",
+        "imp": 2875688
+      },
+      {
+        "selector": "setHexHintLabel:",
+        "types": "v24@0:8@16",
+        "imp": 2875952
+      },
+      {
+        "selector": "hexField",
+        "types": "@16@0:8",
+        "imp": 2876320
+      },
+      {
+        "selector": "setHexField:",
+        "types": "v24@0:8@16",
+        "imp": 2877816
+      },
+      {
+        "selector": "previewView",
+        "types": "@16@0:8",
+        "imp": 2879300
+      },
+      {
+        "selector": "setPreviewView:",
+        "types": "v24@0:8@16",
+        "imp": 2880832
+      },
+      {
+        "selector": "canvasView",
+        "types": "@16@0:8",
+        "imp": 2881180
+      },
+      {
+        "selector": "setCanvasView:",
+        "types": "v24@0:8@16",
+        "imp": 2883224
+      },
+      {
+        "selector": "hueBarView",
+        "types": "@16@0:8",
+        "imp": 2883608
+      },
+      {
+        "selector": "setHueBarView:",
+        "types": "v24@0:8@16",
+        "imp": 2884492
+      },
+      {
+        "selector": "canvasKnob",
+        "types": "@16@0:8",
+        "imp": 2884868
+      },
+      {
+        "selector": "setCanvasKnob:",
+        "types": "v24@0:8@16",
+        "imp": 2886416
+      },
+      {
+        "selector": "hueKnob",
+        "types": "@16@0:8",
+        "imp": 2886832
+      },
+      {
+        "selector": "setHueKnob:",
+        "types": "v24@0:8@16",
+        "imp": 2888384
+      },
+      {
+        "selector": "channelLabels",
+        "types": "@16@0:8",
+        "imp": 2888740
+      },
+      {
+        "selector": "setChannelLabels:",
+        "types": "v24@0:8@16",
+        "imp": 2889060
+      },
+      {
+        "selector": "channelSliders",
+        "types": "@16@0:8",
+        "imp": 2889372
+      },
+      {
+        "selector": "setChannelSliders:",
+        "types": "v24@0:8@16",
+        "imp": 2890612
+      },
+      {
+        "selector": "channelFields",
+        "types": "@16@0:8",
+        "imp": 2891536
+      },
+      {
+        "selector": "setChannelFields:",
+        "types": "v24@0:8@16",
+        "imp": 2892196
+      },
+      {
+        "selector": "paletteScrollView",
+        "types": "@16@0:8",
+        "imp": 2892508
+      },
+      {
+        "selector": "setPaletteScrollView:",
+        "types": "v24@0:8@16",
+        "imp": 2892804
+      },
+      {
+        "selector": "paletteButtons",
+        "types": "@16@0:8",
+        "imp": 2893836
+      },
+      {
+        "selector": "setPaletteButtons:",
+        "types": "v24@0:8@16",
+        "imp": 2894844
+      },
+      {
+        "selector": "paletteModes",
+        "types": "@16@0:8",
+        "imp": 2895736
+      },
+      {
+        "selector": "setPaletteModes:",
+        "types": "v24@0:8@16",
+        "imp": 2896060
+      },
+      {
+        "selector": "commonButtons",
+        "types": "@16@0:8",
+        "imp": 2896400
+      },
+      {
+        "selector": "setCommonButtons:",
+        "types": "v24@0:8@16",
+        "imp": 2896716
+      },
+      {
+        "selector": "commonLabels",
+        "types": "@16@0:8",
+        "imp": 2897572
+      },
+      {
+        "selector": "setCommonLabels:",
+        "types": "v24@0:8@16",
+        "imp": 2898356
+      },
+      {
+        "selector": "commonModes",
+        "types": "@16@0:8",
+        "imp": 2899428
+      },
+      {
+        "selector": "setCommonModes:",
+        "types": "v24@0:8@16",
+        "imp": 2899756
+      },
+      {
+        "selector": "appearanceControl",
+        "types": "@16@0:8",
+        "imp": 2901348
+      },
+      {
+        "selector": "setAppearanceControl:",
+        "types": "v24@0:8@16",
+        "imp": 2901616
+      },
+      {
+        "selector": "currentTitleLabel",
+        "types": "@16@0:8",
+        "imp": 2903320
+      },
+      {
+        "selector": "setCurrentTitleLabel:",
+        "types": "v24@0:8@16",
+        "imp": 2903588
+      },
+      {
+        "selector": "currentHexLabel",
+        "types": "@16@0:8",
+        "imp": 2904472
+      },
+      {
+        "selector": "setCurrentHexLabel:",
+        "types": "v24@0:8@16",
+        "imp": 2904788
+      },
+      {
+        "selector": "currentDot",
+        "types": "@16@0:8",
+        "imp": 2906280
+      },
+      {
+        "selector": "setCurrentDot:",
+        "types": "v24@0:8@16",
+        "imp": 2907100
+      },
+      {
+        "selector": "red",
+        "types": "d16@0:8",
+        "imp": 2908152
+      },
+      {
+        "selector": "setRed:",
+        "types": "v24@0:8d16",
+        "imp": 2909112
+      },
+      {
+        "selector": "green",
+        "types": "d16@0:8",
+        "imp": 2909892
+      },
+      {
+        "selector": "setGreen:",
+        "types": "v24@0:8d16",
+        "imp": 2910784
+      },
+      {
+        "selector": "blue",
+        "types": "d16@0:8",
+        "imp": 2911100
+      },
+      {
+        "selector": "setBlue:",
+        "types": "v24@0:8d16",
+        "imp": 2911972
+      },
+      {
+        "selector": "alpha",
+        "types": "d16@0:8",
+        "imp": 2912292
+      },
+      {
+        "selector": "setAlpha:",
+        "types": "v24@0:8d16",
+        "imp": 2913148
+      },
+      {
+        "selector": "hue",
+        "types": "d16@0:8",
+        "imp": 2913456
+      },
+      {
+        "selector": "setHue:",
+        "types": "v24@0:8d16",
+        "imp": 2913756
+      },
+      {
+        "selector": "saturation",
+        "types": "d16@0:8",
+        "imp": 2914636
+      },
+      {
+        "selector": "setSaturation:",
+        "types": "v24@0:8d16",
+        "imp": 2914904
+      },
+      {
+        "selector": "brightness",
+        "types": "d16@0:8",
+        "imp": 2916392
+      },
+      {
+        "selector": "setBrightness:",
+        "types": "v24@0:8d16",
+        "imp": 2917264
+      },
+      {
+        "selector": "pendingMode",
+        "types": "q16@0:8",
+        "imp": 2917540
+      },
+      {
+        "selector": "setPendingMode:",
+        "types": "v24@0:8q16",
+        "imp": 2917836
+      },
+      {
+        "selector": "lightMode",
+        "types": "q16@0:8",
+        "imp": 2918148
+      },
+      {
+        "selector": "setLightMode:",
+        "types": "v24@0:8q16",
+        "imp": 2918888
+      },
+      {
+        "selector": "darkMode",
+        "types": "q16@0:8",
+        "imp": 2919176
+      },
+      {
+        "selector": "setDarkMode:",
+        "types": "v24@0:8q16",
+        "imp": 2919492
+      },
+      {
+        "selector": "dualAppearanceMode",
+        "types": "B16@0:8",
+        "imp": 2921060
+      },
+      {
+        "selector": "setDualAppearanceMode:",
+        "types": "v20@0:8B16",
+        "imp": 2921948
+      },
+      {
+        "selector": "editingDarkAppearance",
+        "types": "B16@0:8",
+        "imp": 2923296
+      },
+      {
+        "selector": "setEditingDarkAppearance:",
+        "types": "v20@0:8B16",
+        "imp": 2924112
+      },
+      {
+        "selector": "updatingUI",
+        "types": "B16@0:8",
+        "imp": 2926232
+      },
+      {
+        "selector": "setUpdatingUI:",
+        "types": "v20@0:8B16",
+        "imp": 2926488
+      },
+      {
+        "selector": "savedPopGestureEnabled",
+        "types": "B16@0:8",
+        "imp": 2926752
+      },
+      {
+        "selector": "setSavedPopGestureEnabled:",
+        "types": "v20@0:8B16",
+        "imp": 2927628
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 2928460
+      }
+    ],
+    "ivar_list": 7021576,
+    "property_list": 7023120
+  },
+  {
+    "name": "WCLGConfig",
+    "class_addr": 7046712,
+    "superclass_addr": 298,
+    "flags": 388,
+    "instance_size": 29,
+    "methods": [
+      {
+        "selector": "init",
+        "types": "@16@0:8",
+        "imp": 3045116
+      },
+      {
+        "selector": "dealloc",
+        "types": "v16@0:8",
+        "imp": 3045592
+      },
+      {
+        "selector": "primeDefaults",
+        "types": "v16@0:8",
+        "imp": 3045760
+      },
+      {
+        "selector": "refreshAtomicMirrors",
+        "types": "v16@0:8",
+        "imp": 3073536
+      },
+      {
+        "selector": "maybeUpdateMirrorForKey:value:",
+        "types": "v32@0:8@16@24",
+        "imp": 3099216
+      },
+      {
+        "selector": "cachedObjectForKey:",
+        "types": "@24@0:8@16",
+        "imp": 3132280
+      },
+      {
+        "selector": "setCachedObject:forKey:",
+        "types": "v32@0:8@16@24",
+        "imp": 3133220
+      },
+      {
+        "selector": "flushScheduled",
+        "types": "v16@0:8",
+        "imp": 3134088
+      },
+      {
+        "selector": "boolForKey:",
+        "types": "B24@0:8@16",
+        "imp": 3135172
+      },
+      {
+        "selector": "boolForKey:defaultValue:",
+        "types": "B28@0:8@16B24",
+        "imp": 3135248
+      },
+      {
+        "selector": "integerForKey:",
+        "types": "q24@0:8@16",
+        "imp": 3135652
+      },
+      {
+        "selector": "integerForKey:defaultValue:",
+        "types": "q32@0:8@16q24",
+        "imp": 3135728
+      },
+      {
+        "selector": "doubleForKey:",
+        "types": "d24@0:8@16",
+        "imp": 3135944
+      },
+      {
+        "selector": "objectForKey:",
+        "types": "@24@0:8@16",
+        "imp": 3136160
+      },
+      {
+        "selector": "setBool:forKey:",
+        "types": "v28@0:8B16@20",
+        "imp": 3136232
+      },
+      {
+        "selector": "setLiquidGlassPersistedPendingValue:",
+        "types": "v20@0:8B16",
+        "imp": 3138308
+      },
+      {
+        "selector": "setInteger:forKey:",
+        "types": "v32@0:8q16@24",
+        "imp": 3139468
+      },
+      {
+        "selector": "setDouble:forKey:",
+        "types": "v32@0:8d16@24",
+        "imp": 3139668
+      },
+      {
+        "selector": "setObject:forKey:",
+        "types": "v32@0:8@16@24",
+        "imp": 3139868
+      },
+      {
+        "selector": "hasValueForKey:",
+        "types": "B24@0:8@16",
+        "imp": 3139920
+      },
+      {
+        "selector": "tabBarIconOffsetXForSizeMode:",
+        "types": "d24@0:8q16",
+        "imp": 3140024
+      },
+      {
+        "selector": "tabBarIconOffsetYForSizeMode:",
+        "types": "d24@0:8q16",
+        "imp": 3141120
+      },
+      {
+        "selector": "tabBarIconSpacingForSizeMode:",
+        "types": "d24@0:8q16",
+        "imp": 3142236
+      },
+      {
+        "selector": "setTabBarIconOffsetX:forSizeMode:",
+        "types": "v32@0:8d16q24",
+        "imp": 3143328
+      },
+      {
+        "selector": "setTabBarIconOffsetY:forSizeMode:",
+        "types": "v32@0:8d16q24",
+        "imp": 3144444
+      },
+      {
+        "selector": "setTabBarIconSpacing:forSizeMode:",
+        "types": "v32@0:8d16q24",
+        "imp": 3145548
+      },
+      {
+        "selector": "tabBarIconScaleForSizeMode:",
+        "types": "d24@0:8q16",
+        "imp": 3146632
+      },
+      {
+        "selector": "setTabBarIconScale:forSizeMode:",
+        "types": "v32@0:8d16q24",
+        "imp": 3147604
+      },
+      {
+        "selector": "liquidGlassEnabled",
+        "types": "B16@0:8",
+        "imp": 3148576
+      },
+      {
+        "selector": "compatEnabled",
+        "types": "B16@0:8",
+        "imp": 3148632
+      },
+      {
+        "selector": "hideTitlesEnabled",
+        "types": "B16@0:8",
+        "imp": 3148688
+      },
+      {
+        "selector": "chatBottomGlassEnabled",
+        "types": "B16@0:8",
+        "imp": 3148744
+      },
+      {
+        "selector": "chatBottomSMSHideEmojiIconEnabled",
+        "types": "B16@0:8",
+        "imp": 3148800
+      },
+      {
+        "selector": "chatBottomSMSUseMessageIconsEnabled",
+        "types": "B16@0:8",
+        "imp": 3148856
+      },
+      {
+        "selector": "chatBubbleGlassEnabled",
+        "types": "B16@0:8",
+        "imp": 3148912
+      },
+      {
+        "selector": "topNavigationAlignmentEnabled",
+        "types": "B16@0:8",
+        "imp": 3148968
+      },
+      {
+        "selector": "homeSearchButtonEnabled",
+        "types": "B16@0:8",
+        "imp": 3149024
+      },
+      {
+        "selector": "chatTitleCapsuleEnabled",
+        "types": "B16@0:8",
+        "imp": 3149600
+      },
+      {
+        "selector": "chatNativeProfileTitleEnabled",
+        "types": "B16@0:8",
+        "imp": 3149656
+      },
+      {
+        "selector": "chatNativeProfilePinnedOffsetEnabled",
+        "types": "B16@0:8",
+        "imp": 3149712
+      },
+      {
+        "selector": "chatTopMorphActionEnabled",
+        "types": "B16@0:8",
+        "imp": 3149768
+      },
+      {
+        "selector": "privateChatTopMorphDefault",
+        "types": "q16@0:8",
+        "imp": 3149824
+      },
+      {
+        "selector": "groupChatTopMorphDefault",
+        "types": "q16@0:8",
+        "imp": 3149864
+      },
+      {
+        "selector": "chatTopMorphSMSIconsEnabled",
+        "types": "B16@0:8",
+        "imp": 3149904
+      },
+      {
+        "selector": "smsBackTextEnabled",
+        "types": "B16@0:8",
+        "imp": 3149960
+      },
+      {
+        "selector": "smsHomeAddIconEnabled",
+        "types": "B16@0:8",
+        "imp": 3150016
+      },
+      {
+        "selector": "smsBottomBarIconEnabled",
+        "types": "B16@0:8",
+        "imp": 3150072
+      },
+      {
+        "selector": "chatPlusSMSMenuEnabled",
+        "types": "B16@0:8",
+        "imp": 3150128
+      },
+      {
+        "selector": "richCardPaymentBubbleEnabled",
+        "types": "B16@0:8",
+        "imp": 3150184
+      },
+      {
+        "selector": "voIPBubbleGlassEnabled",
+        "types": "B16@0:8",
+        "imp": 3150240
+      },
+      {
+        "selector": "longPressMenuGlassEnabled",
+        "types": "B16@0:8",
+        "imp": 3150296
+      },
+      {
+        "selector": "chatBubbleFlowGradientEnabled",
+        "types": "B16@0:8",
+        "imp": 3150352
+      },
+      {
+        "selector": "chatBubbleFlowBorderEnabled",
+        "types": "B16@0:8",
+        "imp": 3150408
+      },
+      {
+        "selector": "chatBubbleFlowRichMediaEnabled",
+        "types": "B16@0:8",
+        "imp": 3150416
+      },
+      {
+        "selector": "chatBubbleFlowVoIPEnabled",
+        "types": "B16@0:8",
+        "imp": 3150472
+      },
+      {
+        "selector": "hideVoiceTranscribeIconEnabled",
+        "types": "B16@0:8",
+        "imp": 3150528
+      },
+      {
+        "selector": "hideHomeWeChatTitleEnabled",
+        "types": "B16@0:8",
+        "imp": 3150584
+      },
+      {
+        "selector": "homeBackgroundPureColorEnabled",
+        "types": "B16@0:8",
+        "imp": 3150640
+      },
+      {
+        "selector": "chatBottomGradientBackgroundEnabled",
+        "types": "B16@0:8",
+        "imp": 3150696
+      },
+      {
+        "selector": "homeBottomFadeEnabled",
+        "types": "B16@0:8",
+        "imp": 3150752
+      },
+      {
+        "selector": "tabBarExtraClearEnabled",
+        "types": "B16@0:8",
+        "imp": 3150808
+      },
+      {
+        "selector": "unreadBackCapsuleMode",
+        "types": "q16@0:8",
+        "imp": 3151388
+      },
+      {
+        "selector": "tabBarRightSearchEnabled",
+        "types": "B16@0:8",
+        "imp": 3151428
+      },
+      {
+        "selector": "searchTabBarEnabled",
+        "types": "B16@0:8",
+        "imp": 3152036
+      },
+      {
+        "selector": "disablePullDownMiniProgramEnabled",
+        "types": "B16@0:8",
+        "imp": 3152092
+      },
+      {
+        "selector": "plusMenuMiniProgramEntryEnabled",
+        "types": "B16@0:8",
+        "imp": 3152148
+      },
+      {
+        "selector": "hidePinnedMainFrameBackgroundEnabled",
+        "types": "B16@0:8",
+        "imp": 3152204
+      },
+      {
+        "selector": "glassSizeMode",
+        "types": "q16@0:8",
+        "imp": 3152260
+      },
+      {
+        "selector": "tabBarRightSearchSizeMode",
+        "types": "q16@0:8",
+        "imp": 3152932
+      },
+      {
+        "selector": "searchTabBarSizeMode",
+        "types": "q16@0:8",
+        "imp": 3153708
+      },
+      {
+        "selector": "chatBottomGlassMode",
+        "types": "q16@0:8",
+        "imp": 3153748
+      },
+      {
+        "selector": "chatBottomSMSSendColorMode",
+        "types": "q16@0:8",
+        "imp": 3153788
+      },
+      {
+        "selector": "chatBottomSMSSendDarkColorMode",
+        "types": "q16@0:8",
+        "imp": 3153828
+      },
+      {
+        "selector": "smsBottomBarIconLightColorMode",
+        "types": "q16@0:8",
+        "imp": 3153868
+      },
+      {
+        "selector": "smsBottomBarIconDarkColorMode",
+        "types": "q16@0:8",
+        "imp": 3153908
+      },
+      {
+        "selector": "chatBubbleOutgoingColorMode",
+        "types": "q16@0:8",
+        "imp": 3153948
+      },
+      {
+        "selector": "chatBubbleIncomingColorMode",
+        "types": "q16@0:8",
+        "imp": 3153988
+      },
+      {
+        "selector": "chatBubbleOutgoingDarkColorMode",
+        "types": "q16@0:8",
+        "imp": 3154028
+      },
+      {
+        "selector": "chatBubbleIncomingDarkColorMode",
+        "types": "q16@0:8",
+        "imp": 3154068
+      },
+      {
+        "selector": "chatBubbleFlowStartColorMode",
+        "types": "q16@0:8",
+        "imp": 3154108
+      },
+      {
+        "selector": "chatBubbleFlowEndColorMode",
+        "types": "q16@0:8",
+        "imp": 3154148
+      },
+      {
+        "selector": "chatBubbleFlowDarkStartColorMode",
+        "types": "q16@0:8",
+        "imp": 3154188
+      },
+      {
+        "selector": "chatBubbleFlowDarkEndColorMode",
+        "types": "q16@0:8",
+        "imp": 3154228
+      },
+      {
+        "selector": "shouldForceTrueForUserDefaultsKey:",
+        "types": "B24@0:8@16",
+        "imp": 3154268
+      },
+      {
+        "selector": "flush",
+        "types": "v16@0:8",
+        "imp": 3155696
+      },
+      {
+        "selector": "invalidateCache",
+        "types": "v16@0:8",
+        "imp": 3155840
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 3156960
+      }
+    ],
+    "ivar_list": 7024104,
+    "property_list": 7024240
+  },
+  {
+    "name": "WCLGEdgeEffectView",
+    "class_addr": 7046872,
+    "superclass_addr": 230,
+    "flags": 388,
+    "instance_size": 120,
+    "methods": [
+      {
+        "selector": "initWithFrame:",
+        "types": "@48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16",
+        "imp": 3183364
+      },
+      {
+        "selector": "updateWithContentColor:blur:alpha:rect:edge:edgeSize:blurRadius:",
+        "types": "v92@0:8@16B24d28{CGRect={CGPoint=dd}{CGSize=dd}}36q68d76d84",
+        "imp": 3184528
+      },
+      {
+        "selector": "isBlurEnabled",
+        "types": "B16@0:8",
+        "imp": 3191220
+      },
+      {
+        "selector": "setBlurEnabled:",
+        "types": "v20@0:8B16",
+        "imp": 3191276
+      },
+      {
+        "selector": "contentView",
+        "types": "@16@0:8",
+        "imp": 3191332
+      },
+      {
+        "selector": "setContentView:",
+        "types": "v24@0:8@16",
+        "imp": 3191388
+      },
+      {
+        "selector": "contentMaskView",
+        "types": "@16@0:8",
+        "imp": 3191512
+      },
+      {
+        "selector": "setContentMaskView:",
+        "types": "v24@0:8@16",
+        "imp": 3191568
+      },
+      {
+        "selector": "blurHostView",
+        "types": "@16@0:8",
+        "imp": 3191692
+      },
+      {
+        "selector": "setBlurHostView:",
+        "types": "v24@0:8@16",
+        "imp": 3191748
+      },
+      {
+        "selector": "fallbackBlurView",
+        "types": "@16@0:8",
+        "imp": 3191872
+      },
+      {
+        "selector": "setFallbackBlurView:",
+        "types": "v24@0:8@16",
+        "imp": 3191928
+      },
+      {
+        "selector": "lastContentColor",
+        "types": "@16@0:8",
+        "imp": 3192052
+      },
+      {
+        "selector": "setLastContentColor:",
+        "types": "v24@0:8@16",
+        "imp": 3192108
+      },
+      {
+        "selector": "lastBlur",
+        "types": "B16@0:8",
+        "imp": 3192188
+      },
+      {
+        "selector": "setLastBlur:",
+        "types": "v20@0:8B16",
+        "imp": 3192244
+      },
+      {
+        "selector": "lastAlpha",
+        "types": "d16@0:8",
+        "imp": 3192300
+      },
+      {
+        "selector": "setLastAlpha:",
+        "types": "v24@0:8d16",
+        "imp": 3192356
+      },
+      {
+        "selector": "lastRect",
+        "types": "{CGRect={CGPoint=dd}{CGSize=dd}}16@0:8",
+        "imp": 3192412
+      },
+      {
+        "selector": "setLastRect:",
+        "types": "v48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16",
+        "imp": 3192480
+      },
+      {
+        "selector": "lastEdge",
+        "types": "q16@0:8",
+        "imp": 3192548
+      },
+      {
+        "selector": "setLastEdge:",
+        "types": "v24@0:8q16",
+        "imp": 3192604
+      },
+      {
+        "selector": "lastEdgeSize",
+        "types": "d16@0:8",
+        "imp": 3192660
+      },
+      {
+        "selector": "setLastEdgeSize:",
+        "types": "v24@0:8d16",
+        "imp": 3192716
+      },
+      {
+        "selector": "lastBlurRadius",
+        "types": "d16@0:8",
+        "imp": 3192772
+      },
+      {
+        "selector": "setLastBlurRadius:",
+        "types": "v24@0:8d16",
+        "imp": 3192828
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 3192884
+      }
+    ],
+    "ivar_list": 7025720,
+    "property_list": 7026112
+  },
+  {
+    "name": "WCLGForegroundReaffirm",
+    "class_addr": 7047152,
+    "superclass_addr": 298,
+    "flags": 128,
+    "instance_size": 8,
+    "methods": [
+      {
+        "selector": "appDidBecomeActive:",
+        "types": "v24@0:8@16",
+        "imp": 3769340
+      }
+    ],
+    "ivar_list": 0,
+    "property_list": 0
+  },
+  {
+    "name": "WCLGHomeTextHeaderWrapperView",
+    "class_addr": 7046992,
+    "superclass_addr": 230,
+    "flags": 128,
+    "instance_size": 8,
+    "methods": [],
+    "ivar_list": 0,
+    "property_list": 0
+  },
+  {
+    "name": "WCLGHueBarView",
+    "class_addr": 7046552,
+    "superclass_addr": 230,
+    "flags": 128,
+    "instance_size": 8,
+    "methods": [
+      {
+        "selector": "initWithFrame:",
+        "types": "@48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16",
+        "imp": 2563880
+      },
+      {
+        "selector": "layoutSubviews",
+        "types": "v16@0:8",
+        "imp": 2566848
+      }
+    ],
+    "ivar_list": 0,
+    "property_list": 0
+  },
+  {
+    "name": "WCLGKeyboardObserver",
+    "class_addr": 7047072,
+    "superclass_addr": 298,
+    "flags": 128,
+    "instance_size": 8,
+    "methods": [
+      {
+        "selector": "updateFromNote:visibleHint:",
+        "types": "v28@0:8@16B24",
+        "imp": 3765188
+      },
+      {
+        "selector": "keyboardWillShow:",
+        "types": "v24@0:8@16",
+        "imp": 3766452
+      },
+      {
+        "selector": "keyboardWillHide:",
+        "types": "v24@0:8@16",
+        "imp": 3766508
+      },
+      {
+        "selector": "keyboardDidShow:",
+        "types": "v24@0:8@16",
+        "imp": 3766564
+      },
+      {
+        "selector": "keyboardDidHide:",
+        "types": "v24@0:8@16",
+        "imp": 3766620
+      },
+      {
+        "selector": "keyboardWillChangeFrame:",
+        "types": "v24@0:8@16",
+        "imp": 3766676
+      },
+      {
+        "selector": "keyboardDidChangeFrame:",
+        "types": "v24@0:8@16",
+        "imp": 3766740
+      }
+    ],
+    "ivar_list": 0,
+    "property_list": 0
+  },
+  {
+    "name": "WCLGNativeProfileTitleHitView",
+    "class_addr": 7045952,
+    "superclass_addr": 230,
+    "flags": 128,
+    "instance_size": 8,
+    "methods": [
+      {
+        "selector": "pointInside:withEvent:",
+        "types": "B40@0:8{CGPoint=dd}16@32",
+        "imp": 1912492
+      }
+    ],
+    "ivar_list": 0,
+    "property_list": 0
+  },
+  {
+    "name": "WCLGNativeProfileTitleTapTarget",
+    "class_addr": 7046032,
+    "superclass_addr": 298,
+    "flags": 128,
+    "instance_size": 16,
+    "methods": [
+      {
+        "selector": "wclg_nativeProfileTitleTapped:",
+        "types": "v24@0:8@16",
+        "imp": 1912648
+      },
+      {
+        "selector": "controller",
+        "types": "@16@0:8",
+        "imp": 1920644
+      },
+      {
+        "selector": "setController:",
+        "types": "v24@0:8@16",
+        "imp": 1920692
+      }
+    ],
+    "ivar_list": 7018256,
+    "property_list": 7018296
+  },
+  {
+    "name": "WCLGSMSBackContentView",
+    "class_addr": 7045752,
+    "superclass_addr": 230,
+    "flags": 388,
+    "instance_size": 40,
+    "methods": [
+      {
+        "selector": "initWithFrame:",
+        "types": "@48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16",
+        "imp": 627056
+      },
+      {
+        "selector": "updateChevron:count:",
+        "types": "v32@0:8@16@24",
+        "imp": 629560
+      },
+      {
+        "selector": "layoutSubviews",
+        "types": "v16@0:8",
+        "imp": 630268
+      },
+      {
+        "selector": "chevronView",
+        "types": "@16@0:8",
+        "imp": 633084
+      },
+      {
+        "selector": "setChevronView:",
+        "types": "v24@0:8@16",
+        "imp": 633140
+      },
+      {
+        "selector": "badgeView",
+        "types": "@16@0:8",
+        "imp": 633220
+      },
+      {
+        "selector": "setBadgeView:",
+        "types": "v24@0:8@16",
+        "imp": 633276
+      },
+      {
+        "selector": "countLabel",
+        "types": "@16@0:8",
+        "imp": 633400
+      },
+      {
+        "selector": "setCountLabel:",
+        "types": "v24@0:8@16",
+        "imp": 633456
+      },
+      {
+        "selector": "countText",
+        "types": "@16@0:8",
+        "imp": 633580
+      },
+      {
+        "selector": "setCountText:",
+        "types": "v24@0:8@16",
+        "imp": 633636
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 633688
+      }
+    ],
+    "ivar_list": 7013784,
+    "property_list": 7013920
+  },
+  {
+    "name": "WCLGSearchActionTarget",
+    "class_addr": 7047232,
+    "superclass_addr": 298,
+    "flags": 128,
+    "instance_size": 8,
+    "methods": [
+      {
+        "selector": "searchTapped:",
+        "types": "v24@0:8@16",
+        "imp": 3975328
+      }
+    ],
+    "ivar_list": 0,
+    "property_list": 0
+  },
+  {
+    "name": "WCLGSearchTabBarOverlay",
+    "class_addr": 7047272,
+    "superclass_addr": 230,
+    "flags": 388,
+    "instance_size": 200,
+    "methods": [
+      {
+        "selector": "initWithTabBar:",
+        "types": "@24@0:8@16",
+        "imp": 4115476
+      },
+      {
+        "selector": "isDarkMode",
+        "types": "B16@0:8",
+        "imp": 4116004
+      },
+      {
+        "selector": "glassView",
+        "types": "@16@0:8",
+        "imp": 4116128
+      },
+      {
+        "selector": "styleGlassControl:glass:",
+        "types": "v32@0:8@16@24",
+        "imp": 4117244
+      },
+      {
+        "selector": "searchIcon",
+        "types": "@16@0:8",
+        "imp": 4118316
+      },
+      {
+        "selector": "badgeRedColor",
+        "types": "@16@0:8",
+        "imp": 4119332
+      },
+      {
+        "selector": "applyBadge:dotView:label:",
+        "types": "v40@0:8@16@24@32",
+        "imp": 4119436
+      },
+      {
+        "selector": "badgeLabelWidthForText:height:",
+        "types": "d32@0:8@16d24",
+        "imp": 4121464
+      },
+      {
+        "selector": "lightFeedback",
+        "types": "v16@0:8",
+        "imp": 4121984
+      },
+      {
+        "selector": "selectionFeedback",
+        "types": "v16@0:8",
+        "imp": 4122116
+      },
+      {
+        "selector": "resetControlInteractionState",
+        "types": "v16@0:8",
+        "imp": 4122232
+      },
+      {
+        "selector": "applySystemGlassButtonConfigurationsWithSizeMode:primary:secondary:",
+        "types": "B40@0:8q16@24@32",
+        "imp": 4122884
+      },
+      {
+        "selector": "buildSubviews",
+        "types": "v16@0:8",
+        "imp": 4130528
+      },
+      {
+        "selector": "pointInside:withEvent:",
+        "types": "B40@0:8{CGPoint=dd}16@32",
+        "imp": 4136336
+      },
+      {
+        "selector": "hitTest:withEvent:",
+        "types": "@40@0:8{CGPoint=dd}16@32",
+        "imp": 4137100
+      },
+      {
+        "selector": "currentIndex",
+        "types": "Q16@0:8",
+        "imp": 4138640
+      },
+      {
+        "selector": "nativeIndexForMenuRow:count:",
+        "types": "Q32@0:8Q16Q24",
+        "imp": 4146176
+      },
+      {
+        "selector": "refreshWithItems:",
+        "types": "v24@0:8@16",
+        "imp": 4146252
+      },
+      {
+        "selector": "layoutSubviews",
+        "types": "v16@0:8",
+        "imp": 4154984
+      },
+      {
+        "selector": "optionPressBegan:",
+        "types": "v24@0:8@16",
+        "imp": 4168296
+      },
+      {
+        "selector": "optionPressEnded:",
+        "types": "v24@0:8@16",
+        "imp": 4168432
+      },
+      {
+        "selector": "setMenuVisible:animated:",
+        "types": "v24@0:8B16B20",
+        "imp": 4168548
+      },
+      {
+        "selector": "setOverlayDisplayed:animated:interactive:",
+        "types": "v28@0:8B16B20B24",
+        "imp": 4170356
+      },
+      {
+        "selector": "setOverlayDisplayed:animated:",
+        "types": "v24@0:8B16B20",
+        "imp": 4172240
+      },
+      {
+        "selector": "gestureRecognizerShouldBegin:",
+        "types": "B24@0:8@16",
+        "imp": 4172296
+      },
+      {
+        "selector": "modeTapped:",
+        "types": "v24@0:8@16",
+        "imp": 4172572
+      },
+      {
+        "selector": "modePanned:",
+        "types": "v24@0:8@16",
+        "imp": 4172728
+      },
+      {
+        "selector": "searchPanned:",
+        "types": "v24@0:8@16",
+        "imp": 4174320
+      },
+      {
+        "selector": "optionTapped:",
+        "types": "v24@0:8@16",
+        "imp": 4175908
+      },
+      {
+        "selector": "overlayTapped:",
+        "types": "v24@0:8@16",
+        "imp": 4176152
+      },
+      {
+        "selector": "optionIndexAtPointInMenu:",
+        "types": "q32@0:8{CGPoint=dd}16",
+        "imp": 4177160
+      },
+      {
+        "selector": "optionIndexAtGesture:",
+        "types": "q24@0:8@16",
+        "imp": 4178520
+      },
+      {
+        "selector": "optionIndexAtTouch:",
+        "types": "q24@0:8@16",
+        "imp": 4178732
+      },
+      {
+        "selector": "optionIndexAtOverlayPoint:",
+        "types": "q32@0:8{CGPoint=dd}16",
+        "imp": 4178996
+      },
+      {
+        "selector": "updateOptionHighlights",
+        "types": "v16@0:8",
+        "imp": 4179184
+      },
+      {
+        "selector": "touchesBegan:withEvent:",
+        "types": "v32@0:8@16@24",
+        "imp": 4180536
+      },
+      {
+        "selector": "touchesMoved:withEvent:",
+        "types": "v32@0:8@16@24",
+        "imp": 4181272
+      },
+      {
+        "selector": "touchesEnded:withEvent:",
+        "types": "v32@0:8@16@24",
+        "imp": 4181692
+      },
+      {
+        "selector": "touchesCancelled:withEvent:",
+        "types": "v32@0:8@16@24",
+        "imp": 4182532
+      },
+      {
+        "selector": "modeLongPressed:",
+        "types": "v24@0:8@16",
+        "imp": 4182892
+      },
+      {
+        "selector": "selectIndex:",
+        "types": "v24@0:8Q16",
+        "imp": 4183968
+      },
+      {
+        "selector": "tabBar",
+        "types": "@16@0:8",
+        "imp": 4194424
+      },
+      {
+        "selector": "setTabBar:",
+        "types": "v24@0:8@16",
+        "imp": 4194516
+      },
+      {
+        "selector": "items",
+        "types": "@16@0:8",
+        "imp": 4194576
+      },
+      {
+        "selector": "setItems:",
+        "types": "v24@0:8@16",
+        "imp": 4194632
+      },
+      {
+        "selector": "searchControl",
+        "types": "@16@0:8",
+        "imp": 4194684
+      },
+      {
+        "selector": "setSearchControl:",
+        "types": "v24@0:8@16",
+        "imp": 4194740
+      },
+      {
+        "selector": "searchPanGesture",
+        "types": "@16@0:8",
+        "imp": 4194820
+      },
+      {
+        "selector": "setSearchPanGesture:",
+        "types": "v24@0:8@16",
+        "imp": 4194876
+      },
+      {
+        "selector": "searchGlass",
+        "types": "@16@0:8",
+        "imp": 4195000
+      },
+      {
+        "selector": "setSearchGlass:",
+        "types": "v24@0:8@16",
+        "imp": 4195056
+      },
+      {
+        "selector": "searchIconView",
+        "types": "@16@0:8",
+        "imp": 4195180
+      },
+      {
+        "selector": "setSearchIconView:",
+        "types": "v24@0:8@16",
+        "imp": 4195236
+      },
+      {
+        "selector": "searchLabel",
+        "types": "@16@0:8",
+        "imp": 4195360
+      },
+      {
+        "selector": "setSearchLabel:",
+        "types": "v24@0:8@16",
+        "imp": 4195416
+      },
+      {
+        "selector": "modeButton",
+        "types": "@16@0:8",
+        "imp": 4195540
+      },
+      {
+        "selector": "setModeButton:",
+        "types": "v24@0:8@16",
+        "imp": 4195596
+      },
+      {
+        "selector": "modeGlass",
+        "types": "@16@0:8",
+        "imp": 4195720
+      },
+      {
+        "selector": "setModeGlass:",
+        "types": "v24@0:8@16",
+        "imp": 4195776
+      },
+      {
+        "selector": "modeIconView",
+        "types": "@16@0:8",
+        "imp": 4195900
+      },
+      {
+        "selector": "setModeIconView:",
+        "types": "v24@0:8@16",
+        "imp": 4195956
+      },
+      {
+        "selector": "modeBadgeDotView",
+        "types": "@16@0:8",
+        "imp": 4196036
+      },
+      {
+        "selector": "setModeBadgeDotView:",
+        "types": "v24@0:8@16",
+        "imp": 4196092
+      },
+      {
+        "selector": "modeBadgeLabel",
+        "types": "@16@0:8",
+        "imp": 4196172
+      },
+      {
+        "selector": "setModeBadgeLabel:",
+        "types": "v24@0:8@16",
+        "imp": 4196228
+      },
+      {
+        "selector": "menuView",
+        "types": "@16@0:8",
+        "imp": 4196352
+      },
+      {
+        "selector": "setMenuView:",
+        "types": "v24@0:8@16",
+        "imp": 4196408
+      },
+      {
+        "selector": "menuGlass",
+        "types": "@16@0:8",
+        "imp": 4196488
+      },
+      {
+        "selector": "setMenuGlass:",
+        "types": "v24@0:8@16",
+        "imp": 4196544
+      },
+      {
+        "selector": "menuMaterialView",
+        "types": "@16@0:8",
+        "imp": 4196624
+      },
+      {
+        "selector": "setMenuMaterialView:",
+        "types": "v24@0:8@16",
+        "imp": 4196680
+      },
+      {
+        "selector": "optionButtons",
+        "types": "@16@0:8",
+        "imp": 4196760
+      },
+      {
+        "selector": "setOptionButtons:",
+        "types": "v24@0:8@16",
+        "imp": 4196816
+      },
+      {
+        "selector": "highlightedIndex",
+        "types": "q16@0:8",
+        "imp": 4196940
+      },
+      {
+        "selector": "setHighlightedIndex:",
+        "types": "v24@0:8q16",
+        "imp": 4196996
+      },
+      {
+        "selector": "menuVisible",
+        "types": "B16@0:8",
+        "imp": 4197052
+      },
+      {
+        "selector": "setMenuVisible:",
+        "types": "v20@0:8B16",
+        "imp": 4197108
+      },
+      {
+        "selector": "selectingIndex",
+        "types": "B16@0:8",
+        "imp": 4197164
+      },
+      {
+        "selector": "setSelectingIndex:",
+        "types": "v20@0:8B16",
+        "imp": 4197220
+      },
+      {
+        "selector": "menuTouchActive",
+        "types": "B16@0:8",
+        "imp": 4197276
+      },
+      {
+        "selector": "setMenuTouchActive:",
+        "types": "v20@0:8B16",
+        "imp": 4197332
+      },
+      {
+        "selector": "modePanActive",
+        "types": "B16@0:8",
+        "imp": 4197388
+      },
+      {
+        "selector": "setModePanActive:",
+        "types": "v20@0:8B16",
+        "imp": 4197444
+      },
+      {
+        "selector": "searchPanActive",
+        "types": "B16@0:8",
+        "imp": 4197500
+      },
+      {
+        "selector": "setSearchPanActive:",
+        "types": "v20@0:8B16",
+        "imp": 4197556
+      },
+      {
+        "selector": "menuAnchoredToSearch",
+        "types": "B16@0:8",
+        "imp": 4197612
+      },
+      {
+        "selector": "setMenuAnchoredToSearch:",
+        "types": "v20@0:8B16",
+        "imp": 4197668
+      },
+      {
+        "selector": "lastFeedbackHighlightedIndex",
+        "types": "q16@0:8",
+        "imp": 4197724
+      },
+      {
+        "selector": "setLastFeedbackHighlightedIndex:",
+        "types": "v24@0:8q16",
+        "imp": 4197780
+      },
+      {
+        "selector": "overlayDisplayed",
+        "types": "B16@0:8",
+        "imp": 4197836
+      },
+      {
+        "selector": "setOverlayDisplayed:",
+        "types": "v20@0:8B16",
+        "imp": 4197892
+      },
+      {
+        "selector": "overlayInteractionsEnabled",
+        "types": "B16@0:8",
+        "imp": 4197948
+      },
+      {
+        "selector": "setOverlayInteractionsEnabled:",
+        "types": "v20@0:8B16",
+        "imp": 4198004
+      },
+      {
+        "selector": "hasStableTabFrame",
+        "types": "B16@0:8",
+        "imp": 4198060
+      },
+      {
+        "selector": "setHasStableTabFrame:",
+        "types": "v20@0:8B16",
+        "imp": 4198116
+      },
+      {
+        "selector": "stableTabFrame",
+        "types": "{CGRect={CGPoint=dd}{CGSize=dd}}16@0:8",
+        "imp": 4198172
+      },
+      {
+        "selector": "setStableTabFrame:",
+        "types": "v48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16",
+        "imp": 4198240
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 4198304
+      }
+    ],
+    "ivar_list": 7027864,
+    "property_list": 7028768
+  },
+  {
+    "name": "WCLGSettingsViewController",
+    "class_addr": 7047432,
+    "superclass_addr": 254,
+    "flags": 388,
+    "instance_size": 56,
+    "methods": [
+      {
+        "selector": "init",
+        "types": "@16@0:8",
+        "imp": 4283584
+      },
+      {
+        "selector": "initWithPanel:",
+        "types": "@24@0:8q16",
+        "imp": 4283952
+      },
+      {
+        "selector": "isDarkMode",
+        "types": "B16@0:8",
+        "imp": 4288156
+      },
+      {
+        "selector": "cellBackgroundColor",
+        "types": "@16@0:8",
+        "imp": 4289156
+      },
+      {
+        "selector": "primaryTextColor",
+        "types": "@16@0:8",
+        "imp": 4292372
+      },
+      {
+        "selector": "secondaryTextColor",
+        "types": "@16@0:8",
+        "imp": 4294432
+      },
+      {
+        "selector": "authorizationCellBackgroundColorForAllowed:",
+        "types": "@20@0:8B16",
+        "imp": 4298280
+      },
+      {
+        "selector": "applyAuthorizationBackgroundToCell:allowed:",
+        "types": "v28@0:8@16B24",
+        "imp": 4302564
+      },
+      {
+        "selector": "gradientColorsA",
+        "types": "@16@0:8",
+        "imp": 4303108
+      },
+      {
+        "selector": "gradientColorsB",
+        "types": "@16@0:8",
+        "imp": 4307684
+      },
+      {
+        "selector": "setupBackground",
+        "types": "v16@0:8",
+        "imp": 4312408
+      },
+      {
+        "selector": "refreshBackground",
+        "types": "v16@0:8",
+        "imp": 4316012
+      },
+      {
+        "selector": "startBackgroundAnimations",
+        "types": "v16@0:8",
+        "imp": 4318640
+      },
+      {
+        "selector": "tableFrameForCurrentBounds",
+        "types": "{CGRect={CGPoint=dd}{CGSize=dd}}16@0:8",
+        "imp": 4329880
+      },
+      {
+        "selector": "layoutSettingsTableForCurrentBounds",
+        "types": "v16@0:8",
+        "imp": 4332376
+      },
+      {
+        "selector": "viewDidLoad",
+        "types": "v16@0:8",
+        "imp": 4340324
+      },
+      {
+        "selector": "viewWillAppear:",
+        "types": "v20@0:8B16",
+        "imp": 4359532
+      },
+      {
+        "selector": "viewDidAppear:",
+        "types": "v20@0:8B16",
+        "imp": 4364720
+      },
+      {
+        "selector": "viewDidLayoutSubviews",
+        "types": "v16@0:8",
+        "imp": 4371264
+      },
+      {
+        "selector": "traitCollectionDidChange:",
+        "types": "v24@0:8@16",
+        "imp": 4373580
+      },
+      {
+        "selector": "dismissSettings",
+        "types": "v16@0:8",
+        "imp": 4374808
+      },
+      {
+        "selector": "titleForPanel:",
+        "types": "@24@0:8q16",
+        "imp": 4382972
+      },
+      {
+        "selector": "headerViewWithWidth:",
+        "types": "@24@0:8d16",
+        "imp": 4392124
+      },
+      {
+        "selector": "numberOfSectionsInTableView:",
+        "types": "q24@0:8@16",
+        "imp": 4402300
+      },
+      {
+        "selector": "tableView:numberOfRowsInSection:",
+        "types": "q32@0:8@16q24",
+        "imp": 4403256
+      },
+      {
+        "selector": "tableView:titleForHeaderInSection:",
+        "types": "@32@0:8@16q24",
+        "imp": 4406796
+      },
+      {
+        "selector": "tableView:heightForHeaderInSection:",
+        "types": "d32@0:8@16q24",
+        "imp": 4410968
+      },
+      {
+        "selector": "tableView:titleForFooterInSection:",
+        "types": "@32@0:8@16q24",
+        "imp": 4411956
+      },
+      {
+        "selector": "tableView:heightForFooterInSection:",
+        "types": "d32@0:8@16q24",
+        "imp": 4428044
+      },
+      {
+        "selector": "tableView:viewForFooterInSection:",
+        "types": "@32@0:8@16q24",
+        "imp": 4434492
+      },
+      {
+        "selector": "tableView:heightForRowAtIndexPath:",
+        "types": "d32@0:8@16@24",
+        "imp": 4444140
+      },
+      {
+        "selector": "preparedSettingsCellForTableView:",
+        "types": "@24@0:8@16",
+        "imp": 4453536
+      },
+      {
+        "selector": "configureSwitchCell:switch:title:detail:tag:on:enabled:",
+        "types": "v64@0:8@16@24@32@40q48B56B60",
+        "imp": 4467504
+      },
+      {
+        "selector": "configurePickerCell:title:detail:enabled:",
+        "types": "v44@0:8@16@24@32B40",
+        "imp": 4468192
+      },
+      {
+        "selector": "tabBarIconOffsetDisplayValue:",
+        "types": "@24@0:8d16",
+        "imp": 4470492
+      },
+      {
+        "selector": "tabBarAdjustmentModeTitle:",
+        "types": "@24@0:8q16",
+        "imp": 4474192
+      },
+      {
+        "selector": "tabBarIconOffsetDetailForMode:axis:",
+        "types": "@32@0:8q16@24",
+        "imp": 4478144
+      },
+      {
+        "selector": "tabBarIconSpacingDetailForMode:",
+        "types": "@24@0:8q16",
+        "imp": 4482768
+      },
+      {
+        "selector": "configureTabBarIconOffsetCell:axis:value:enabled:",
+        "types": "v44@0:8@16@24d32B40",
+        "imp": 4487332
+      },
+      {
+        "selector": "tabBarIconScaleDisplayValue:",
+        "types": "@24@0:8d16",
+        "imp": 4504880
+      },
+      {
+        "selector": "configureTabBarIconScaleCell:value:enabled:",
+        "types": "v36@0:8@16d24B32",
+        "imp": 4508584
+      },
+      {
+        "selector": "homeTextMetricDisplayValue:suffix:",
+        "types": "@32@0:8d16@24",
+        "imp": 4516280
+      },
+      {
+        "selector": "configureHomeTextMetricCell:title:detail:value:minimum:maximum:step:tag:",
+        "types": "v80@0:8@16@24@32d40d48d56d64q72",
+        "imp": 4518396
+      },
+      {
+        "selector": "rootCardWithFrame:title:detail:symbol:tag:enabled:switchView:",
+        "types": "@92@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16@48@56@64q72B80@84",
+        "imp": 4520812
+      },
+      {
+        "selector": "rootGridCellForTableView:indexPath:",
+        "types": "@32@0:8@16@24",
+        "imp": 4531536
+      },
+      {
+        "selector": "tableView:cellForRowAtIndexPath:",
+        "types": "@32@0:8@16@24",
+        "imp": 4570728
+      },
+      {
+        "selector": "showOfficialAccountAlert",
+        "types": "v16@0:8",
+        "imp": 4925488
+      },
+      {
+        "selector": "officialAccountReadyForAction",
+        "types": "B16@0:8",
+        "imp": 4932896
+      },
+      {
+        "selector": "reconcileDependentFeatureSwitches",
+        "types": "v16@0:8",
+        "imp": 4936348
+      },
+      {
+        "selector": "promptRestartForLiquidToggle",
+        "types": "v16@0:8",
+        "imp": 4963732
+      },
+      {
+        "selector": "toggleSwitch:",
+        "types": "v24@0:8@16",
+        "imp": 4969848
+      },
+      {
+        "selector": "tabBarIconOffsetStepperChanged:",
+        "types": "v24@0:8@16",
+        "imp": 5197868
+      },
+      {
+        "selector": "tabBarIconScaleStepperChanged:",
+        "types": "v24@0:8@16",
+        "imp": 5203764
+      },
+      {
+        "selector": "homeTextMetricStepperChanged:",
+        "types": "v24@0:8@16",
+        "imp": 5208436
+      },
+      {
+        "selector": "openReleasePage",
+        "types": "v16@0:8",
+        "imp": 5261844
+      },
+      {
+        "selector": "rootCardTapped:",
+        "types": "v24@0:8@16",
+        "imp": 5264384
+      },
+      {
+        "selector": "pushHomeTextContentEditor",
+        "types": "v16@0:8",
+        "imp": 5278208
+      },
+      {
+        "selector": "pushHomeTextFontSizesEditor",
+        "types": "v16@0:8",
+        "imp": 5285828
+      },
+      {
+        "selector": "pushHomeTextFontWeightsEditor",
+        "types": "v16@0:8",
+        "imp": 5310048
+      },
+      {
+        "selector": "pushSearchTabBarPlaceholderEditor",
+        "types": "v16@0:8",
+        "imp": 5333224
+      },
+      {
+        "selector": "pushHomeTextColorPickerWithPurpose:key:darkKey:defaultMode:",
+        "types": "v48@0:8q16@24@32q40",
+        "imp": 5346076
+      },
+      {
+        "selector": "pushChatBottomSMSSendColorPicker",
+        "types": "v16@0:8",
+        "imp": 5352320
+      },
+      {
+        "selector": "pushSMSBottomBarIconColorPicker",
+        "types": "v16@0:8",
+        "imp": 5356048
+      },
+      {
+        "selector": "openCustomGroupAvatarImagePicker",
+        "types": "v16@0:8",
+        "imp": 5359380
+      },
+      {
+        "selector": "presentCustomGroupAvatarPicker",
+        "types": "v16@0:8",
+        "imp": 5364520
+      },
+      {
+        "selector": "imagePickerController:didFinishPickingMediaWithInfo:",
+        "types": "v32@0:8@16@24",
+        "imp": 5370920
+      },
+      {
+        "selector": "imagePickerControllerDidCancel:",
+        "types": "v24@0:8@16",
+        "imp": 5378152
+      },
+      {
+        "selector": "tableView:didSelectRowAtIndexPath:",
+        "types": "v32@0:8@16@24",
+        "imp": 5379220
+      },
+      {
+        "selector": "pushTabBarRightSearchSizePicker",
+        "types": "v16@0:8",
+        "imp": 5557824
+      },
+      {
+        "selector": "pushSearchTabBarSizePicker",
+        "types": "v16@0:8",
+        "imp": 5574168
+      },
+      {
+        "selector": "pushColorPickerOutgoing:",
+        "types": "v20@0:8B16",
+        "imp": 5589648
+      },
+      {
+        "selector": "pushFlowColorPickerStart:",
+        "types": "v20@0:8B16",
+        "imp": 5591956
+      },
+      {
+        "selector": "pushChatTopMorphDefaultPickerForGroup:",
+        "types": "v20@0:8B16",
+        "imp": 5594332
+      },
+      {
+        "selector": "pushBottomGlassModePicker",
+        "types": "v16@0:8",
+        "imp": 5604344
+      },
+      {
+        "selector": "pushGlassSizePicker",
+        "types": "v16@0:8",
+        "imp": 5612648
+      },
+      {
+        "selector": "showAdminContactAlert",
+        "types": "v16@0:8",
+        "imp": 5622880
+      },
+      {
+        "selector": "tableView",
+        "types": "@16@0:8",
+        "imp": 5628608
+      },
+      {
+        "selector": "setTableView:",
+        "types": "v24@0:8@16",
+        "imp": 5629492
+      },
+      {
+        "selector": "backgroundContainer",
+        "types": "@16@0:8",
+        "imp": 5629872
+      },
+      {
+        "selector": "setBackgroundContainer:",
+        "types": "v24@0:8@16",
+        "imp": 5630700
+      },
+      {
+        "selector": "backgroundGradientA",
+        "types": "@16@0:8",
+        "imp": 5631820
+      },
+      {
+        "selector": "setBackgroundGradientA:",
+        "types": "v24@0:8@16",
+        "imp": 5632656
+      },
+      {
+        "selector": "backgroundGradientB",
+        "types": "@16@0:8",
+        "imp": 5633032
+      },
+      {
+        "selector": "setBackgroundGradientB:",
+        "types": "v24@0:8@16",
+        "imp": 5634064
+      },
+      {
+        "selector": "panel",
+        "types": "q16@0:8",
+        "imp": 5635156
+      },
+      {
+        "selector": "setPanel:",
+        "types": "v24@0:8q16",
+        "imp": 5635444
+      },
+      {
+        "selector": "rootTableRevealed",
+        "types": "B16@0:8",
+        "imp": 5637544
+      },
+      {
+        "selector": "setRootTableRevealed:",
+        "types": "v20@0:8B16",
+        "imp": 5639128
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 5640720
+      }
+    ],
+    "ivar_list": 7031480,
+    "property_list": 7031680
+  },
+  {
+    "name": "WCLGTabBarVisualHostView",
+    "class_addr": 7047552,
+    "superclass_addr": 237,
+    "flags": 128,
+    "instance_size": 8,
+    "methods": [],
+    "ivar_list": 0,
+    "property_list": 0
+  },
+  {
+    "name": "WCLGTextEditorViewController",
+    "class_addr": 7047352,
+    "superclass_addr": 254,
+    "flags": 388,
+    "instance_size": 56,
+    "methods": [
+      {
+        "selector": "dealloc",
+        "types": "v16@0:8",
+        "imp": 4253540
+      },
+      {
+        "selector": "initWithTitle:text:placeholder:handler:",
+        "types": "@48@0:8@16@24@32@?40",
+        "imp": 4253936
+      },
+      {
+        "selector": "viewDidLoad",
+        "types": "v16@0:8",
+        "imp": 4256096
+      },
+      {
+        "selector": "viewDidLayoutSubviews",
+        "types": "v16@0:8",
+        "imp": 4262376
+      },
+      {
+        "selector": "layoutTextEditorViews",
+        "types": "v16@0:8",
+        "imp": 4262768
+      },
+      {
+        "selector": "viewDidAppear:",
+        "types": "v20@0:8B16",
+        "imp": 4264596
+      },
+      {
+        "selector": "keyboardFrameChanged:",
+        "types": "v24@0:8@16",
+        "imp": 4265652
+      },
+      {
+        "selector": "saveTapped",
+        "types": "v16@0:8",
+        "imp": 4269588
+      },
+      {
+        "selector": "initialText",
+        "types": "@16@0:8",
+        "imp": 4273780
+      },
+      {
+        "selector": "setInitialText:",
+        "types": "v24@0:8@16",
+        "imp": 4274064
+      },
+      {
+        "selector": "placeholderText",
+        "types": "@16@0:8",
+        "imp": 4275036
+      },
+      {
+        "selector": "setPlaceholderText:",
+        "types": "v24@0:8@16",
+        "imp": 4276048
+      },
+      {
+        "selector": "saveHandler",
+        "types": "@?16@0:8",
+        "imp": 4276968
+      },
+      {
+        "selector": "setSaveHandler:",
+        "types": "v24@0:8@?16",
+        "imp": 4277264
+      },
+      {
+        "selector": "textView",
+        "types": "@16@0:8",
+        "imp": 4277576
+      },
+      {
+        "selector": "setTextView:",
+        "types": "v24@0:8@16",
+        "imp": 4278460
+      },
+      {
+        "selector": "hintLabel",
+        "types": "@16@0:8",
+        "imp": 4279416
+      },
+      {
+        "selector": "setHintLabel:",
+        "types": "v24@0:8@16",
+        "imp": 4279736
+      },
+      {
+        "selector": "keyboardOverlap",
+        "types": "d16@0:8",
+        "imp": 4281412
+      },
+      {
+        "selector": "setKeyboardOverlap:",
+        "types": "v24@0:8d16",
+        "imp": 4282252
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 4283112
+      }
+    ],
+    "ivar_list": 7029432,
+    "property_list": 7029632
+  },
+  {
+    "name": "WCLGVariableBlurHostView",
+    "class_addr": 7046792,
+    "superclass_addr": 230,
+    "flags": 388,
+    "instance_size": 64,
+    "methods": [
+      {
+        "selector": "initWithFrame:",
+        "types": "@48@0:8{CGRect={CGPoint=dd}{CGSize=dd}}16",
+        "imp": 3178344
+      },
+      {
+        "selector": "layoutSubviews",
+        "types": "v16@0:8",
+        "imp": 3179436
+      },
+      {
+        "selector": "backdropLayer",
+        "types": "@16@0:8",
+        "imp": 3179648
+      },
+      {
+        "selector": "setBackdropLayer:",
+        "types": "v24@0:8@16",
+        "imp": 3179704
+      },
+      {
+        "selector": "gradientImage",
+        "types": "@16@0:8",
+        "imp": 3179828
+      },
+      {
+        "selector": "setGradientImage:",
+        "types": "v24@0:8@16",
+        "imp": 3179884
+      },
+      {
+        "selector": "lastSize",
+        "types": "{CGSize=dd}16@0:8",
+        "imp": 3180008
+      },
+      {
+        "selector": "setLastSize:",
+        "types": "v32@0:8{CGSize=dd}16",
+        "imp": 3180072
+      },
+      {
+        "selector": "lastConstantHeight",
+        "types": "d16@0:8",
+        "imp": 3180132
+      },
+      {
+        "selector": "setLastConstantHeight:",
+        "types": "v24@0:8d16",
+        "imp": 3180188
+      },
+      {
+        "selector": "lastInverted",
+        "types": "B16@0:8",
+        "imp": 3180244
+      },
+      {
+        "selector": "setLastInverted:",
+        "types": "v20@0:8B16",
+        "imp": 3180300
+      },
+      {
+        "selector": "lastGradientHeight",
+        "types": "d16@0:8",
+        "imp": 3180356
+      },
+      {
+        "selector": "setLastGradientHeight:",
+        "types": "v24@0:8d16",
+        "imp": 3180412
+      },
+      {
+        "selector": ".cxx_destruct",
+        "types": "v16@0:8",
+        "imp": 3180468
+      }
+    ],
+    "ivar_list": 7025272,
+    "property_list": 7025472
+  }
+]

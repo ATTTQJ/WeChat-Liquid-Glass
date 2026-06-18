@@ -1,0 +1,9 @@
+Package: com.ashram.wechatliquidglass.recovered
+Name: WeChatLiquidGlassRecovered
+Version: 2.8.2-1-recovered
+Architecture: iphoneos-arm
+Description: Reconstructed source scaffold for WeChatLiquidGlass.
+Maintainer: Ashram
+Author: Ashram
+Section: Tweaks
+Depends: mobilesubstrate
