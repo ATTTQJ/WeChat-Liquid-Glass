@@ -25,9 +25,9 @@ UIViewController *WCLGTopViewController(void) {
             candidate = window;
             break;
         }
-    }
-    if (!candidate) {
-        candidate = UIApplication.sharedApplication.keyWindow;
+        if (!candidate && !window.hidden && window.alpha > 0.01) {
+            candidate = window;
+        }
     }
     return WCLGVisibleViewControllerFrom(candidate.rootViewController);
 }
