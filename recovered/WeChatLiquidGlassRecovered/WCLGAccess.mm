@@ -56,7 +56,8 @@ static id WCLGWeChatService(NSString *className) {
         SEL selector = NSSelectorFromString(selectorName);
         if ([center respondsToSelector:selector]) {
             id (*send)(id, SEL, id) = (id (*)(id, SEL, id))objc_msgSend;
-            id service = send(center, selector, serviceClass ?: className);
+            id serviceKey = serviceClass ? (id)serviceClass : (id)className;
+            id service = send(center, selector, serviceKey);
             if (service) {
                 return service;
             }
