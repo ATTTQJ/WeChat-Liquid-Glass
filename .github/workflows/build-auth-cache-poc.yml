@@ -54,7 +54,7 @@ jobs:
           test -f "$plugin_dir/WCGlass.dylib"
           test -f "$plugin_dir/WCGlass.plist"
           test ! -e "$plugin_dir/WCLGAuthCachePoC.dylib"
-          xcrun lipo -verify_arch arm64 arm64e "$plugin_dir/WCGlass.dylib"
+          xcrun lipo "$plugin_dir/WCGlass.dylib" -verify_arch arm64 arm64e
 
           cp "$plugin_dir/WCGlass.dylib" "$raw_dir/"
           cp "$plugin_dir/WCGlass.plist" "$raw_dir/"
