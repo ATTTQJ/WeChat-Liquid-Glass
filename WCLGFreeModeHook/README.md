@@ -10,7 +10,7 @@ WCGlass 文件，而是在运行时安装三层拦截：
    到期时间、验证时间和总开关。
 5. 保留原设置逻辑执行，只解除设置页的交互禁用并记录开关最终状态。
 
-`0.3.0` 已撤销旧版的三个 C 函数 Hook：
+`0.3.0` 起已撤销旧版的三个 C 函数 Hook：
 
 | 路径 | arm64 | arm64e |
 | --- | ---: | ---: |
@@ -42,6 +42,16 @@ arm64e UUID:
 总开关键 `xg_liquid_glass_enabled`，并使用原版全功能标记
 `__wclg_all__`。对象型全局值由原插件自己的缓存刷新逻辑管理，避免直接写
 裸 Objective-C 指针。
+
+`0.4.0` 修正自签静态注入下的加载时序问题。WCGlass 有 22 个功能构造函数
+会在 `liquidGlassEnabled == false` 时提前返回，因而跳过其中 378 次
+`MSHookMessageEx` 注册。伴随 Hook 若晚于 WCGlass 构造函数启动，事后把总
+开关显示成开启也不会补回这些执行 Hook。新版检查第一个原始 IMP 槽：
+
+- 槽已写入：说明原版功能构造函数已经完成，跳过补跑；
+- 槽为空：在状态镜像就绪后按当前架构补跑 22 个受门控构造函数；
+- 所有函数地址均先通过 UUID 和 `__TEXT` 范围验证；
+- arm64e 调用地址会先生成经过 PAC 签名的函数指针。
 
 ## 构建
 
@@ -81,6 +91,7 @@ WCGlass.dylib
 [WCLGFreeModeHook] WCLGConfig hooks installed
 [WCLGFreeModeHook] settings authorization hooks installed
 [WCLGFreeModeHook] authorization cache seed applied
+[WCLGFreeModeHook] feature initializer replay complete: count=22 installed=1
 ```
 
 导出函数 `WCLGFreeModeHookStatus()` 返回各层 Hook 的状态位和当前

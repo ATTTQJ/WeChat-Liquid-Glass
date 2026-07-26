@@ -6,6 +6,9 @@
 #import <objc/message.h>
 #import <objc/runtime.h>
 #import <substrate.h>
+#if __has_feature(ptrauth_calls)
+#import <ptrauth.h>
+#endif
 
 #include <stdatomic.h>
 #include <stdbool.h>
@@ -34,6 +37,7 @@ enum {
     WCLGHookStatusConfigHooks    = 1u << 4,
     WCLGHookStatusSettingsHooks  = 1u << 5,
     WCLGHookStatusSeedApplied    = 1u << 6,
+    WCLGHookStatusFeatureReplay  = 1u << 7,
 };
 
 static _Atomic(uint32_t) gHookStatus = 0;
@@ -42,6 +46,8 @@ static _Atomic(intptr_t) gWCGlassSlide = 0;
 static _Atomic(bool) gConfigHooksInstalled = false;
 static _Atomic(bool) gSettingsHooksInstalled = false;
 static _Atomic(bool) gRuntimeHooksInstalled = false;
+static _Atomic(bool) gFeatureReplayAttempted = false;
+static _Atomic(bool) gFeatureReplaySucceeded = false;
 
 #if defined(__arm64e__)
 static const uintptr_t kAuthAllowedGlobalOffset = 0x5971D8;
@@ -49,6 +55,13 @@ static const uintptr_t kHardBlockedGlobalOffset = 0x4F46D8;
 static const uintptr_t kExpiresGlobalOffset = 0x591D68;
 static const uintptr_t kVerifiedGlobalOffset = 0x591D70;
 static const uintptr_t kLiquidGlassEnabledGlobalOffset = 0x5970A8;
+static const uintptr_t kFirstFeatureOriginalSlotOffset = 0x58F360;
+static const uintptr_t kGatedFeatureInitializerOffsets[] = {
+    0x4000,  0x5FE8,  0x8244,  0xAEBC,  0x11594, 0x136D4,
+    0x1BBF0, 0x29FF0, 0x2B280, 0x3E2BC, 0x40390, 0x51008,
+    0x52C00, 0x5C0A4, 0x6571C, 0x6A8A8, 0x7EE68, 0x8024C,
+    0x836F8, 0x84168, 0x89AD8, 0x8A0FC,
+};
 static const uint8_t kExpectedWCGlassUUID[16] = {
     0x6D, 0xC8, 0x03, 0x1F, 0x9E, 0xA1, 0x36, 0xB5,
     0x87, 0xCC, 0xD7, 0xC3, 0x00, 0x42, 0xDB, 0xF8,
@@ -59,6 +72,13 @@ static const uintptr_t kHardBlockedGlobalOffset = 0x4E05B8;
 static const uintptr_t kExpiresGlobalOffset = 0x57DC48;
 static const uintptr_t kVerifiedGlobalOffset = 0x57DC50;
 static const uintptr_t kLiquidGlassEnabledGlobalOffset = 0x582F88;
+static const uintptr_t kFirstFeatureOriginalSlotOffset = 0x57B250;
+static const uintptr_t kGatedFeatureInitializerOffsets[] = {
+    0x4000,  0x5F1C,  0x7FCC,  0xAAEC,  0x110B8, 0x13078,
+    0x1AF00, 0x286FC, 0x29E28, 0x3C4AC, 0x3E1E4, 0x4E544,
+    0x50058, 0x590C4, 0x62144, 0x6714C, 0x7AB34, 0x7BE7C,
+    0x7F20C, 0x7FC50, 0x85394, 0x8591C,
+};
 static const uint8_t kExpectedWCGlassUUID[16] = {
     0x49, 0x19, 0x76, 0x97, 0x5E, 0x57, 0x3C, 0xD4,
     0x8A, 0x02, 0x47, 0x5A, 0xB6, 0x8E, 0xD7, 0xAA,
@@ -732,6 +752,31 @@ static BOOL WCLGImageUUIDMatches(const struct mach_header *header) {
     return NO;
 }
 
+static BOOL WCLGAddressInsideText(const struct mach_header *header,
+                                  intptr_t slide,
+                                  uintptr_t address) {
+    if (!header || header->magic != MH_MAGIC_64) {
+        return NO;
+    }
+
+    const uint8_t *cursor = (const uint8_t *)header + sizeof(struct mach_header_64);
+    const struct mach_header_64 *header64 = (const struct mach_header_64 *)header;
+    for (uint32_t index = 0; index < header64->ncmds; index++) {
+        const struct load_command *command = (const struct load_command *)cursor;
+        if (command->cmd == LC_SEGMENT_64) {
+            const struct segment_command_64 *segment =
+                (const struct segment_command_64 *)cursor;
+            if (strncmp(segment->segname, "__TEXT", sizeof(segment->segname)) == 0) {
+                uintptr_t start = (uintptr_t)(slide + (intptr_t)segment->vmaddr);
+                uintptr_t end = start + (uintptr_t)segment->vmsize;
+                return address >= start && address < end;
+            }
+        }
+        cursor += command->cmdsize;
+    }
+    return NO;
+}
+
 static BOOL WCLGAddressInsideWritableData(const struct mach_header *header,
                                           intptr_t slide,
                                           uintptr_t address,
@@ -814,6 +859,97 @@ static BOOL WCLGApplyRuntimeGlobals(void) {
     return YES;
 }
 
+typedef void (*WCLGInitializerFunction)(void);
+
+static WCLGInitializerFunction WCLGCallableInitializer(uintptr_t address) {
+    void *pointer = (void *)address;
+#if __has_feature(ptrauth_calls)
+    pointer = ptrauth_sign_unauthenticated(pointer,
+                                           ptrauth_key_function_pointer,
+                                           0);
+#endif
+    return (WCLGInitializerFunction)pointer;
+}
+
+static BOOL WCLGReplayMissedFeatureInitializers(void) {
+    if (atomic_load_explicit(&gFeatureReplayAttempted, memory_order_acquire)) {
+        return atomic_load_explicit(&gFeatureReplaySucceeded, memory_order_acquire);
+    }
+
+    const struct mach_header *header =
+        (const struct mach_header *)atomic_load_explicit(&gWCGlassHeader,
+                                                         memory_order_acquire);
+    intptr_t slide = atomic_load_explicit(&gWCGlassSlide, memory_order_acquire);
+    if (!header || !WCLGImageUUIDMatches(header)) {
+        return NO;
+    }
+
+    uintptr_t firstOriginalSlot =
+        (uintptr_t)(slide + (intptr_t)kFirstFeatureOriginalSlotOffset);
+    if (!WCLGAddressInsideWritableData(header,
+                                       slide,
+                                       firstOriginalSlot,
+                                       sizeof(uintptr_t))) {
+        NSLog(@"%@ feature replay slot validation failed at %p",
+              WCLGHookLogPrefix,
+              (void *)firstOriginalSlot);
+        return NO;
+    }
+
+    uintptr_t existingOriginal =
+        __atomic_load_n((uintptr_t *)firstOriginalSlot, __ATOMIC_ACQUIRE);
+    if (existingOriginal != 0) {
+        atomic_store_explicit(&gFeatureReplayAttempted, true, memory_order_release);
+        atomic_store_explicit(&gFeatureReplaySucceeded, true, memory_order_release);
+        WCLGSetStatus(WCLGHookStatusFeatureReplay);
+        NSLog(@"%@ original feature initializers already installed hooks; replay skipped",
+              WCLGHookLogPrefix);
+        return YES;
+    }
+
+    for (NSUInteger index = 0;
+         index < sizeof(kGatedFeatureInitializerOffsets) /
+                     sizeof(kGatedFeatureInitializerOffsets[0]);
+         index++) {
+        uintptr_t address =
+            (uintptr_t)(slide + (intptr_t)kGatedFeatureInitializerOffsets[index]);
+        if (!WCLGAddressInsideText(header, slide, address)) {
+            NSLog(@"%@ feature initializer validation failed index=%lu address=%p",
+                  WCLGHookLogPrefix,
+                  (unsigned long)index,
+                  (void *)address);
+            return NO;
+        }
+    }
+
+    atomic_store_explicit(&gFeatureReplayAttempted, true, memory_order_release);
+    WCLGApplyRuntimeGlobals();
+
+    for (NSUInteger index = 0;
+         index < sizeof(kGatedFeatureInitializerOffsets) /
+                     sizeof(kGatedFeatureInitializerOffsets[0]);
+         index++) {
+        uintptr_t address =
+            (uintptr_t)(slide + (intptr_t)kGatedFeatureInitializerOffsets[index]);
+        WCLGCallableInitializer(address)();
+    }
+
+    uintptr_t installedOriginal =
+        __atomic_load_n((uintptr_t *)firstOriginalSlot, __ATOMIC_ACQUIRE);
+    BOOL succeeded = installedOriginal != 0;
+    atomic_store_explicit(&gFeatureReplaySucceeded, succeeded, memory_order_release);
+    if (succeeded) {
+        WCLGSetStatus(WCLGHookStatusFeatureReplay);
+    }
+    NSLog(@"%@ feature initializer replay complete: count=%lu installed=%d slot=%p",
+          WCLGHookLogPrefix,
+          (unsigned long)(sizeof(kGatedFeatureInitializerOffsets) /
+                          sizeof(kGatedFeatureInitializerOffsets[0])),
+          succeeded,
+          (void *)installedOriginal);
+    return succeeded;
+}
+
 #pragma mark - Cache seed and retry
 
 static void WCLGSeedAuthorizationCache(void) {
@@ -866,6 +1002,7 @@ static void WCLGRetryWCGlassHooks(NSUInteger attempt) {
 
     if (configReady) {
         WCLGSeedAuthorizationCache();
+        WCLGReplayMissedFeatureInitializers();
     }
 
     if ((!configReady || !settingsReady) && attempt < 100) {
@@ -946,6 +1083,10 @@ NSDictionary<NSString *, id> *WCLGFreeModeHookStatus(void) {
         @"wcglass_slide": @((long long)atomic_load_explicit(&gWCGlassSlide,
                                                             memory_order_relaxed)),
         @"c_side_effect_functions_preserved": @YES,
+        @"feature_initializer_replay_attempted":
+            @(atomic_load_explicit(&gFeatureReplayAttempted, memory_order_relaxed)),
+        @"feature_initializer_replay_succeeded":
+            @(atomic_load_explicit(&gFeatureReplaySucceeded, memory_order_relaxed)),
         @"config_hooks": @(atomic_load_explicit(&gConfigHooksInstalled,
                                                 memory_order_relaxed)),
         @"settings_hooks": @(atomic_load_explicit(&gSettingsHooksInstalled,
