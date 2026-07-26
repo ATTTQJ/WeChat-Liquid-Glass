@@ -1,0 +1,9 @@
+Package: com.atttqj.wclgfreemodehook
+Name: WCLG Free Mode Hook
+Version: 0.1.0
+Architecture: iphoneos-arm
+Description: Early companion hook for WCGlass authorization-path testing.
+Maintainer: ATTTQJ
+Author: ATTTQJ
+Section: Tweaks
+Depends: mobilesubstrate
