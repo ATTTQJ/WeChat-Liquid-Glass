@@ -1,8 +1,8 @@
 Package: com.atttqj.wclgauthcachepoc
-Name: WCGlass Full Auth Cache PoC
-Version: 0.2.0
+Name: WCGlass Merged Auth Regression
+Version: 0.3.0
 Architecture: iphoneos-arm
-Description: Full WCGlass plugin plus authorization-cache regression companion.
+Description: Single WCGlass FAT dylib with the authorization-state regression patch merged in place.
 Maintainer: ATTTQJ
 Author: ATTTQJ
 Section: Tweaks

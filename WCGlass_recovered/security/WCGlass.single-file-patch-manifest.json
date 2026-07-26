@@ -1,0 +1,217 @@
+{
+  "input": "D:\\weixin\\xwechat_files\\wxid_znvkhk8uvxtq22_8e6e\\msg\\file\\2026-07\\WCGlass.dylib",
+  "output": "C:\\Users\\daim2\\Documents\\破甲\\WCGlass_recovered\\dist\\merged\\WCGlass.dylib",
+  "input_sha256": "76ba59a63ba3606753cddd7c63c557d9a3765baecb85fe3d1f39384e62227320",
+  "output_sha256": "1645e862e44392c5c4ad86423b7872a4be98ecc9f8437c7988a0c858b66c5de1",
+  "input_size": 11848688,
+  "output_size": 11848688,
+  "fat_slices": [
+    {
+      "index": 0,
+      "cputype": 16777228,
+      "subtype": 0,
+      "offset": 16384,
+      "size": 5867328,
+      "align": 14
+    },
+    {
+      "index": 1,
+      "cputype": 16777228,
+      "subtype": 2147483650,
+      "offset": 5898240,
+      "size": 5950448,
+      "align": 14
+    }
+  ],
+  "patch_count": 17,
+  "patches": [
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0xc1e84",
+      "fat_file_offset": "0xc5e84",
+      "old_bytes": "28e11639",
+      "new_bytes": "3fe11639",
+      "old_instruction": "strb w8, [x9, #0x5b8]",
+      "new_instruction": "strb wzr, [x9, #0x5b8]",
+      "purpose": "force hard-block/expiry state write to false"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0xc1eac",
+      "fat_file_offset": "0xc5eac",
+      "old_bytes": "e83b4039",
+      "new_bytes": "28008052",
+      "old_instruction": "ldrb w8, [sp, #0xe]",
+      "new_instruction": "mov w8, #1",
+      "purpose": "force cached server authorization allowed=true"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0xc2188",
+      "fat_file_offset": "0xc6188",
+      "old_bytes": "28e11639",
+      "new_bytes": "3fe11639",
+      "old_instruction": "strb w8, [x9, #0x5b8]",
+      "new_instruction": "strb wzr, [x9, #0x5b8]",
+      "purpose": "force cached hard-block state false"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0xc80fc",
+      "fat_file_offset": "0xcc0fc",
+      "old_bytes": "28e11639",
+      "new_bytes": "3fe11639",
+      "old_instruction": "strb w8, [x9, #0x5b8]",
+      "new_instruction": "strb wzr, [x9, #0x5b8]",
+      "purpose": "force response hard-block state false"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0x27bb7c",
+      "fat_file_offset": "0x27fb7c",
+      "old_bytes": "02000014",
+      "new_bytes": "35008052",
+      "old_instruction": "b #0x27bb84",
+      "new_instruction": "mov w21, #1",
+      "purpose": "force first authorization mirror true"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0x27bb80",
+      "fat_file_offset": "0x27fb80",
+      "old_bytes": "15008052",
+      "new_bytes": "35008052",
+      "old_instruction": "mov w21, #0",
+      "new_instruction": "mov w21, #1",
+      "purpose": "force first authorization mirror fallback true"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0x289e38",
+      "fat_file_offset": "0x28de38",
+      "old_bytes": "e0000034",
+      "new_bytes": "37008052",
+      "old_instruction": "cbz w0, #0x289e54",
+      "new_instruction": "mov w23, #1",
+      "purpose": "force second authorization mirror true"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0xc9bf4",
+      "fat_file_offset": "0x669bf4",
+      "old_bytes": "e8334039",
+      "new_bytes": "28008052",
+      "old_instruction": "ldrb w8, [sp, #0xc]",
+      "new_instruction": "mov w8, #1",
+      "purpose": "force cached server authorization allowed=true (path A)"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0xca010",
+      "fat_file_offset": "0x66a010",
+      "old_bytes": "e9334039",
+      "new_bytes": "29008052",
+      "old_instruction": "ldrb w9, [sp, #0xc]",
+      "new_instruction": "mov w9, #1",
+      "purpose": "force cached server authorization allowed=true (path B)"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0xc9cc8",
+      "fat_file_offset": "0x669cc8",
+      "old_bytes": "28e11339",
+      "new_bytes": "3fe11339",
+      "old_instruction": "strb w8, [x9, #0x4f8]",
+      "new_instruction": "strb wzr, [x9, #0x4f8]",
+      "purpose": "force hard-block/expiry state write to false"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0xc9d70",
+      "fat_file_offset": "0x669d70",
+      "old_bytes": "34e11339",
+      "new_bytes": "3fe11339",
+      "old_instruction": "strb w20, [x9, #0x4f8]",
+      "new_instruction": "strb wzr, [x9, #0x4f8]",
+      "purpose": "force cached hard-block state false (path A)"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0xc9fbc",
+      "fat_file_offset": "0x669fbc",
+      "old_bytes": "14e11339",
+      "new_bytes": "1fe11339",
+      "old_instruction": "strb w20, [x8, #0x4f8]",
+      "new_instruction": "strb wzr, [x8, #0x4f8]",
+      "purpose": "force cached hard-block state false (path B)"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0xcfc68",
+      "fat_file_offset": "0x66fc68",
+      "old_bytes": "28e11339",
+      "new_bytes": "3fe11339",
+      "old_instruction": "strb w8, [x9, #0x4f8]",
+      "new_instruction": "strb wzr, [x9, #0x4f8]",
+      "purpose": "force response hard-block state false (path A)"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0xcfd94",
+      "fat_file_offset": "0x66fd94",
+      "old_bytes": "49e11339",
+      "new_bytes": "5fe11339",
+      "old_instruction": "strb w9, [x10, #0x4f8]",
+      "new_instruction": "strb wzr, [x10, #0x4f8]",
+      "purpose": "force response hard-block state false (path B)"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0x28a120",
+      "fat_file_offset": "0x82a120",
+      "old_bytes": "02000014",
+      "new_bytes": "35008052",
+      "old_instruction": "b #0x28a128",
+      "new_instruction": "mov w21, #1",
+      "purpose": "force first authorization mirror true"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0x28a124",
+      "fat_file_offset": "0x82a124",
+      "old_bytes": "15008052",
+      "new_bytes": "35008052",
+      "old_instruction": "mov w21, #0",
+      "new_instruction": "mov w21, #1",
+      "purpose": "force first authorization mirror fallback true"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0x2984bc",
+      "fat_file_offset": "0x8384bc",
+      "old_bytes": "e0000034",
+      "new_bytes": "37008052",
+      "old_instruction": "cbz w0, #0x2984d8",
+      "new_instruction": "mov w23, #1",
+      "purpose": "force second authorization mirror true"
+    }
+  ],
+  "signing_note": "Code signature is expected to be replaced by the installer."
+}

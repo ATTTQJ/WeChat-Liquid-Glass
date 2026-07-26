@@ -1,14 +1,9 @@
-ARCHS = arm64 arm64e
-TARGET := iphone:clang:latest:14.0
+.PHONY: all package clean
 
-INSTALL_TARGET_PROCESSES = WeChat
+all: package
 
-include $(THEOS)/makefiles/common.mk
+package:
+	bash scripts/package_merged_plugin.sh
 
-TWEAK_NAME = WCLGAuthCachePoC
-
-WCLGAuthCachePoC_FILES = ../WCGlass_recovered/src/WCLGAuthCachePoC.m
-WCLGAuthCachePoC_CFLAGS = -fobjc-arc -fblocks
-WCLGAuthCachePoC_FRAMEWORKS = Foundation
-
-include $(THEOS_MAKE_PATH)/tweak.mk
+clean:
+	rm -rf .package packages raw-plugin

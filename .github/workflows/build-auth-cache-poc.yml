@@ -1,4 +1,4 @@
-name: Build Auth Cache PoC
+name: Build merged WCGlass plugin
 
 on:
   push:
@@ -25,27 +25,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Theos
+      - name: Install packaging tools
         run: |
-          brew install ldid xz
-          git clone --depth=1 --recursive https://github.com/theos/theos.git "$HOME/theos"
-          echo "THEOS=$HOME/theos" >> "$GITHUB_ENV"
-
-      - name: Install iPhoneOS SDK
-        run: |
-          mkdir -p "$HOME/theos/sdks"
-          curl -L \
-            "https://github.com/theos/sdks/archive/refs/heads/master.tar.gz" \
-            -o /tmp/theos-sdks.tar.gz
-          tar -xzf /tmp/theos-sdks.tar.gz -C /tmp
-          find /tmp/sdks-master -maxdepth 1 -name "iPhoneOS*.sdk" -exec cp -R {} "$HOME/theos/sdks/" \;
+          brew install dpkg ldid xz
 
       - name: Build package
         working-directory: AuthCachePoC
         run: |
-          make clean package FINALPACKAGE=1
+          make clean package
 
-      - name: Export raw plugin files
+      - name: Verify package and export raw plugin files
         run: |
           set -euo pipefail
           deb="$(find AuthCachePoC/packages -type f -name '*.deb' -print -quit)"
@@ -62,10 +51,14 @@ jobs:
           tar -xf "$data_archive"
 
           plugin_dir="Library/MobileSubstrate/DynamicLibraries"
+          test -f "$plugin_dir/WCGlass.dylib"
+          test -f "$plugin_dir/WCGlass.plist"
+          test ! -e "$plugin_dir/WCLGAuthCachePoC.dylib"
+          xcrun lipo -verify_arch arm64 arm64e "$plugin_dir/WCGlass.dylib"
+
           cp "$plugin_dir/WCGlass.dylib" "$raw_dir/"
           cp "$plugin_dir/WCGlass.plist" "$raw_dir/"
-          cp "$plugin_dir/WCLGAuthCachePoC.dylib" "$raw_dir/"
-          cp "$plugin_dir/WCLGAuthCachePoC.plist" "$raw_dir/"
+          find . -type f -print | sort > "$raw_dir/PACKAGE_CONTENTS.txt"
           cd "$raw_dir"
           shasum -a 256 * > SHA256SUMS.txt
           ls -lah
@@ -73,7 +66,7 @@ jobs:
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
-          name: WCGlassFullAuthCachePoC-package
+          name: WCGlassMerged-package
           path: AuthCachePoC/packages/*
           if-no-files-found: error
           retention-days: 7
@@ -81,7 +74,7 @@ jobs:
       - name: Upload raw dylib artifact
         uses: actions/upload-artifact@v4
         with:
-          name: WCGlassFullPlugin-raw-dylibs
+          name: WCGlassMerged-raw-plugin
           path: AuthCachePoC/raw-plugin/*
           if-no-files-found: error
           retention-days: 7

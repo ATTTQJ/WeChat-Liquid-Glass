@@ -44,6 +44,14 @@
 `security/AUTH_CACHE_SECURITY_REPORT.md`。隔离回归测试证明旧缓存模型可在不改变
 Token 的情况下由拒绝翻转为允许；测试记录位于 `security/TEST_RESULTS.txt`。
 
+## 单文件合并构建
+
+`tools/build_merged_wcglass.py` 对已确认 SHA-256 的原始 FAT dylib 执行
+同长度机器码替换，不增加 load command 或第二个 dylib。两个架构共 17 条替换记录、
+原始/新机器码、文件偏移及反汇编结果见
+`security/WCGlass.single-file-patch-manifest.json`。可安装产物由
+`../AuthCachePoC` 打包，包内仅包含 `WCGlass.dylib` 与注入过滤 plist。
+
 ## 精度说明
 
 编译产物未保存原始注释、宏、局部变量名和部分类型信息。`.m` 文件主要恢复类结构；`.c` 文件恢复控制流、调用关系、常量引用和 selector。所有伪代码都保留原始虚拟地址，便于继续人工重命名和类型修正。
