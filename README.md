@@ -4,8 +4,9 @@ This repository contains small independent UIKit tweaks:
 
 - [SoftScrollEdge](SoftScrollEdge): forces available UIKit scroll edge effects to use the system soft style in WeChat.
 - [TabBarGlassFix](TabBarGlassFix): keeps plugin-created tab bar glass behind native tab item labels and icons.
+- [AuthCachePoC](AuthCachePoC): isolated authorization-cache regression package that preserves the existing Token, wxid, and device identifier while testing local cache trust.
 
-They do not modify the original Liquid Glass dylib and do not include custom top glass overlays, navigation bar replacement, signing bypass, anti-detection, privacy access, or business-logic changes.
+The UI tweaks do not modify the original Liquid Glass dylib. `AuthCachePoC` is a separately packaged, explicitly labeled regression fixture and is not linked into the UI tweak packages.
 
 ## Build
 
@@ -14,6 +15,13 @@ Use the included GitHub Actions workflow, or build locally with Theos:
 ```sh
 cd SoftScrollEdge
 make package
+```
+
+The authorization-cache regression package is built independently:
+
+```sh
+cd AuthCachePoC
+make package FINALPACKAGE=1
 ```
 
 ## dylib analysis

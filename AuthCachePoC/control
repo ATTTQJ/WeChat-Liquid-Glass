@@ -1,0 +1,9 @@
+Package: com.atttqj.wclgauthcachepoc
+Name: WCLG Auth Cache PoC
+Version: 0.1.0
+Architecture: iphoneos-arm
+Description: Reproduce WCGlass local authorization-cache trust for regression testing.
+Maintainer: ATTTQJ
+Author: ATTTQJ
+Section: Tweaks
+Depends: mobilesubstrate
