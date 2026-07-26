@@ -16,7 +16,11 @@
  *
  * The original WCGlass.dylib stays byte-for-byte separate from this tweak.
  * UIKit/NSUserDefaults hooks are installed immediately. WCGlass-specific
- * Objective-C and offset hooks are installed as soon as dyld maps its image.
+ * Objective-C hooks are installed as soon as dyld maps its image.
+ *
+ * Important: the original authorization response and local-account scan
+ * routines are deliberately left intact. They perform initialization and
+ * persistence in addition to returning authorization state.
  */
 
 static NSString *const WCLGHookLogPrefix = @"[WCLGFreeModeHook]";
@@ -26,7 +30,7 @@ enum {
     WCLGHookStatusDefaults       = 1u << 0,
     WCLGHookStatusAlertGuard     = 1u << 1,
     WCLGHookStatusImageDetected  = 1u << 2,
-    WCLGHookStatusOffsetHooks    = 1u << 3,
+    WCLGHookStatusScalarGates    = 1u << 3,
     WCLGHookStatusConfigHooks    = 1u << 4,
     WCLGHookStatusSettingsHooks  = 1u << 5,
     WCLGHookStatusSeedApplied    = 1u << 6,
@@ -35,19 +39,13 @@ enum {
 static _Atomic(uint32_t) gHookStatus = 0;
 static _Atomic(uintptr_t) gWCGlassHeader = 0;
 static _Atomic(intptr_t) gWCGlassSlide = 0;
-static _Atomic(bool) gOffsetHooksInstalled = false;
 static _Atomic(bool) gConfigHooksInstalled = false;
 static _Atomic(bool) gSettingsHooksInstalled = false;
 static _Atomic(bool) gRuntimeHooksInstalled = false;
 
 #if defined(__arm64e__)
-static const uintptr_t kServerResponseOffset = 0xCF6A0;
-static const uintptr_t kGroupGateOffset = 0xDCACC;
-static const uintptr_t kOfficialGateOffset = 0xE3AB0;
 static const uintptr_t kAuthAllowedGlobalOffset = 0x5971D8;
 static const uintptr_t kHardBlockedGlobalOffset = 0x4F46D8;
-static const uintptr_t kFeaturesGlobalOffset = 0x591D40;
-static const uintptr_t kDeniedFeaturesGlobalOffset = 0x591D48;
 static const uintptr_t kExpiresGlobalOffset = 0x591D68;
 static const uintptr_t kVerifiedGlobalOffset = 0x591D70;
 static const uintptr_t kLiquidGlassEnabledGlobalOffset = 0x5970A8;
@@ -56,13 +54,8 @@ static const uint8_t kExpectedWCGlassUUID[16] = {
     0x87, 0xCC, 0xD7, 0xC3, 0x00, 0x42, 0xDB, 0xF8,
 };
 #else
-static const uintptr_t kServerResponseOffset = 0xC7640;
-static const uintptr_t kGroupGateOffset = 0xD30F4;
-static const uintptr_t kOfficialGateOffset = 0xDB478;
 static const uintptr_t kAuthAllowedGlobalOffset = 0x5830B8;
 static const uintptr_t kHardBlockedGlobalOffset = 0x4E05B8;
-static const uintptr_t kFeaturesGlobalOffset = 0x57DC20;
-static const uintptr_t kDeniedFeaturesGlobalOffset = 0x57DC28;
 static const uintptr_t kExpiresGlobalOffset = 0x57DC48;
 static const uintptr_t kVerifiedGlobalOffset = 0x57DC50;
 static const uintptr_t kLiquidGlassEnabledGlobalOffset = 0x582F88;
@@ -83,7 +76,8 @@ static BOOL WCLGKeyEquals(id key, NSString *expected) {
 static BOOL WCLGIsForcedTrueKey(id key) {
     return WCLGKeyEquals(key, @"FLGUnifiedServerAuthAllowed") ||
            WCLGKeyEquals(key, @"WCLGLocalOfficialOK") ||
-           WCLGKeyEquals(key, @"WCLGLocalGroupOK");
+           WCLGKeyEquals(key, @"WCLGLocalGroupOK") ||
+           WCLGKeyEquals(key, @"xg_liquid_glass_enabled");
 }
 
 static BOOL WCLGIsForcedFalseKey(id key) {
@@ -132,43 +126,11 @@ static NSTimeInterval WCLGFarFutureTimestamp(void) {
     return 4102444800.0; /* 2100-01-01 UTC */
 }
 
-@interface WCLGWildcardFeatureList : NSArray
-@end
-
-@implementation WCLGWildcardFeatureList
-
-- (NSUInteger)count {
-    return 1;
-}
-
-- (id)objectAtIndex:(NSUInteger)index {
-    if (index == 0) {
-        return @"*";
-    }
-    @throw [NSException exceptionWithName:NSRangeException
-                                   reason:@"WCLGWildcardFeatureList index out of range"
-                                 userInfo:nil];
-}
-
-- (BOOL)containsObject:(id)object {
-    return object != nil;
-}
-
-- (NSUInteger)indexOfObject:(id)object {
-    return object != nil ? 0 : NSNotFound;
-}
-
-- (NSString *)description {
-    return @"<WCLGWildcardFeatureList: all features>";
-}
-
-@end
-
 static id WCLGFeatureList(void) {
-    static WCLGWildcardFeatureList *features;
+    static NSArray<NSString *> *features;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        features = [WCLGWildcardFeatureList new];
+        features = @[@"__wclg_all__"];
     });
     return features;
 }
@@ -431,7 +393,8 @@ static void (*OrigConfigSetBool)(id, SEL, BOOL, id);
 static void (*OrigConfigSetInteger)(id, SEL, NSInteger, id);
 static void (*OrigConfigSetDouble)(id, SEL, double, id);
 static BOOL (*OrigConfigLiquidGlassEnabled)(id, SEL);
-static BOOL (*OrigConfigShouldForcePolicy)(id, SEL, id);
+static void (*OrigConfigRefreshAtomicMirrors)(id, SEL);
+static void (*OrigConfigMaybeUpdateMirror)(id, SEL, id, id);
 
 static id HookConfigCachedObject(id self, SEL _cmd, id key) {
     BOOL overridden = NO;
@@ -533,8 +496,16 @@ static BOOL HookConfigLiquidGlassEnabled(id self, SEL _cmd) {
     return YES;
 }
 
-static BOOL HookConfigShouldForcePolicy(id self, SEL _cmd, id key) {
-    return NO;
+static void HookConfigRefreshAtomicMirrors(id self, SEL _cmd) {
+    OrigConfigRefreshAtomicMirrors(self, _cmd);
+    WCLGApplyRuntimeGlobals();
+}
+
+static void HookConfigMaybeUpdateMirror(id self, SEL _cmd, id key, id value) {
+    OrigConfigMaybeUpdateMirror(self, _cmd, key, value);
+    if (WCLGIsControlledKey(key)) {
+        WCLGApplyRuntimeGlobals();
+    }
 }
 
 static BOOL WCLGInstallConfigHooks(void) {
@@ -568,9 +539,12 @@ static BOOL WCLGInstallConfigHooks(void) {
     WCLG_HOOK_CONFIG(@"liquidGlassEnabled",
                      HookConfigLiquidGlassEnabled,
                      OrigConfigLiquidGlassEnabled);
-    WCLG_HOOK_CONFIG(@"shouldForceTrueForUserDefaultsKey:",
-                     HookConfigShouldForcePolicy,
-                     OrigConfigShouldForcePolicy);
+    WCLG_HOOK_CONFIG(@"refreshAtomicMirrors",
+                     HookConfigRefreshAtomicMirrors,
+                     OrigConfigRefreshAtomicMirrors);
+    WCLG_HOOK_CONFIG(@"maybeUpdateMirrorForKey:value:",
+                     HookConfigMaybeUpdateMirror,
+                     OrigConfigMaybeUpdateMirror);
 #undef WCLG_HOOK_CONFIG
 
     if (ok) {
@@ -679,21 +653,10 @@ static void HookToggleSwitch(id self, SEL _cmd, UISwitch *toggle) {
     if (requestedOn) {
         WCLGApplyRuntimeGlobals();
         [toggle setEnabled:YES];
-        [toggle setOn:YES animated:NO];
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            WCLGApplyRuntimeGlobals();
-            [toggle setEnabled:YES];
-            [toggle setOn:YES animated:NO];
-
-            SEL reconcile = NSSelectorFromString(@"reconcileDependentFeatureSwitches");
-            if ([self respondsToSelector:reconcile]) {
-                ((void (*)(id, SEL))objc_msgSend)(self, reconcile);
-            }
-            NSLog(@"%@ accepted switch-on event tag=%ld",
-                  WCLGHookLogPrefix,
-                  (long)tag);
-        });
+        NSLog(@"%@ switch event tag=%ld requested=1 resulting=%d",
+              WCLGHookLogPrefix,
+              (long)tag,
+              toggle.isOn);
     }
 }
 
@@ -747,48 +710,6 @@ static BOOL WCLGInstallSettingsHooks(void) {
         NSLog(@"%@ settings class found, one or more selectors missing", WCLGHookLogPrefix);
     }
     return ok;
-}
-
-#pragma mark - Offset hooks
-
-typedef void (*WCLGServerResponseFunction)(void *);
-typedef uintptr_t (*WCLGGateFunction)(uintptr_t);
-
-static WCLGServerResponseFunction OrigServerResponse;
-static WCLGGateFunction OrigGroupGate;
-static WCLGGateFunction OrigOfficialGate;
-
-static void HookServerResponse(void *context) {
-    NSLog(@"%@ ignored server authorization response", WCLGHookLogPrefix);
-}
-
-static uintptr_t HookAllowedGate(uintptr_t context) {
-    return 1;
-}
-
-static BOOL WCLGAddressInsideText(const struct mach_header *header,
-                                  intptr_t slide,
-                                  uintptr_t address) {
-    if (!header || header->magic != MH_MAGIC_64) {
-        return NO;
-    }
-
-    const uint8_t *cursor = (const uint8_t *)header + sizeof(struct mach_header_64);
-    const struct mach_header_64 *header64 = (const struct mach_header_64 *)header;
-    for (uint32_t index = 0; index < header64->ncmds; index++) {
-        const struct load_command *command = (const struct load_command *)cursor;
-        if (command->cmd == LC_SEGMENT_64) {
-            const struct segment_command_64 *segment =
-                (const struct segment_command_64 *)cursor;
-            if (strncmp(segment->segname, "__TEXT", sizeof(segment->segname)) == 0) {
-                uintptr_t start = (uintptr_t)(slide + (intptr_t)segment->vmaddr);
-                uintptr_t end = start + (uintptr_t)segment->vmsize;
-                return address >= start && address < end;
-            }
-        }
-        cursor += command->cmdsize;
-    }
-    return NO;
 }
 
 static BOOL WCLGImageUUIDMatches(const struct mach_header *header) {
@@ -849,8 +770,6 @@ static BOOL WCLGApplyRuntimeGlobals(void) {
 
     uintptr_t allowedAddress = (uintptr_t)(slide + (intptr_t)kAuthAllowedGlobalOffset);
     uintptr_t blockedAddress = (uintptr_t)(slide + (intptr_t)kHardBlockedGlobalOffset);
-    uintptr_t featuresAddress = (uintptr_t)(slide + (intptr_t)kFeaturesGlobalOffset);
-    uintptr_t deniedAddress = (uintptr_t)(slide + (intptr_t)kDeniedFeaturesGlobalOffset);
     uintptr_t expiresAddress = (uintptr_t)(slide + (intptr_t)kExpiresGlobalOffset);
     uintptr_t verifiedAddress = (uintptr_t)(slide + (intptr_t)kVerifiedGlobalOffset);
     uintptr_t masterAddress =
@@ -859,8 +778,6 @@ static BOOL WCLGApplyRuntimeGlobals(void) {
     uintptr_t addresses[] = {
         allowedAddress,
         blockedAddress,
-        featuresAddress,
-        deniedAddress,
         expiresAddress,
         verifiedAddress,
         masterAddress,
@@ -868,8 +785,6 @@ static BOOL WCLGApplyRuntimeGlobals(void) {
     size_t sizes[] = {
         sizeof(uint8_t),
         sizeof(uint8_t),
-        sizeof(uintptr_t),
-        sizeof(uintptr_t),
         sizeof(uint64_t),
         sizeof(uint64_t),
         sizeof(uint8_t),
@@ -886,13 +801,6 @@ static BOOL WCLGApplyRuntimeGlobals(void) {
     __atomic_store_n((uint8_t *)allowedAddress, 1, __ATOMIC_RELEASE);
     __atomic_store_n((uint8_t *)blockedAddress, 0, __ATOMIC_RELEASE);
     __atomic_store_n((uint8_t *)masterAddress, 1, __ATOMIC_RELEASE);
-    __atomic_store_n((uintptr_t *)featuresAddress,
-                     (uintptr_t)WCLGFeatureList(),
-                     __ATOMIC_RELEASE);
-    __atomic_store_n((uintptr_t *)deniedAddress,
-                     (uintptr_t)@[],
-                     __ATOMIC_RELEASE);
-
     double expires = WCLGFarFutureTimestamp();
     double verified = NSDate.date.timeIntervalSince1970;
     uint64_t expiresBits = 0;
@@ -902,51 +810,7 @@ static BOOL WCLGApplyRuntimeGlobals(void) {
     __atomic_store_n((uint64_t *)expiresAddress, expiresBits, __ATOMIC_RELEASE);
     __atomic_store_n((uint64_t *)verifiedAddress, verifiedBits, __ATOMIC_RELEASE);
 
-    return YES;
-}
-
-static BOOL WCLGInstallOffsetHooks(const struct mach_header *header, intptr_t slide) {
-    bool expected = false;
-    if (!atomic_compare_exchange_strong(&gOffsetHooksInstalled, &expected, true)) {
-        return YES;
-    }
-
-    if (!WCLGImageUUIDMatches(header)) {
-        atomic_store_explicit(&gOffsetHooksInstalled, false, memory_order_release);
-        NSLog(@"%@ WCGlass UUID mismatch; version-specific C hooks skipped",
-              WCLGHookLogPrefix);
-        return NO;
-    }
-
-    uintptr_t serverAddress = (uintptr_t)(slide + (intptr_t)kServerResponseOffset);
-    uintptr_t groupAddress = (uintptr_t)(slide + (intptr_t)kGroupGateOffset);
-    uintptr_t officialAddress = (uintptr_t)(slide + (intptr_t)kOfficialGateOffset);
-
-    if (!WCLGAddressInsideText(header, slide, serverAddress) ||
-        !WCLGAddressInsideText(header, slide, groupAddress) ||
-        !WCLGAddressInsideText(header, slide, officialAddress)) {
-        atomic_store_explicit(&gOffsetHooksInstalled, false, memory_order_release);
-        NSLog(@"%@ offset validation failed; C hooks skipped", WCLGHookLogPrefix);
-        return NO;
-    }
-
-    MSHookFunction((void *)serverAddress,
-                   (void *)HookServerResponse,
-                   (void **)&OrigServerResponse);
-    MSHookFunction((void *)groupAddress,
-                   (void *)HookAllowedGate,
-                   (void **)&OrigGroupGate);
-    MSHookFunction((void *)officialAddress,
-                   (void *)HookAllowedGate,
-                   (void **)&OrigOfficialGate);
-
-    WCLGSetStatus(WCLGHookStatusOffsetHooks);
-    NSLog(@"%@ offset hooks installed: slide=%p server=%p group=%p official=%p",
-          WCLGHookLogPrefix,
-          (void *)slide,
-          (void *)serverAddress,
-          (void *)groupAddress,
-          (void *)officialAddress);
+    WCLGSetStatus(WCLGHookStatusScalarGates);
     return YES;
 }
 
@@ -960,6 +824,7 @@ static void WCLGSeedAuthorizationCache(void) {
         @"FLGUnifiedServerAuthHardBlocked": @NO,
         @"FLGUnifiedServerAuthExpiresAt": @(WCLGFarFutureTimestamp()),
         @"FLGUnifiedServerAuthVerifiedAt": @(now),
+        @"FLGUnifiedServerAuthFeatures": WCLGFeatureList(),
         @"denied_features": @[],
         @"FLGUnifiedServerAuthLastCode": @0,
         @"FLGUnifiedServerAuthLastMessage": @"",
@@ -967,6 +832,7 @@ static void WCLGSeedAuthorizationCache(void) {
         @"WCLGLocalGroupOK": @YES,
         @"WCLGLocalAuthScannedAt": @(now),
         @"WCLGLocalGroupScannedAt": @(now),
+        @"xg_liquid_glass_enabled": @YES,
     };
 
     [values enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
@@ -1062,11 +928,6 @@ static void WCLGImageAdded(const struct mach_header *header, intptr_t callbackSl
               header,
               (void *)slide);
 
-        WCLGInstallOffsetHooks(header, slide);
-        if (WCLGApplyRuntimeGlobals()) {
-            NSLog(@"%@ authorization globals asserted before WCGlass initializers",
-                  WCLGHookLogPrefix);
-        }
         WCLGInstallConfigHooks();
         WCLGInstallSettingsHooks();
 
@@ -1084,8 +945,7 @@ NSDictionary<NSString *, id> *WCLGFreeModeHookStatus(void) {
                                                                       memory_order_relaxed)),
         @"wcglass_slide": @((long long)atomic_load_explicit(&gWCGlassSlide,
                                                             memory_order_relaxed)),
-        @"offset_hooks": @(atomic_load_explicit(&gOffsetHooksInstalled,
-                                                memory_order_relaxed)),
+        @"c_side_effect_functions_preserved": @YES,
         @"config_hooks": @(atomic_load_explicit(&gConfigHooksInstalled,
                                                 memory_order_relaxed)),
         @"settings_hooks": @(atomic_load_explicit(&gSettingsHooksInstalled,

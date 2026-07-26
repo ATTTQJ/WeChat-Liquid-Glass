@@ -6,16 +6,21 @@ WCGlass 文件，而是在运行时安装三层拦截：
 1. 提前接管授权相关 `NSUserDefaults` 读写并压制“封禁”弹窗。
 2. WCGlass 映射后接管 `WCLGConfig` 的授权状态、特性集合和写回。
 3. 接管设置页的授权颜色、公众号检查和授权提示。
-4. 在 WCGlass 的可写数据段中同步授权、封禁、特性集合和总开关原子镜像。
-5. 强制设置页开关可交互，并在 `toggleSwitch:` 返回后重新确认开启状态。
+4. 在 WCGlass 的可写数据段中只同步已确认类型的标量镜像：授权、封禁、
+   到期时间、验证时间和总开关。
+5. 保留原设置逻辑执行，只解除设置页的交互禁用并记录开关最终状态。
 
-针对当前恢复样本，还会按照架构安装三个 C 函数 Hook：
+`0.3.0` 已撤销旧版的三个 C 函数 Hook：
 
 | 路径 | arm64 | arm64e |
 | --- | ---: | ---: |
 | 服务器授权响应 | `0xC7640` | `0xCF6A0` |
 | 群授权门控 | `0xD30F4` | `0xDCACC` |
 | 公众号授权门控 | `0xDB478` | `0xE3AB0` |
+
+重新分析确认它们的长度分别为 3804、12108、2428 字节（arm64），
+都不是单一布尔 getter。它们还承担响应落盘、缓存镜像刷新、本地账号扫描
+等副作用；整段替换会造成设置界面可见但插件执行层没有完成初始化。
 
 版本绑定信息：
 
@@ -30,11 +35,13 @@ arm64e UUID:
 6DC8031F-9EA1-36B5-87CC-D7C30042DBF8
 ```
 
-运行时会先校验当前 slice 的 UUID。UUID 不匹配时跳过版本相关的 C
-函数偏移，保留键名和 Objective-C 方法级 Hook，防止错误偏移造成崩溃。
+运行时会先校验当前 slice 的 UUID。UUID 匹配时才写入已确认类型的标量
+镜像；原始 C 授权响应和本地检查函数在所有情况下都保持执行。
 
-`0.2.0` 增加的原子镜像处理解决了仅修改配置缓存后，专用 getter
-（例如 `liquidGlassEnabled`）仍然直接读取旧全局值的问题。
+`0.3.0` 同时恢复原版 `shouldForceTrueForUserDefaultsKey:` 策略，写入真实
+总开关键 `xg_liquid_glass_enabled`，并使用原版全功能标记
+`__wclg_all__`。对象型全局值由原插件自己的缓存刷新逻辑管理，避免直接写
+裸 Objective-C 指针。
 
 ## 构建
 
@@ -71,7 +78,6 @@ WCGlass.dylib
 [WCLGFreeModeHook] constructor
 [WCLGFreeModeHook] early hooks: defaults=1 alertGuard=1
 [WCLGFreeModeHook] detected .../WCGlass.dylib
-[WCLGFreeModeHook] offset hooks installed
 [WCLGFreeModeHook] WCLGConfig hooks installed
 [WCLGFreeModeHook] settings authorization hooks installed
 [WCLGFreeModeHook] authorization cache seed applied
