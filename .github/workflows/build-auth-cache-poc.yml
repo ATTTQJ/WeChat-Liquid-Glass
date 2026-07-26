@@ -45,10 +45,43 @@ jobs:
         run: |
           make clean package FINALPACKAGE=1
 
+      - name: Export raw plugin files
+        run: |
+          set -euo pipefail
+          deb="$(find AuthCachePoC/packages -type f -name '*.deb' -print -quit)"
+          test -n "$deb"
+
+          extract_dir="$RUNNER_TEMP/wclg-deb-root"
+          raw_dir="$GITHUB_WORKSPACE/AuthCachePoC/raw-plugin"
+          mkdir -p "$extract_dir" "$raw_dir"
+
+          cd "$extract_dir"
+          ar -x "$GITHUB_WORKSPACE/$deb"
+          data_archive="$(find . -maxdepth 1 -type f -name 'data.tar*' -print -quit)"
+          test -n "$data_archive"
+          tar -xf "$data_archive"
+
+          plugin_dir="Library/MobileSubstrate/DynamicLibraries"
+          cp "$plugin_dir/WCGlass.dylib" "$raw_dir/"
+          cp "$plugin_dir/WCGlass.plist" "$raw_dir/"
+          cp "$plugin_dir/WCLGAuthCachePoC.dylib" "$raw_dir/"
+          cp "$plugin_dir/WCLGAuthCachePoC.plist" "$raw_dir/"
+          cd "$raw_dir"
+          shasum -a 256 * > SHA256SUMS.txt
+          ls -lah
+
       - name: Upload package artifact
         uses: actions/upload-artifact@v4
         with:
           name: WCGlassFullAuthCachePoC-package
           path: AuthCachePoC/packages/*
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload raw dylib artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WCGlassFullPlugin-raw-dylibs
+          path: AuthCachePoC/raw-plugin/*
           if-no-files-found: error
           retention-days: 7

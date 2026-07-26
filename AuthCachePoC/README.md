@@ -26,6 +26,19 @@ substituted for working compiled methods.
 make package FINALPACKAGE=1
 ```
 
+The GitHub Actions run publishes two artifacts:
+
+- `WCGlassFullAuthCachePoC-package`: the installable `.deb`;
+- `WCGlassFullPlugin-raw-dylibs`: the two raw dylibs, two injection plists, and
+  their SHA-256 manifest.
+
+A `.deb` is an `ar` container. Archive viewers normally show `data.tar` at the
+first level; the plugin files are inside:
+
+```text
+data.tar/Library/MobileSubstrate/DynamicLibraries/
+```
+
 ## Device verification
 
 1. Remove any separately installed copy that owns the same `WCGlass.dylib` path.
