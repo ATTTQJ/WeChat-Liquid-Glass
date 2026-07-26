@@ -1,0 +1,9 @@
+* text=auto
+*.m text eol=lf
+*.h text eol=lf
+*.c text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+Makefile text eol=lf
+*.plist text eol=lf
+*.dylib binary

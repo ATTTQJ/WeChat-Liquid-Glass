@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>FLGUnifiedServerAuthAllowed</key>
+    <false/>
+    <key>FLGUnifiedServerAuthHardBlocked</key>
+    <true/>
+    <key>FLGUnifiedServerAuthExpiresAt</key>
+    <real>1</real>
+    <key>FLGUnifiedServerAuthVerifiedAt</key>
+    <real>1</real>
+    <key>FLGUnifiedServerAuthFeatures</key>
+    <array/>
+    <key>FLGUnifiedServerAuthToken</key>
+    <string></string>
+    <key>WCLGLocalOfficialOK</key>
+    <false/>
+    <key>WCLGLocalGroupOK</key>
+    <false/>
+    <key>WCLGLocalAuthScannedAt</key>
+    <real>1</real>
+    <key>WCLGLocalGroupScannedAt</key>
+    <real>1</real>
+    <key>WCLGLocalWXID</key>
+    <string>wxid_denied_fixture</string>
+</dict>
+</plist>

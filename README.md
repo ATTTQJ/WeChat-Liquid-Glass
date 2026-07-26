@@ -4,9 +4,12 @@ This repository contains small independent UIKit tweaks:
 
 - [SoftScrollEdge](SoftScrollEdge): forces available UIKit scroll edge effects to use the system soft style in WeChat.
 - [TabBarGlassFix](TabBarGlassFix): keeps plugin-created tab bar glass behind native tab item labels and icons.
-- [AuthCachePoC](AuthCachePoC): isolated authorization-cache regression package that preserves the existing Token, wxid, and device identifier while testing local cache trust.
+- [AuthCachePoC](AuthCachePoC): full WCGlass dylib plus an authorization-cache regression companion built from the modified recovered source.
+- [WCGlass_recovered](WCGlass_recovered): complete static-recovery workspace containing Objective-C class skeletons, hook pseudocode, analysis data, extracted architecture slices, security tests, and recovery tools.
 
-The UI tweaks do not modify the original Liquid Glass dylib. `AuthCachePoC` is a separately packaged, explicitly labeled regression fixture and is not linked into the UI tweak packages.
+The UI tweaks remain independent. `AuthCachePoC` is a separately packaged,
+explicitly labeled full-plugin regression fixture and is not linked into the UI
+tweak packages.
 
 ## Build
 
@@ -23,6 +26,9 @@ The authorization-cache regression package is built independently:
 cd AuthCachePoC
 make package FINALPACKAGE=1
 ```
+
+Its package contains the original full-feature `WCGlass.dylib` and a companion
+dylib compiled from `WCGlass_recovered/src/WCLGAuthCachePoC.m`.
 
 ## dylib analysis
 

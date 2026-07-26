@@ -1,0 +1,40 @@
+/* Hook replacement 13/418
+ * Selectors: SEL_getChatBackgroundImagePathForUser_
+ * Address: 0x6ae8; original size: 156 bytes
+ * Status: ok; elapsed: 0.285s
+ */
+
+typedef struct struct_0 {
+    unsigned long long field_0;
+} struct_0;
+
+void sub_6ae8(unsigned long a0, long long a1, long long a2)
+{
+    unsigned long long v7;  // x22
+    unsigned long long v8;  // x21
+    unsigned long long v9;  // x20
+    unsigned long long v10;  // x19
+    unsigned long long v11;  // x30
+    long long v12;  // x20
+    unsigned long long v0;  // [bp-0x30]
+    unsigned long long v1;  // [bp-0x28]
+    unsigned long long v2;  // [bp-0x20]
+    unsigned long long v3;  // [bp-0x18]
+    char *v4;  // [bp-0x10]
+    unsigned long long v5;  // [bp-0x8]
+    char v6;  // [bp+0x0]
+
+    v0 = v7;
+    v1 = v8;
+    v2 = v9;
+    v3 = v10;
+    v4 = &v6;
+    v5 = v11;
+    v12 = _objc_retainAutoreleasedReturnValue(sub_7530(_objc_retain(a2)));
+    if (_objc_msgSend(v12, SEL_length))
+        _objc_retain(v12);
+    else
+        _objc_retainAutoreleasedReturnValue(g_57b2d8(a0, a1, a2), a1, a2);
+    _objc_release(v12);
+    _objc_release(a2);
+}

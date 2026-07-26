@@ -1,0 +1,235 @@
+{
+  "init_offsets": [
+    {
+      "entry_offset": 4595204,
+      "target": 16384,
+      "target_hex": "0x4000",
+      "symbol": "sym.func.00004000",
+      "size": 3572
+    },
+    {
+      "entry_offset": 4595208,
+      "target": 24348,
+      "target_hex": "0x5f1c",
+      "symbol": "sym.func.00005f1c",
+      "size": 1532
+    },
+    {
+      "entry_offset": 4595212,
+      "target": 32716,
+      "target_hex": "0x7fcc",
+      "symbol": "sym.func.00007fcc",
+      "size": 912
+    },
+    {
+      "entry_offset": 4595216,
+      "target": 43756,
+      "target_hex": "0xaaec",
+      "symbol": "sym.func.0000aaec",
+      "size": 1036
+    },
+    {
+      "entry_offset": 4595220,
+      "target": 69816,
+      "target_hex": "0x110b8",
+      "symbol": "sym.func.000110b8",
+      "size": 928
+    },
+    {
+      "entry_offset": 4595224,
+      "target": 77944,
+      "target_hex": "0x13078",
+      "symbol": "sym.func.00013078",
+      "size": 3088
+    },
+    {
+      "entry_offset": 4595228,
+      "target": 110336,
+      "target_hex": "0x1af00",
+      "symbol": "sym.func.0001af00",
+      "size": 10788
+    },
+    {
+      "entry_offset": 4595232,
+      "target": 165628,
+      "target_hex": "0x286fc",
+      "symbol": "sym.func.000286fc",
+      "size": 2348
+    },
+    {
+      "entry_offset": 4595236,
+      "target": 171560,
+      "target_hex": "0x29e28",
+      "symbol": "sym.func.00029e28",
+      "size": 3512
+    },
+    {
+      "entry_offset": 4595240,
+      "target": 231816,
+      "target_hex": "0x38988",
+      "symbol": "sym.func.00038988",
+      "size": 708
+    },
+    {
+      "entry_offset": 4595244,
+      "target": 235488,
+      "target_hex": "0x397e0",
+      "symbol": "sym.func.000397e0",
+      "size": 2152
+    },
+    {
+      "entry_offset": 4595248,
+      "target": 245520,
+      "target_hex": "0x3bf10",
+      "symbol": "sym.func.0003bf10",
+      "size": 1272
+    },
+    {
+      "entry_offset": 4595252,
+      "target": 246956,
+      "target_hex": "0x3c4ac",
+      "symbol": "sym.func.0003c4ac",
+      "size": 3508
+    },
+    {
+      "entry_offset": 4595256,
+      "target": 254436,
+      "target_hex": "0x3e1e4",
+      "symbol": "sym.func.0003e1e4",
+      "size": 2028
+    },
+    {
+      "entry_offset": 4595260,
+      "target": 257336,
+      "target_hex": "0x3ed38",
+      "symbol": "sym.func.0003ed38",
+      "size": 1324
+    },
+    {
+      "entry_offset": 4595264,
+      "target": 267244,
+      "target_hex": "0x413ec",
+      "symbol": "sym.func.000413ec",
+      "size": 5364
+    },
+    {
+      "entry_offset": 4595268,
+      "target": 320836,
+      "target_hex": "0x4e544",
+      "symbol": "sym.func.0004e544",
+      "size": 1128
+    },
+    {
+      "entry_offset": 4595272,
+      "target": 327768,
+      "target_hex": "0x50058",
+      "symbol": "sym.func.00050058",
+      "size": 1888
+    },
+    {
+      "entry_offset": 4595276,
+      "target": 348936,
+      "target_hex": "0x55308",
+      "symbol": "sym.func.00055308",
+      "size": 380
+    },
+    {
+      "entry_offset": 4595280,
+      "target": 355912,
+      "target_hex": "0x56e48",
+      "symbol": "sym.func.00056e48",
+      "size": 1468
+    },
+    {
+      "entry_offset": 4595284,
+      "target": 364740,
+      "target_hex": "0x590c4",
+      "symbol": "sym.func.000590c4",
+      "size": 3168
+    },
+    {
+      "entry_offset": 4595288,
+      "target": 401732,
+      "target_hex": "0x62144",
+      "symbol": "sym.func.00062144",
+      "size": 744
+    },
+    {
+      "entry_offset": 4595292,
+      "target": 422220,
+      "target_hex": "0x6714c",
+      "symbol": "sym.func.0006714c",
+      "size": 4188
+    },
+    {
+      "entry_offset": 4595296,
+      "target": 502580,
+      "target_hex": "0x7ab34",
+      "symbol": "sym.func.0007ab34",
+      "size": 596
+    },
+    {
+      "entry_offset": 4595300,
+      "target": 507516,
+      "target_hex": "0x7be7c",
+      "symbol": "sym.func.0007be7c",
+      "size": 528
+    },
+    {
+      "entry_offset": 4595304,
+      "target": 508824,
+      "target_hex": "0x7c398",
+      "symbol": "sym.func.0007c398",
+      "size": 88
+    },
+    {
+      "entry_offset": 4595308,
+      "target": 508932,
+      "target_hex": "0x7c404",
+      "symbol": "sym.func.0007c404",
+      "size": 2444
+    },
+    {
+      "entry_offset": 4595312,
+      "target": 520716,
+      "target_hex": "0x7f20c",
+      "symbol": "sym.func.0007f20c",
+      "size": 632
+    },
+    {
+      "entry_offset": 4595316,
+      "target": 523344,
+      "target_hex": "0x7fc50",
+      "symbol": "sym.func.0007fc50",
+      "size": 1144
+    },
+    {
+      "entry_offset": 4595320,
+      "target": 545684,
+      "target_hex": "0x85394",
+      "symbol": "sym.func.00085394",
+      "size": 828
+    },
+    {
+      "entry_offset": 4595324,
+      "target": 547100,
+      "target_hex": "0x8591c",
+      "symbol": "sym.func.0008591c",
+      "size": 2640
+    },
+    {
+      "entry_offset": 4595328,
+      "target": 556088,
+      "target_hex": "0x87c38",
+      "symbol": "sym.func.00087c38",
+      "size": 4876
+    },
+    {
+      "entry_offset": 4595332,
+      "target": 4580440,
+      "target_hex": "0x45e458",
+      "symbol": "sym.func.0045e458",
+      "size": 692
+    }
+  ]
+}

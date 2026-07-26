@@ -1,0 +1,3256 @@
+{
+  "original_sha256": "76BA59A63BA3606753CDDD7C63C557D9A3765BAECB85FE3D1F39384E62227320",
+  "file_count": 649,
+  "total_bytes": 76359487,
+  "source_files": 79,
+  "hook_files": 418,
+  "initializer_files": 33,
+  "representative_pseudocode": 79,
+  "files": [
+    {
+      "path": "analysis/class_summary.csv",
+      "size": 3171,
+      "sha256": "a3ff997aa4a2144c7d009cd4d288c53f6cf6340a669af6825d4244a3ad3c1c84"
+    },
+    {
+      "path": "analysis/classes.json",
+      "size": 205645,
+      "sha256": "dbce8d064e662158d48cdf712cccfb9851cee34958d0e0f4b6696f1218e93a3d"
+    },
+    {
+      "path": "analysis/constructors.json",
+      "size": 17,
+      "sha256": "4b41de2c2dbb0332d99a4a710b045e4185889b81c2e2f6aa53c16351d5c21e60"
+    },
+    {
+      "path": "analysis/data_strings.json",
+      "size": 762065,
+      "sha256": "798198eed5fd73114f61130a375f489de92ed6f1287a040ef9946c27959d5ab8"
+    },
+    {
+      "path": "analysis/exports.json",
+      "size": 3324,
+      "sha256": "7dd8f1361c0135cb55b194a83443138865431f9b44e179ee6a4784200d917e7e"
+    },
+    {
+      "path": "analysis/functions.json",
+      "size": 40592375,
+      "sha256": "45a37711205d7a31d2606d3b8619964b110ae919e22dbdb89ba3e1cca154bd53"
+    },
+    {
+      "path": "analysis/hook_map.csv",
+      "size": 46350,
+      "sha256": "ad0c8882d0730333d7cd88df8d063184416e197156a2482698af8eec5fd11254"
+    },
+    {
+      "path": "analysis/imports.json",
+      "size": 35305,
+      "sha256": "b858141d3905111a945255359f9e3b820162617c4c8fdeb0dda1c07c144ecfcc"
+    },
+    {
+      "path": "analysis/info.json",
+      "size": 416,
+      "sha256": "783e1425c4132329f9844e267e058f396de2bba118de3e46326107c6f6dccad1"
+    },
+    {
+      "path": "analysis/init_offsets.json",
+      "size": 5356,
+      "sha256": "bb218a94d1b1794250890d3f3a9a7b0a72196c57e29c750ce1100c9273ad4cda"
+    },
+    {
+      "path": "analysis/linked_libraries.txt",
+      "size": 1066,
+      "sha256": "2b21f20740fbef7d8b3f0290f9464cb8c235e8353faa174509d249b178e2c143"
+    },
+    {
+      "path": "analysis/mach_header.txt",
+      "size": 5222,
+      "sha256": "81b6005f436e6749413f713f4956cf6529eac01e5ccbf32e440fc75206a95d57"
+    },
+    {
+      "path": "analysis/method_map.csv",
+      "size": 208609,
+      "sha256": "17b7fc8b80906b776ea9b9a5b7a5b99190139e6407b5cd659e61d4c0ac2dc9ee"
+    },
+    {
+      "path": "analysis/objc_headers.h",
+      "size": 63374,
+      "sha256": "22cd48f00cd2de7417e10bc0b398b830ee6bd1b952b30b79d990e4948f81a6c7"
+    },
+    {
+      "path": "analysis/recovery_summary.json",
+      "size": 81,
+      "sha256": "db1c13c027bd72e1f75525185042b638a799a5f2cebff280f4206ebdc1b74812"
+    },
+    {
+      "path": "analysis/relocations.json",
+      "size": 3538862,
+      "sha256": "3a2aa1288fe35411f704da47bd651f29855896a320b40a8b01284a833c682c54"
+    },
+    {
+      "path": "analysis/sections.json",
+      "size": 4406,
+      "sha256": "06d0d8ed407c7b93cf92ee1182d495aab24c09098f657112e2fa71984f58eedc"
+    },
+    {
+      "path": "analysis/segments.json",
+      "size": 386,
+      "sha256": "fe566d7756706a88e27e2ec877f53072db216814e430c80712de2169c169dba8"
+    },
+    {
+      "path": "analysis/strings.json",
+      "size": 15217679,
+      "sha256": "54844b784893e9a5008d917c81e0ea4081643ce62bc660471644860dd483f6f7"
+    },
+    {
+      "path": "analysis/symbols.json",
+      "size": 1177147,
+      "sha256": "86e3692e96bc0897b08136886bc43bb5b99fb2187a46e9bbebdcfd38cdb08383"
+    },
+    {
+      "path": "ANALYSIS_REPORT.md",
+      "size": 4212,
+      "sha256": "c78e770432937e2293bb533704bcf2aadb31afc2da7cd1ab26a7611d8bf6e0c5"
+    },
+    {
+      "path": "decompiled/fallback_disassembly/WCLGEdgeEffectView__updateWithContentColor_blur_alpha_rect_edge_edgeSize_blurRadius___29b548.asm",
+      "size": 51709,
+      "sha256": "e21627f01067ae2c373981a835f22209dd4c9c2d1746a6b21f91d59e3dc4f016"
+    },
+    {
+      "path": "decompiled/fallback_disassembly/WCLGHGFullscreenDrawer__buildPillsWithFontSize___333df8.asm",
+      "size": 64167,
+      "sha256": "6d8aee45f67a26b99d493ae45cc66bece341ff5683146227497d23d71b5df587"
+    },
+    {
+      "path": "decompiled/fallback_disassembly/WCLGHomeSwipeBlockerDelegate__gestureRecognizerShouldBegin___370b58.asm",
+      "size": 5444,
+      "sha256": "ae934a820cdd19382ff3dbfae63c44dac6afb8d0723d2a88b56e3f53a7a44d7d"
+    },
+    {
+      "path": "decompiled/fallback_disassembly/WCLGHomeTextHeaderWrapperView__layoutSubviews__38e354.asm",
+      "size": 13639,
+      "sha256": "f46d70b2cfa2ed48405a310c80c6b6bf356dbf2d17134c3456df3b57d6d4f8f4"
+    },
+    {
+      "path": "decompiled/fallback_disassembly/WCLGSearchTabBarOverlay__layoutSubviews__3c9354.asm",
+      "size": 117859,
+      "sha256": "8c87c40338cf06d09913324755104c03733fee8129c54561bdbfbf877573aa32"
+    },
+    {
+      "path": "decompiled/fallback_disassembly/WCLGSettingsViewController__rootGridCellForTableView_indexPath___3e63e8.asm",
+      "size": 166085,
+      "sha256": "611810ce2a1f846041b5c9338fc4f2c82aa4cc826f5cf25b36069a126c38de41"
+    },
+    {
+      "path": "decompiled/fallback_disassembly/WCLGSMSBackContentView__layoutSubviews__64c70.asm",
+      "size": 18928,
+      "sha256": "a15bce43987c39bb3cc8431102b24d1bd7382d274cbfb29cf45a0b0990d85841"
+    },
+    {
+      "path": "decompiled/hooks/hook_001_objectForInfoDictionaryKey__4e20.c",
+      "size": 1119,
+      "sha256": "d08c6eeda1aec40b3af1549a7d273be1035276b82d527e2e6e9400f5d2c83a40"
+    },
+    {
+      "path": "decompiled/hooks/hook_002_infoDictionary_4ed4.c",
+      "size": 5274,
+      "sha256": "022ab16a3d08218d147d4cf851d2f2f211018bb5b35a0d2c6fbc4b8fc22f9a53"
+    },
+    {
+      "path": "decompiled/hooks/hook_003_boolForKey__55c0.c",
+      "size": 848,
+      "sha256": "b77d74270a832e47ee1711710c66611864b25f3005542799211a0abd5c929703"
+    },
+    {
+      "path": "decompiled/hooks/hook_004_objectForKey__567c.c",
+      "size": 1105,
+      "sha256": "c965cd32e598e5017055ac913a2e79a3576de458a605fa70e92debedd0bbc94d"
+    },
+    {
+      "path": "decompiled/hooks/hook_005_viewWillAppear__652c.c",
+      "size": 343,
+      "sha256": "f121f3cd788ca397f191e2762695bf76d32cf57972ae17dd5b958886400a2c2c"
+    },
+    {
+      "path": "decompiled/hooks/hook_006_viewDidAppear__6580.c",
+      "size": 1080,
+      "sha256": "a0a069bab5bac943883e8284b1968c13d16ac944b5038bbed2ef7b8de123453c"
+    },
+    {
+      "path": "decompiled/hooks/hook_007_viewDidDisappear__6620.c",
+      "size": 914,
+      "sha256": "8ada9500d8521eb58dbbd214d277f7106522a2a8aafe3c0d81803f845f7ef88e"
+    },
+    {
+      "path": "decompiled/hooks/hook_008_viewDidLayoutSubviews_6684.c",
+      "size": 735,
+      "sha256": "cab3e99a26e137e9bb8d95dac4d98a4c163c302cf75d8e5859c3c4d20e172884"
+    },
+    {
+      "path": "decompiled/hooks/hook_009_traitCollectionDidChange__6718.c",
+      "size": 3019,
+      "sha256": "ec3d09dacc48cb0820566e3977b686bf31a4e7ba89f2bae13e577585a4123ee0"
+    },
+    {
+      "path": "decompiled/hooks/hook_010_reloadBackgroundView_6934.c",
+      "size": 905,
+      "sha256": "c190106d61085ebecf606ccf1c46db7a6b34293ba82e4beeba4d5f0ac3a8edae"
+    },
+    {
+      "path": "decompiled/hooks/hook_011_getBackgroundView_69f0.c",
+      "size": 1156,
+      "sha256": "531356b65d396849506efd52f9a4ac458602b66e32b32e20eed41988c94ae895"
+    },
+    {
+      "path": "decompiled/hooks/hook_012_getChatBackgroundViewForUser__6ac4.c",
+      "size": 481,
+      "sha256": "34451a7517fb0d96544dedcc930bb4991a5d4dfe5568d58f60a622893c8a75c7"
+    },
+    {
+      "path": "decompiled/hooks/hook_013_getChatBackgroundImagePathForUser__6ae8.c",
+      "size": 1153,
+      "sha256": "b6f1d10a0c76b8e492b531c690caf69e67816ce9357880f858244f38c49776dc"
+    },
+    {
+      "path": "decompiled/hooks/hook_014_customImageNameFor__6ba8.c",
+      "size": 1303,
+      "sha256": "8dd53b91b7b6c00cfa86fdd47038183f1605cc8bc6d752446914f278da1b52d2"
+    },
+    {
+      "path": "decompiled/hooks/hook_015_imageInPath__6c74.c",
+      "size": 7602,
+      "sha256": "2573edb8e37b23536912da373f312f1dbf55d8ffee0e02584a974052c9356816"
+    },
+    {
+      "path": "decompiled/hooks/hook_016_reloadData_8378.c",
+      "size": 1095,
+      "sha256": "e4bd76db1c0b0fb90863b8714f6daca9d1be7062bc577d14aa2a039ff29f0d33"
+    },
+    {
+      "path": "decompiled/hooks/hook_017_insertRowsAtIndexPaths_withRowAnimation__846c.c",
+      "size": 1126,
+      "sha256": "68b661a3cfd748105db8cee6410a4ad4c71dc0eb2e73678db7a6c9e2d6aaa31a"
+    },
+    {
+      "path": "decompiled/hooks/hook_018_viewWillAppear__8584.c",
+      "size": 1179,
+      "sha256": "ba5a354bc8f1ae13ab08fe07e568cb7eed1ce05f85c870eedb10dcfada374a90"
+    },
+    {
+      "path": "decompiled/hooks/hook_019_viewDidAppear__86a8.c",
+      "size": 1222,
+      "sha256": "169fda3a3f1c7b13bf2c3744182f0d5e1fc80384f3b509a929479109c3822bf9"
+    },
+    {
+      "path": "decompiled/hooks/hook_020_isShowHeadImage_af0c.c",
+      "size": 9540,
+      "sha256": "11175017dd36a2a7b73064dd4cccecbe08459bf7e8d2e38e874ec8262655d3de"
+    },
+    {
+      "path": "decompiled/hooks/hook_021_tableView_heightForRowAtIndexPath__b460.c",
+      "size": 1170,
+      "sha256": "9f80a66ee8db6272245e9f0ca2def2b94f7e379f53ac4a3582c6e1ffa27f3571"
+    },
+    {
+      "path": "decompiled/hooks/hook_022_getHeadImageWithUseScene_withScene_withCategory_retHeadImgIsExistedLocal__1146c.c",
+      "size": 1704,
+      "sha256": "318975bd01aab1c327988a01e9af3e3436078ef03bfbf1854fc229833fe93dc4"
+    },
+    {
+      "path": "decompiled/hooks/hook_023_getHeadImageWithUseScene_withScene_withCategory__1154c.c",
+      "size": 1388,
+      "sha256": "31751b7cc2c27fef6688d1604fc8f4a26cc5737a8db60423530a9c71dfdbd954"
+    },
+    {
+      "path": "decompiled/hooks/hook_024_getHeadImage_withCategory__11610.c",
+      "size": 1344,
+      "sha256": "e1685cb83ffc08ed53cf51fe66920dfd5038c0fbeb52b2def52146ebdca4fd98"
+    },
+    {
+      "path": "decompiled/hooks/hook_025_getOriginalHeadImage_withCategory__116cc.c",
+      "size": 1352,
+      "sha256": "cf1b450fee8ca760009afcbeb96964baa708e50972f323c621d1fa65efbb98fd"
+    },
+    {
+      "path": "decompiled/hooks/hook_026_getRoundImage_size_withCategory__11788.c",
+      "size": 1540,
+      "sha256": "a3d56e4cabe20886b1fd906e80074b971c5e5ab2b243152122838415700b41ed"
+    },
+    {
+      "path": "decompiled/hooks/hook_027_getRoundImage_size_cornerSize_withCategory__11864.c",
+      "size": 1573,
+      "sha256": "53bd8a0cd2ab7dd14a5bd2b3f053bda48f1d4c3d3042c2df1d3088436aa167b1"
+    },
+    {
+      "path": "decompiled/hooks/hook_028_updateUsrName_withHeadImgUrl__11948.c",
+      "size": 1218,
+      "sha256": "c4eacfc66e8bb0c9dfde19d197e2ee3be9e5b16317bbf1c1da7b674c2241d357"
+    },
+    {
+      "path": "decompiled/hooks/hook_029_layoutSubviews_11a64.c",
+      "size": 803,
+      "sha256": "e53c736fcfe25b3d21fe19bec0cdf2e5352fffdeaa9f28150b6d3f58d7cc4332"
+    },
+    {
+      "path": "decompiled/hooks/hook_030_layoutSubviews_13c9c.c",
+      "size": 686,
+      "sha256": "9f720cf9b727cb01067143743ea90e5cc13ab43eb032fd3aed857be2f4c8baec"
+    },
+    {
+      "path": "decompiled/hooks/hook_031_setFrame__13ce0.c",
+      "size": 1059,
+      "sha256": "5210230e16e1780f941b6188b4bfee64d220a33c6cec0bb9ea15138dc33835a2"
+    },
+    {
+      "path": "decompiled/hooks/hook_032_didMoveToSuperview_13d54.c",
+      "size": 689,
+      "sha256": "8430a6e78dcd2f19a321965b0cb64580a50a9127f6539309bfd95770e9090417"
+    },
+    {
+      "path": "decompiled/hooks/hook_033_didMoveToWindow_13d98.c",
+      "size": 686,
+      "sha256": "a65fca7b5c1e04fc107c7795055b6bf1ff3c6dea8ab1d16a99c33333d9437cc4"
+    },
+    {
+      "path": "decompiled/hooks/hook_034_traitCollectionDidChange__13ddc.c",
+      "size": 940,
+      "sha256": "5a958ae0966b1b30c12e9f84ba2a2ef13887e30dda02126c4cce84440b1cff2b"
+    },
+    {
+      "path": "decompiled/hooks/hook_035_tryDoAnimationOnTextChange_13e58.c",
+      "size": 639,
+      "sha256": "2507641df2ec40a87928c94b8d5b53ff0916a193a54b5ba097282f24c0defc4d"
+    },
+    {
+      "path": "decompiled/hooks/hook_036_initSendButton_13e84.c",
+      "size": 627,
+      "sha256": "124b08d9e9b70e5eff47faf1dc7c874a4fb75f5865d444ccff9e90587548db8e"
+    },
+    {
+      "path": "decompiled/hooks/hook_037_layoutSubviews_13eb0.c",
+      "size": 1707,
+      "sha256": "06a10db63ae3fb94ceb7387c4e7cea0db527126919837a9e75b43155a5f0c017"
+    },
+    {
+      "path": "decompiled/hooks/hook_038_didMoveToSuperview_14040.c",
+      "size": 1498,
+      "sha256": "8eb6664eed6333846f87b167d8c8d19548d22369c6b712108d6a98648f72d4c6"
+    },
+    {
+      "path": "decompiled/hooks/hook_039_didMoveToWindow_141cc.c",
+      "size": 1493,
+      "sha256": "fa89ce7d34e337eb3f075920704d20a6a357bc08dd13fb5bcfeebb3503d2e030"
+    },
+    {
+      "path": "decompiled/hooks/hook_040_traitCollectionDidChange__14350.c",
+      "size": 1125,
+      "sha256": "d879254854e0c79135825da7c269e764167221cb44aa3795672bb70e3b082a2d"
+    },
+    {
+      "path": "decompiled/hooks/hook_041_tryDoAnimationOnTextChange_143fc.c",
+      "size": 639,
+      "sha256": "7e1ca301742cbbefb390c74dba8e535e5f60dbb5e9722ae29435fa0f16427299"
+    },
+    {
+      "path": "decompiled/hooks/hook_042_initSendButton_14428.c",
+      "size": 627,
+      "sha256": "1f6aa047256ce56fb0ae2bde6da1558d8f4ef3ceca3ba3f0111f1492b2c22260"
+    },
+    {
+      "path": "decompiled/hooks/hook_043_becomeFirstResponder_14454.c",
+      "size": 976,
+      "sha256": "9cf6a39bbf3b849746d82b643aef32c651b7cb1db2bfdd1a1afad8fa62b82997"
+    },
+    {
+      "path": "decompiled/hooks/hook_044_setText__1450c.c",
+      "size": 7644,
+      "sha256": "346f5d980676cd862b4c7d575adab7427c6b28594086f3dfa641c5f096411739"
+    },
+    {
+      "path": "decompiled/hooks/hook_045_setAttributedText__147d0.c",
+      "size": 9099,
+      "sha256": "555635d9101eebe35497a9c85ff2649527cbf0bdeab759559502044d667f3c1e"
+    },
+    {
+      "path": "decompiled/hooks/hook_046_deleteBackward_14b28.c",
+      "size": 12510,
+      "sha256": "0dee6da7c5fae92a8950529a8efb4c3c43bb0dcd5bba4763ec7c4515e3609294"
+    },
+    {
+      "path": "decompiled/hooks/hook_047_insertText__14fac.c",
+      "size": 5225,
+      "sha256": "a6d40bf0df9cf7323c162d7b0ff025d7a1420d643c44740e9c0607dcd5b40a01"
+    },
+    {
+      "path": "decompiled/hooks/hook_048_setMarkedText_selectedRange__1530c.c",
+      "size": 1849,
+      "sha256": "99626f322f96690631b12582f56e21e4c3b38f98b1857b7f9a7e3cfd827a823d"
+    },
+    {
+      "path": "decompiled/hooks/hook_049_setAttributedMarkedText_selectedRange__154b8.c",
+      "size": 2541,
+      "sha256": "88b3721ffcb5f4b8b772a2722d18b9022352cc770db0cc75f30c174b5b9d69b0"
+    },
+    {
+      "path": "decompiled/hooks/hook_050_unmarkText_156c0.c",
+      "size": 822,
+      "sha256": "36b209bf0c592126381ec471d0dfb11fb2810bf0558dcabf1a03e305126feb64"
+    },
+    {
+      "path": "decompiled/hooks/hook_051_setContentSize__157bc.c",
+      "size": 7617,
+      "sha256": "54fb86ca88e136ffc4b87a3970f293bddada1bf2bfba3200b4339f6d51814b7b"
+    },
+    {
+      "path": "decompiled/hooks/hook_052_layoutSubviews_15a64.c",
+      "size": 8482,
+      "sha256": "86faef15511482595bc37ca49dd0a776127c999c6bb0c07141342fb6fc698dc4"
+    },
+    {
+      "path": "decompiled/hooks/hook_053_didMoveToWindow_15d64.c",
+      "size": 996,
+      "sha256": "dbef5583f82bdc04f6e5260dfce0e9aa5a6f883a345edc73aa91474c6b7b3a73"
+    },
+    {
+      "path": "decompiled/hooks/hook_054_layoutSubviews_15e1c.c",
+      "size": 471,
+      "sha256": "41258f39c54d6f8f63a54f58aaf736ccbe955781aa390daaabf4e8c6ad0699f7"
+    },
+    {
+      "path": "decompiled/hooks/hook_055_setFrame__15e74.c",
+      "size": 362,
+      "sha256": "bdd65bb10b54b89b4195e849e52c8821791c68fcd49b55bc768f84168a07099e"
+    },
+    {
+      "path": "decompiled/hooks/hook_056_setFrame__15ecc.c",
+      "size": 362,
+      "sha256": "1646a0374b4263854b34e30bb49b6c050504266e96bc6bbb6f73b91e7ad969ee"
+    },
+    {
+      "path": "decompiled/hooks/hook_057_becomeFirstResponder_15f24.c",
+      "size": 1258,
+      "sha256": "205d989688d4c8d45d63c3e80cf6ad2b304b4c7864a6116617ee8068b035d2d0"
+    },
+    {
+      "path": "decompiled/hooks/hook_058_setText__16014.c",
+      "size": 1175,
+      "sha256": "657f2509d57e0b33025108f0115cc7a17b38a99042e740d02bbb21be23031272"
+    },
+    {
+      "path": "decompiled/hooks/hook_059_insertText__160f0.c",
+      "size": 1178,
+      "sha256": "95559a16e22886a3463e06eeea8f9539fb07620067f63dc1c1e348401168924d"
+    },
+    {
+      "path": "decompiled/hooks/hook_060_deleteBackward_161cc.c",
+      "size": 579,
+      "sha256": "db2b51b2f19a0ed078a66981039f80e54fc4447c19297f0ded94efcb6277d21e"
+    },
+    {
+      "path": "decompiled/hooks/hook_061_measureHeight_16280.c",
+      "size": 585,
+      "sha256": "3968946f5d7116fcb50e216d5ec48e87e9baa68fddbf764bae878b9761436ddf"
+    },
+    {
+      "path": "decompiled/hooks/hook_062_layoutSubviews_16334.c",
+      "size": 627,
+      "sha256": "d1a6beefc9bfd4f1c1de95734a12e63a838a4e64d9ad702a564c1fa085e69b5d"
+    },
+    {
+      "path": "decompiled/hooks/hook_063_layoutSubviews_163a0.c",
+      "size": 541,
+      "sha256": "1d942bfbaa9c464c9286672bf1663a21a5e8e0ecad40eeacd3df44c30d46872f"
+    },
+    {
+      "path": "decompiled/hooks/hook_064_sendAction_to_forEvent__16408.c",
+      "size": 715,
+      "sha256": "8d72dc367c034746aa29297414e4550f8a22db0dea721bb76b9826e54aaaebfe"
+    },
+    {
+      "path": "decompiled/hooks/hook_065_setHighlighted__164a8.c",
+      "size": 1298,
+      "sha256": "e435503a0d12605f8365a071514ef6ed0ae13455c6c03c36e1cd6abb995e970e"
+    },
+    {
+      "path": "decompiled/hooks/hook_066_setSelected__165e8.c",
+      "size": 1146,
+      "sha256": "47637dbe3bc3ac4a1bbb8350f7fd9e657821600a80261bb5ccd67c3c92f58200"
+    },
+    {
+      "path": "decompiled/hooks/hook_067_setWidthTracksTextView__1669c.c",
+      "size": 1003,
+      "sha256": "974f7d76644b0035a6b83ce09ddece34830f16ea39aac423b95765bec04919a4"
+    },
+    {
+      "path": "decompiled/hooks/hook_068_setSize__1672c.c",
+      "size": 2503,
+      "sha256": "714ae0b32c3337f5a3e4ea11f1c3b6efdf08923eb7deac886742dec09b75c26a"
+    },
+    {
+      "path": "decompiled/hooks/hook_069_layoutSubviews_1d938.c",
+      "size": 864,
+      "sha256": "b0432011c6052740b0d08ae537adff1dbce31da075c9a7fb4a13e66f7740df70"
+    },
+    {
+      "path": "decompiled/hooks/hook_070_didMoveToWindow_1d9c0.c",
+      "size": 628,
+      "sha256": "72adcae646254e37997dca452342cd611913969179233b4a87d61726df433428"
+    },
+    {
+      "path": "decompiled/hooks/hook_071_setContentOffset__1d9ec.c",
+      "size": 1067,
+      "sha256": "5f4f166789841d44962999a20f1bc35773134c2042d6c1cf619db59b7fc26dd2"
+    },
+    {
+      "path": "decompiled/hooks/hook_072_setContentOffset_animated__1da5c.c",
+      "size": 639,
+      "sha256": "545464808e80d4c6a2c4f07c942dde7ce60c9635036c15493ed2d652936b9e6d"
+    },
+    {
+      "path": "decompiled/hooks/hook_073_traitCollectionDidChange__1da88.c",
+      "size": 2273,
+      "sha256": "c2bbff3c7a84d593500424e476dcb17f64207a4a382c9aace6c205b65a9eef0f"
+    },
+    {
+      "path": "decompiled/hooks/hook_074_setViewModel__1dcc4.c",
+      "size": 922,
+      "sha256": "912bda4f17c5135f3a9e75a8704ef0b51b11bccaa5076d5c074eca5f59a2315d"
+    },
+    {
+      "path": "decompiled/hooks/hook_075_updateBgImageView__1dd3c.c",
+      "size": 475,
+      "sha256": "2571066215436913758f0ff6ef1c7f55733c776881b37fe1011a77a7e3fcc997"
+    },
+    {
+      "path": "decompiled/hooks/hook_076_layoutSubviews_1dd94.c",
+      "size": 686,
+      "sha256": "111367a0ec213cdfe5f57491408805e00f52a7f8a547e64ec58d285753612b2b"
+    },
+    {
+      "path": "decompiled/hooks/hook_077_layoutInternal_1ddd8.c",
+      "size": 687,
+      "sha256": "f2767e8a67baa1d75f2b2e951f62be4a0f8f397da011f9b00fe287880bd18c16"
+    },
+    {
+      "path": "decompiled/hooks/hook_078_layoutContentView_1de1c.c",
+      "size": 630,
+      "sha256": "162024f023a320aa552b0c29f3487e60dbb79b2c97a9e68aa364abd396c9d8de"
+    },
+    {
+      "path": "decompiled/hooks/hook_079_setFrame__1de48.c",
+      "size": 1059,
+      "sha256": "583de39efd24952ad6d848c11b1343ec4d15ed2fe1d9d87d2e290057a6b95176"
+    },
+    {
+      "path": "decompiled/hooks/hook_080_didMoveToWindow_1debc.c",
+      "size": 628,
+      "sha256": "40512680be9384f5f79a0da1b45a05af229158a8303f4bf5a55c2eee62a9a33b"
+    },
+    {
+      "path": "decompiled/hooks/hook_081_didAddSubview__1dee8.c",
+      "size": 897,
+      "sha256": "1ac75f99bd1d366308e1cd4c40b7fb0ff7ad9ebd4ca2328e69e1db1e58c7f592"
+    },
+    {
+      "path": "decompiled/hooks/hook_082_willRemoveSubview__1df54.c",
+      "size": 901,
+      "sha256": "2cc871ee72b42dde41b416bc3f96c1b714a35eb29dbc16e2b7c323dc6cba049f"
+    },
+    {
+      "path": "decompiled/hooks/hook_083_traitCollectionDidChange__1dfc0.c",
+      "size": 1635,
+      "sha256": "0fe3608894ffe5e61003199cf8bdf86775a2494da43f50fc85051ce8ab780013"
+    },
+    {
+      "path": "decompiled/hooks/hook_084_imageNamed__1e0b8.c",
+      "size": 1474,
+      "sha256": "af658a82e28f20c44cf48a8438165b6493142e7e6ad8bab108c8e210562e08ee"
+    },
+    {
+      "path": "decompiled/hooks/hook_085_bubbleName_1e19c.c",
+      "size": 1289,
+      "sha256": "a29eeefc9939045cd82c73b36924f3ae3fd92a9b5239f317786d4d250f0e2449"
+    },
+    {
+      "path": "decompiled/hooks/hook_086_bubbleNameHL_1e2bc.c",
+      "size": 1291,
+      "sha256": "52d42e6ca6a0719446c5e40c8cfe42cd68ac305d2cb909e3f09712c80593ef68"
+    },
+    {
+      "path": "decompiled/hooks/hook_087_edgeInsets_1e3dc.c",
+      "size": 2045,
+      "sha256": "339c8bb7cdd5192faabd12dd10a6363ae106c33610264bc83ba2ea65717984fe"
+    },
+    {
+      "path": "decompiled/hooks/hook_088_setPosition__1e60c.c",
+      "size": 709,
+      "sha256": "e4e488cdef3cb5a991bc8d81a8b83ce8068351b4a69d1aa091374215de06fd53"
+    },
+    {
+      "path": "decompiled/hooks/hook_089_getBubbleImage_isDarkMode__1e69c.c",
+      "size": 369,
+      "sha256": "7d7d127c2cac03646d2253f9393750994b1fb5a69c91280e87b01b4a434e7e93"
+    },
+    {
+      "path": "decompiled/hooks/hook_090_getBubbleImage_isDarkMode_useCache__1e6e8.c",
+      "size": 396,
+      "sha256": "8cd72bcd95ea85e9bf56b5cbe482de554fe32a373a84f0b4cb0c77877146fb29"
+    },
+    {
+      "path": "decompiled/hooks/hook_091_getBubbleImage__1e744.c",
+      "size": 339,
+      "sha256": "29bebe4549f34550e27e6aec9745557cbce1d6a66230e0ce4259b6836dd920c2"
+    },
+    {
+      "path": "decompiled/hooks/hook_092_getNewBubbleImage__1e788.c",
+      "size": 343,
+      "sha256": "fd344acba9f6981b0e8f2923b1fc89dc38bc1a5c1829914fff3a67c2f039963b"
+    },
+    {
+      "path": "decompiled/hooks/hook_093_layoutSubviews_1e7cc.c",
+      "size": 686,
+      "sha256": "63441c54c474c9dd27c92ce1782099922a893ffc46b4cc57bdd16404a3ee1a14"
+    },
+    {
+      "path": "decompiled/hooks/hook_094_setFrame__1e810.c",
+      "size": 1058,
+      "sha256": "d0ed4aa0a5218f6021a98cb460d7c0ed8a83f80b4e4738bd6b5e6e34a9911bec"
+    },
+    {
+      "path": "decompiled/hooks/hook_095_didMoveToWindow_1e884.c",
+      "size": 628,
+      "sha256": "0322f7448110e507be98f863f9017d075c69b9840feb29621bf15a102e163f0c"
+    },
+    {
+      "path": "decompiled/hooks/hook_096_layoutSubviews_1e8b0.c",
+      "size": 686,
+      "sha256": "2c4d24226fb8e5b1514456d7e170227491c679100cf8106d0000f3a35f317305"
+    },
+    {
+      "path": "decompiled/hooks/hook_097_setFrame__1e8f4.c",
+      "size": 1059,
+      "sha256": "ae6b13b8389577fa9b2d0d06912012c1b6f13bfca7b9045c8057e4dc0ad06032"
+    },
+    {
+      "path": "decompiled/hooks/hook_098_didMoveToWindow_1e968.c",
+      "size": 628,
+      "sha256": "0e65ecd5dbdeb523b91d9f1ddce87f057ca469029c650fd1c2ab52faecda05a9"
+    },
+    {
+      "path": "decompiled/hooks/hook_099_layoutSubviews_1e994.c",
+      "size": 686,
+      "sha256": "caa134731d1bc110e62b49aa861c88ad3f71115cfbc8d29832a7f4488b31f9a1"
+    },
+    {
+      "path": "decompiled/hooks/hook_100_setFrame__1e9d8.c",
+      "size": 1060,
+      "sha256": "8844b4845027873366d3795aea5b39a38a9ad4774bf0d0940baeaee5a18b49a5"
+    },
+    {
+      "path": "decompiled/hooks/hook_101_didMoveToWindow_1ea4c.c",
+      "size": 629,
+      "sha256": "61d1536a06c82c735ad6f12b7a9064d0ae096398dfbb1db46b25a8aab1ac2889"
+    },
+    {
+      "path": "decompiled/hooks/hook_102_layoutSubviews_1ea78.c",
+      "size": 687,
+      "sha256": "2b5cf24073674b094ef38f24fb15f7b09d6d2d7028a446be76b22987025658a4"
+    },
+    {
+      "path": "decompiled/hooks/hook_103_setFrame__1eabc.c",
+      "size": 1059,
+      "sha256": "416098dd7d37cc375b289f2cc79dee2a1ba15cfc8a4c52a3ef9e4d9e547285f9"
+    },
+    {
+      "path": "decompiled/hooks/hook_104_didMoveToWindow_1eb30.c",
+      "size": 629,
+      "sha256": "797eecd038e5d5c25480becd76d470218f396da28bd2e49015e59dd52c49dada"
+    },
+    {
+      "path": "decompiled/hooks/hook_105_layoutSubviews_1eb5c.c",
+      "size": 687,
+      "sha256": "00ed6eb858c0d3d5815d3f0b646b31e957f43e07768a65804f6c956c62dceb3c"
+    },
+    {
+      "path": "decompiled/hooks/hook_106_setFrame__1eba0.c",
+      "size": 1060,
+      "sha256": "bbd345cf33af3af1a8e51d74a255238b633eb81648a8f25d25fa6ca79fd1828f"
+    },
+    {
+      "path": "decompiled/hooks/hook_107_didMoveToWindow_1ec14.c",
+      "size": 629,
+      "sha256": "aad078bc29ed68c2d5d1bb3e62601fbfd3055b190315ec2d03b21d9a02b5f97d"
+    },
+    {
+      "path": "decompiled/hooks/hook_108_layoutSubviews_1ec40.c",
+      "size": 686,
+      "sha256": "ca04daf2a82180ea8c8dc535969ffffadc3e8a29bd53c845731178e17f6c2533"
+    },
+    {
+      "path": "decompiled/hooks/hook_109_setFrame__1ec84.c",
+      "size": 1060,
+      "sha256": "de03d4078b46b4a1e3b9d9326feb19ee20d09435f2df90438ef135660437acc3"
+    },
+    {
+      "path": "decompiled/hooks/hook_110_didMoveToWindow_1ecf8.c",
+      "size": 629,
+      "sha256": "ed2b871bb10f2c35d632821f8d1ecec21de19dbd7aa644a8db33fa3702be0b19"
+    },
+    {
+      "path": "decompiled/hooks/hook_111_layoutSubviews_1ed24.c",
+      "size": 687,
+      "sha256": "bfefe479795ab04f2c77d96b85c30a13eba345e4e5f8407eef2bf1f4944d00db"
+    },
+    {
+      "path": "decompiled/hooks/hook_112_setFrame__1ed68.c",
+      "size": 1060,
+      "sha256": "e3613bff5896f0427b508536abd03b1560fa61400347008543637f12009e2eb4"
+    },
+    {
+      "path": "decompiled/hooks/hook_113_didMoveToWindow_1eddc.c",
+      "size": 629,
+      "sha256": "afac0e9c767b9f09eb4c3ff2624ea79f087a1d94c0ca0ad083bc237418f54884"
+    },
+    {
+      "path": "decompiled/hooks/hook_114_layoutSubviews_1ee08.c",
+      "size": 687,
+      "sha256": "0c3c2b9e1a58252963c359ba4a63bbf1e307280bd2a65269e6ab3a4dd3846d1c"
+    },
+    {
+      "path": "decompiled/hooks/hook_115_setFrame__1ee4c.c",
+      "size": 1060,
+      "sha256": "9352098ac7fb0ac561bbbf544a4f4cd62f1ce2fa08067a149c0f814840445eb7"
+    },
+    {
+      "path": "decompiled/hooks/hook_116_didMoveToWindow_1eec0.c",
+      "size": 629,
+      "sha256": "3855dfe8a4abe465c4dfcdc69cfcfcf1b94b9e9198d3e3f9493747908e53eb3a"
+    },
+    {
+      "path": "decompiled/hooks/hook_117_layoutSubviews_1eeec.c",
+      "size": 687,
+      "sha256": "cfeb140c22378f8d5f233ffe2fb9f4133600c80df95b058a9a9d9a37e4e0dfcc"
+    },
+    {
+      "path": "decompiled/hooks/hook_118_setFrame__1ef30.c",
+      "size": 1060,
+      "sha256": "447fc967884110360473bfd2fb5705a97f023c079e036c18fced2a52532ab6d1"
+    },
+    {
+      "path": "decompiled/hooks/hook_119_didMoveToWindow_1efa4.c",
+      "size": 629,
+      "sha256": "d42e68add1dd597e9163019e07961807275531d3056281d21271fbcaa9858ee7"
+    },
+    {
+      "path": "decompiled/hooks/hook_120_layoutSubviews_1efd0.c",
+      "size": 687,
+      "sha256": "81df3bbe0b885c25891fab1c609dc20ad1d56226949cf7f9f8360f78813acbe7"
+    },
+    {
+      "path": "decompiled/hooks/hook_121_setFrame__1f014.c",
+      "size": 1060,
+      "sha256": "1fb5d6fa8b9ac2b7eb091332c5a1918d4cd4a6ac72ef3d9c3e83c0e9a60d430a"
+    },
+    {
+      "path": "decompiled/hooks/hook_122_didMoveToWindow_1f088.c",
+      "size": 629,
+      "sha256": "afe9b07642d8caf13948af5450145f7c05805f36f7fc4b7933378bcf284f0fd0"
+    },
+    {
+      "path": "decompiled/hooks/hook_123_layoutSubviews_1f0b4.c",
+      "size": 687,
+      "sha256": "62d901b7c5572e0f39d678675ebd7b3bdc1218e4b8ddf833f7368da5b4a3e9e0"
+    },
+    {
+      "path": "decompiled/hooks/hook_124_setFrame__1f0f8.c",
+      "size": 1060,
+      "sha256": "4af24c33948084b58322a0520be8b802ac5ab2d0fad89ec30c56580d54165d90"
+    },
+    {
+      "path": "decompiled/hooks/hook_125_didMoveToWindow_1f16c.c",
+      "size": 627,
+      "sha256": "166e328f589ad84823320008b7cb9ede56f7997f1495fbe2348e9318d51700ab"
+    },
+    {
+      "path": "decompiled/hooks/hook_126_layoutSubviews_1f198.c",
+      "size": 687,
+      "sha256": "72773d8b342313b31ac7b9b972de12ffe625587ca630c03dd08176334aad1732"
+    },
+    {
+      "path": "decompiled/hooks/hook_127_setFrame__1f1dc.c",
+      "size": 1060,
+      "sha256": "bd921f5844d36f7b1b3124849e5890bd44920957ccbe25032f2c9fd7f558b124"
+    },
+    {
+      "path": "decompiled/hooks/hook_128_didMoveToWindow_1f250.c",
+      "size": 629,
+      "sha256": "03ffd05ef7250543b9262dbea90b7f68d4820bdfccd4b092c428d0d53d543027"
+    },
+    {
+      "path": "decompiled/hooks/hook_129_layoutSubviews_1f27c.c",
+      "size": 687,
+      "sha256": "25af0a88065c5a0af45b23938df11b2c26f0ec670cd20ef767d62ec43a294df4"
+    },
+    {
+      "path": "decompiled/hooks/hook_130_setFrame__1f2c0.c",
+      "size": 1060,
+      "sha256": "ad05c956764e4a21cba5aad8af5f896bd4f77d4b0b5e7e5ef6cd80658ee18abd"
+    },
+    {
+      "path": "decompiled/hooks/hook_131_didMoveToWindow_1f334.c",
+      "size": 629,
+      "sha256": "d0d490ca952663877fb9216595723b29b40b8014b6b6e1255e9cb0b5bdf25cca"
+    },
+    {
+      "path": "decompiled/hooks/hook_132_layoutSubviews_1f360.c",
+      "size": 687,
+      "sha256": "92f6a3f8ee7fb4551a63ba49fc78012db46f7a775318009e22909d6be360bc80"
+    },
+    {
+      "path": "decompiled/hooks/hook_133_setFrame__1f3a4.c",
+      "size": 1060,
+      "sha256": "05ca89399dff95e0dadeae9350d9d556a0c74d5d1cf8033bdfd468767f1eef99"
+    },
+    {
+      "path": "decompiled/hooks/hook_134_didMoveToWindow_1f418.c",
+      "size": 629,
+      "sha256": "a8b251021f0dc4e8ed7952cd66755ffdd875eed3164b2dc063de0cff385cc25c"
+    },
+    {
+      "path": "decompiled/hooks/hook_135_layoutSubviews_1f444.c",
+      "size": 687,
+      "sha256": "72053c26079110cdc75533fd2396a6e052ae7fea6ad09bff15a28d40245f0d04"
+    },
+    {
+      "path": "decompiled/hooks/hook_136_setFrame__1f488.c",
+      "size": 1060,
+      "sha256": "a19ff536590c927979206b5a7cb0b89c6210d9b0f2be2c19a5101ad4fcc2e95f"
+    },
+    {
+      "path": "decompiled/hooks/hook_137_didMoveToWindow_1f4fc.c",
+      "size": 629,
+      "sha256": "f64ef323b3adf51ec815405be2953f761d51d582fb3b4612842d8bdee9789193"
+    },
+    {
+      "path": "decompiled/hooks/hook_138_layoutSubviews_1f528.c",
+      "size": 628,
+      "sha256": "265b5df7ba3a2825deadf06a5e9b96dd44787a07bf2a54c84953fcd7cd374af0"
+    },
+    {
+      "path": "decompiled/hooks/hook_139_setFrame__1f554.c",
+      "size": 681,
+      "sha256": "75a0ebec2da84bace50bfe4f6beffc0d4b083770b405e3767bb2087badfbf0fa"
+    },
+    {
+      "path": "decompiled/hooks/hook_140_didMoveToWindow_1f598.c",
+      "size": 629,
+      "sha256": "f2cfa231508c846b16ae4bd35562f35722d076a75228a59cd8f237efb587aace"
+    },
+    {
+      "path": "decompiled/hooks/hook_141_layoutSubviews_1f5c4.c",
+      "size": 628,
+      "sha256": "96df7bac2fb8cba3cb3ea21be4a7094b10c30fb8aa78f31d5239f2432f0c48b7"
+    },
+    {
+      "path": "decompiled/hooks/hook_142_setFrame__1f5f0.c",
+      "size": 681,
+      "sha256": "7e488e7b572eca3294e48db7e49973d8258b5e370b16494d2d9801a1705f30b8"
+    },
+    {
+      "path": "decompiled/hooks/hook_143_didMoveToWindow_1f634.c",
+      "size": 629,
+      "sha256": "7e328ec9e81956123bf696e7e61b195cb224226e8acda7080ef8c762bb078650"
+    },
+    {
+      "path": "decompiled/hooks/hook_144_layoutSubviews_1f660.c",
+      "size": 628,
+      "sha256": "b9bbe389a346446f28c367ab7baf8b226f10749d0748dbd78a818d172fbc5757"
+    },
+    {
+      "path": "decompiled/hooks/hook_145_setFrame__1f68c.c",
+      "size": 680,
+      "sha256": "f6a9adcca5a3966ee0f9eb468698ae85dc401363b1b9baaf6d331da374847720"
+    },
+    {
+      "path": "decompiled/hooks/hook_146_didMoveToWindow_1f6d0.c",
+      "size": 629,
+      "sha256": "11166d2114c98c4123a13291154fa47a8ab7fa25a66c960816961e83f2e1095b"
+    },
+    {
+      "path": "decompiled/hooks/hook_147_layoutSubviews_1f6fc.c",
+      "size": 628,
+      "sha256": "7b64e9e6394adbc221413df3bfad05e3ba3222aee7eb6771bac0999f44a5946b"
+    },
+    {
+      "path": "decompiled/hooks/hook_148_setFrame__1f728.c",
+      "size": 681,
+      "sha256": "de1142a079c4fd7603735ea1b2fc2fb20609d0303e9f6bd66326d61cc41a6947"
+    },
+    {
+      "path": "decompiled/hooks/hook_149_didMoveToWindow_1f76c.c",
+      "size": 629,
+      "sha256": "8ce830ed1410c1bd2dec3166d4c078428609ab25d2f424d614242de494263e5d"
+    },
+    {
+      "path": "decompiled/hooks/hook_150_setImage__1f798.c",
+      "size": 2462,
+      "sha256": "49f6fd6667dbb3ac4f508ae956dc3d75533e7d05033e24674fc7c2ceaef7c6e1"
+    },
+    {
+      "path": "decompiled/hooks/hook_151_setHighlightedImage__1f8f8.c",
+      "size": 2100,
+      "sha256": "3ebba142b5322793552b37f986077eb2ad736d0a6b2d0962f38f91a69c9999de"
+    },
+    {
+      "path": "decompiled/hooks/hook_152_imageNamed__1fa48.c",
+      "size": 1049,
+      "sha256": "7024a9bdf5b2bd8f5f792f88677a0d93f23c83e69a3a2f14c96a669aa9e61958"
+    },
+    {
+      "path": "decompiled/hooks/hook_153_imageNamed_inBundle_compatibleWithTraitCollection__1fae4.c",
+      "size": 1417,
+      "sha256": "0094d88bf32ffdbc28fde272d5bc9190454a98f17b7fe88e8aa28805edc4bbe9"
+    },
+    {
+      "path": "decompiled/hooks/hook_154_wclg_fetchAttachmentItemsViaOrig__29028.c",
+      "size": 220,
+      "sha256": "0305d24fad615143fb11d59542d07ff6fbbc357cb0cbf7decf1492c68bed0cea"
+    },
+    {
+      "path": "decompiled/hooks/hook_155_didMoveToWindow_29034.c",
+      "size": 629,
+      "sha256": "2fad4af4991996145faa106da6f768d1838b357d22d39950348fc04230bed080"
+    },
+    {
+      "path": "decompiled/hooks/hook_156_layoutSubviews_29060.c",
+      "size": 488,
+      "sha256": "4cc17cad698a08bafe34c613b287d0fefb2879ffd8c46305e12592e29aec2f9e"
+    },
+    {
+      "path": "decompiled/hooks/hook_157_onShowAttachViewWithPageIndex_items__291d0.c",
+      "size": 588,
+      "sha256": "0bce45edc0e9499198a2f1d294f664b9a8ec473140ae69dcc4efdf26d186fc0b"
+    },
+    {
+      "path": "decompiled/hooks/hook_158_onAttachmentModeChangeButtonClicked__29270.c",
+      "size": 1528,
+      "sha256": "a7c5a1bdedb047628b96743e5170754157cabf85efc827c9f7bb18d328604593"
+    },
+    {
+      "path": "decompiled/hooks/hook_159_reloadThemeResource_293f4.c",
+      "size": 449,
+      "sha256": "2ef04681784ca62ecf85106f853d1668d71d5c2c067b487441cb63a63dcfcf64"
+    },
+    {
+      "path": "decompiled/hooks/hook_160_contextMenuInteraction_willDisplayMenuForConfiguration_animator__29414.c",
+      "size": 804,
+      "sha256": "d95b2866f300ba29ad9b07a4008cae9a2a64529c31585264d0104e668b818c1c"
+    },
+    {
+      "path": "decompiled/hooks/hook_161_contextMenuInteraction_willEndForConfiguration_animator__29478.c",
+      "size": 1504,
+      "sha256": "8fb01abd97af5f653fc3d7b2eede82bf3306607abca5666a9b90ec4a3014e3f1"
+    },
+    {
+      "path": "decompiled/hooks/hook_162_layoutSubviews_2abf4.c",
+      "size": 644,
+      "sha256": "0a5bb20aa64c86749198425f218f76ae9a68deec9c473bbbee5675012667d563"
+    },
+    {
+      "path": "decompiled/hooks/hook_163_didMoveToWindow_2ac28.c",
+      "size": 645,
+      "sha256": "2afbc46ea428c6f585e013baf1de0ec5136c900ca0572ecd9fc2e116cc741a99"
+    },
+    {
+      "path": "decompiled/hooks/hook_164_setFrame__2ac5c.c",
+      "size": 639,
+      "sha256": "f08d358aa85f1398a937f8109ca3a952a14ad24a6ba79c357f3bf80472b59fb3"
+    },
+    {
+      "path": "decompiled/hooks/hook_165_setBounds__2ac90.c",
+      "size": 639,
+      "sha256": "4d27bbf191fc1e7cc14d566f1d3fc2873ed0376ff937961368b6e6b366eb5c3f"
+    },
+    {
+      "path": "decompiled/hooks/hook_166_didAddSubview__2acc4.c",
+      "size": 918,
+      "sha256": "09284ddb54df67e46ba7bffd25598149328a62fc76f827f52ef35a2a2e2d467c"
+    },
+    {
+      "path": "decompiled/hooks/hook_167_layoutSubviews_2ad38.c",
+      "size": 628,
+      "sha256": "596f6a6f7b38d09c3ebdf67fcf9cb5436c4e4e9fb71a0f5daec02a5237d9d2ca"
+    },
+    {
+      "path": "decompiled/hooks/hook_168_didMoveToWindow_2ad64.c",
+      "size": 629,
+      "sha256": "a023321ddd2943097acd42aef26b4371b0b5aff29e9b46ef1cfcdc351e0835c6"
+    },
+    {
+      "path": "decompiled/hooks/hook_169_setFrame__2ad90.c",
+      "size": 623,
+      "sha256": "3cb84b45291b2c99fa5268f8019e99b616c9f3e6ca95dca9176113bd9d57e037"
+    },
+    {
+      "path": "decompiled/hooks/hook_170_setBounds__2adbc.c",
+      "size": 624,
+      "sha256": "826caa94a8d578f9c2dc135aa20636adf0b0a90ff9679fcda17b678f4b760ec8"
+    },
+    {
+      "path": "decompiled/hooks/hook_171_didAddSubview__2ade8.c",
+      "size": 897,
+      "sha256": "4c436c7d3b1dd667b5f3396cc270dcd40b30572bd2f7fd7c655eafc7525c5754"
+    },
+    {
+      "path": "decompiled/hooks/hook_172_layoutSubviews_2ae54.c",
+      "size": 6481,
+      "sha256": "f389da61ee416a9a07d75b0a63fae6c9c4dfeec9543371685c912fd669fc1030"
+    },
+    {
+      "path": "decompiled/hooks/hook_173_viewDidLayoutSubviews_2b308.c",
+      "size": 4687,
+      "sha256": "591e748f04f5bd8d7eeedc0138d17e5406c58d42c508017bb34a74eb60db8493"
+    },
+    {
+      "path": "decompiled/hooks/hook_174_viewWillDisappear__2b6a8.c",
+      "size": 632,
+      "sha256": "0b73b833a12e495b5d14f44d23437aa808cc2a329746d196eef04df584fed2dc"
+    },
+    {
+      "path": "decompiled/hooks/hook_175_viewDidDisappear__2b6d4.c",
+      "size": 1668,
+      "sha256": "ecb470ccfa0de47fe591334ba6b378fddd8ed67a8fb345026bc3b6ed691faf2d"
+    },
+    {
+      "path": "decompiled/hooks/hook_176_viewWillAppear__2b7ec.c",
+      "size": 629,
+      "sha256": "996f93c0d9cf3f2378cb0bc5d91074ed218d90ba956a955c82479e1781da108f"
+    },
+    {
+      "path": "decompiled/hooks/hook_177_viewDidAppear__2b818.c",
+      "size": 628,
+      "sha256": "262639ea34c58338e71f3486e1fb2a2d4fb6da2a3572394fac84c7f0efbfed52"
+    },
+    {
+      "path": "decompiled/hooks/hook_178_setContentOffset__2b844.c",
+      "size": 631,
+      "sha256": "0e73ecd0745cd551b4d91012453798f6150a0c80d59c7435be7f940ffb4f7a38"
+    },
+    {
+      "path": "decompiled/hooks/hook_179_setContentOffset_animated__2b870.c",
+      "size": 640,
+      "sha256": "a12c493ad4555eeebfc9064877fc82b8e0ff91da3709c3c20ac39c5dd2820bb9"
+    },
+    {
+      "path": "decompiled/hooks/hook_180_layoutSubviews_2b89c.c",
+      "size": 628,
+      "sha256": "4912ae72d4d9ed5bfbfeb441462a7ea94d1ebbae49ff0fa2931e25c7ef7f5934"
+    },
+    {
+      "path": "decompiled/hooks/hook_181_didMoveToWindow_2b8c8.c",
+      "size": 489,
+      "sha256": "0b539c7a9922a760ddb024876434058089ae5408222afb098adce8d3bec2829d"
+    },
+    {
+      "path": "decompiled/hooks/hook_182_setFrame__2b914.c",
+      "size": 1356,
+      "sha256": "4f8863ade9e2d83f6b561ee9b3a03ab2baa03f0d37250399b0eed966feea4a3e"
+    },
+    {
+      "path": "decompiled/hooks/hook_183_didMoveToWindow_2b9d4.c",
+      "size": 645,
+      "sha256": "c2dc44a4409daee57f0820e7449a0ca9757b82a2998ba218a95831e871a7a0fe"
+    },
+    {
+      "path": "decompiled/hooks/hook_184_setFrame__2ba08.c",
+      "size": 869,
+      "sha256": "fe873a9ee069a098c81115a7ec6e4217e08e2fcf64e81c0ecee5f32fd6b649e0"
+    },
+    {
+      "path": "decompiled/hooks/hook_185_layoutSubviews_2ba54.c",
+      "size": 628,
+      "sha256": "11a329ae3a72721ed6ca433dca523ccecca1dc4a3d4d739f847992ab69b5ab00"
+    },
+    {
+      "path": "decompiled/hooks/hook_186_didMoveToWindow_2ba80.c",
+      "size": 645,
+      "sha256": "0a33e54352b88564975e2b93b824f69af855bf53340d1c20f4928414d60e8636"
+    },
+    {
+      "path": "decompiled/hooks/hook_187_setFrame__2bab4.c",
+      "size": 869,
+      "sha256": "b0acdc0100ad7c495a3b77f76b3a406981ef6ab16fad2d7e24188c2a61f7d228"
+    },
+    {
+      "path": "decompiled/hooks/hook_188_movePath_to__38c4c.c",
+      "size": 7274,
+      "sha256": "f0b71aeb2cad4b980fba40e4fc16e848b9c1b5b3d481ae710620658aa0cfcd6b"
+    },
+    {
+      "path": "decompiled/hooks/hook_189_setDelegate__3a070.c",
+      "size": 895,
+      "sha256": "b030043e93b19ec4b95201be9c9077909af02cd042575cb860d2d9bbbd280115"
+    },
+    {
+      "path": "decompiled/hooks/hook_190_didMoveToWindow_3a0dc.c",
+      "size": 629,
+      "sha256": "9c7632a2c6d8de5bba7f146b7f36ec4940cc14bcb32597629d302f47efd88bff"
+    },
+    {
+      "path": "decompiled/hooks/hook_191_reloadData_3a108.c",
+      "size": 667,
+      "sha256": "27fafe783a7e2e6b021f17bac7f9c138d6c367c70b1c9a96d020a0e245a5960c"
+    },
+    {
+      "path": "decompiled/hooks/hook_192_viewDidLoad_3a144.c",
+      "size": 662,
+      "sha256": "86aced8a2d560a3fd6d10969564955e410fb7a83c0d244b30dc2dc3a1b62756f"
+    },
+    {
+      "path": "decompiled/hooks/hook_193_viewWillAppear__3a180.c",
+      "size": 700,
+      "sha256": "fc21073b01bee2b6d4cae5d66f286c33b2203cfb55831a40ea83cd47cf2fb1bf"
+    },
+    {
+      "path": "decompiled/hooks/hook_194_viewDidLayoutSubviews_3a1c8.c",
+      "size": 652,
+      "sha256": "1c25bc991cff96b67304b066279dfa454d0620fe9d626b3d91820b9abc7c2510"
+    },
+    {
+      "path": "decompiled/hooks/hook_195_viewWillDisappear__3a1fc.c",
+      "size": 885,
+      "sha256": "88e77980b9146be6acd04dd1f02addbb62d420d0200f39326036bfecb206cbcd"
+    },
+    {
+      "path": "decompiled/hooks/hook_196_mesRefreshTableView_3a244.c",
+      "size": 650,
+      "sha256": "4eea2f31ef051ea184490e8863aa1829f3150d6197c9c88671704ca463f07a13"
+    },
+    {
+      "path": "decompiled/hooks/hook_197_numberOfSectionsInTableView__3a278.c",
+      "size": 1548,
+      "sha256": "63115b208cc60e4c5dbc4f6fffdc6e0c556e65f2bc22ee13b9ed39b4dec66008"
+    },
+    {
+      "path": "decompiled/hooks/hook_198_tableView_numberOfRowsInSection__3a408.c",
+      "size": 1289,
+      "sha256": "254019c739e20bc4160e57636938723eb7cb8b69ddee749d7347318eef2cba17"
+    },
+    {
+      "path": "decompiled/hooks/hook_199_tableView_viewForHeaderInSection__3a538.c",
+      "size": 2597,
+      "sha256": "afbce099745fbb73419c05401f253af6d6ca94492d02c3e2fb89511874781d24"
+    },
+    {
+      "path": "decompiled/hooks/hook_200_tableView_heightForHeaderInSection__3a6a0.c",
+      "size": 999,
+      "sha256": "a6ddff26e997055cd02cdc6c71c0d333e04ab7a236ae807ca1c59afa3f8c6c74"
+    },
+    {
+      "path": "decompiled/hooks/hook_201_tableView_cellForRowAtIndexPath__3a79c.c",
+      "size": 3379,
+      "sha256": "a96e1f7db343a3fa710031c1577503c14c17681be050e9682c78039c400371bd"
+    },
+    {
+      "path": "decompiled/hooks/hook_202_tableView_heightForRowAtIndexPath__3a9c0.c",
+      "size": 2775,
+      "sha256": "6667ff6f240d43c1d2b06e859fdae6f983939ce3a7e83e1efb66c172653c5350"
+    },
+    {
+      "path": "decompiled/hooks/hook_203_tableView_didSelectRowAtIndexPath__3ac48.c",
+      "size": 2996,
+      "sha256": "c0611f62c159ba5134f89ce2280412f3de2634b832fd67fedabd7a5a0ffe76b7"
+    },
+    {
+      "path": "decompiled/hooks/hook_204_tableView_willDisplayCell_forRowAtIndexPath__3ae44.c",
+      "size": 3079,
+      "sha256": "e759fc8bf3aaa098b4ffb5c06acbc71a297c61784fa20caec36561e7612a1283"
+    },
+    {
+      "path": "decompiled/hooks/hook_205_getSessionCountForSection__3b068.c",
+      "size": 676,
+      "sha256": "e9e9964a4ad6dfaf363c79bcf4209590581baa9030810e8d3fb9293a4305e5d9"
+    },
+    {
+      "path": "decompiled/hooks/hook_206_getCellDataAtIndexPath__3b0a0.c",
+      "size": 1248,
+      "sha256": "0b1fcfe2dc35bef70f75eead999ce01897221c1db7921f66b8cb1bcf59b4068f"
+    },
+    {
+      "path": "decompiled/hooks/hook_207_getSessionInfoAtIndexPath__3b14c.c",
+      "size": 1251,
+      "sha256": "63806518cb0733ea859203c7d46ce018de80bbc1e41d70aee96dec3ebd3f4edd"
+    },
+    {
+      "path": "decompiled/hooks/hook_208_getSessionBaseInfoAtIndexPath__3b1f8.c",
+      "size": 1255,
+      "sha256": "89240ac26dee555fb91f696f32b9c1bfabc6977a90b691e386d8b6e1cc33caf0"
+    },
+    {
+      "path": "decompiled/hooks/hook_209_viewWillAppear__3c408.c",
+      "size": 457,
+      "sha256": "49c562490ed01065c706e43e6dfe64adcb5780e0651b7751c7fd050ddd88546a"
+    },
+    {
+      "path": "decompiled/hooks/hook_210_viewDidAppear__3c43c.c",
+      "size": 432,
+      "sha256": "fd4b00e0aed4fcbb7187e3098cc644393eccb73bfca5033fca6e7d70a40d446e"
+    },
+    {
+      "path": "decompiled/hooks/hook_211_mesRefreshTableView_3c458.c",
+      "size": 437,
+      "sha256": "50fa6220ece60d32cfd9e450b22281b07fc5a6a31f99fac6329f2c2de21d8e76"
+    },
+    {
+      "path": "decompiled/hooks/hook_212_viewDidLoad_3d274.c",
+      "size": 625,
+      "sha256": "38fceb68ff6c2c8a903e57e083b7124d315d3f349d60c1c254d2eda077672c85"
+    },
+    {
+      "path": "decompiled/hooks/hook_213_viewWillAppear__3d2a0.c",
+      "size": 1220,
+      "sha256": "c0beadb50fdf697b2e7683918effac48c6d6847489702b22f5117260b594912e"
+    },
+    {
+      "path": "decompiled/hooks/hook_214_viewDidAppear__3d340.c",
+      "size": 690,
+      "sha256": "3ab49b1f28779a7b7600afb314e2b3a9d058f19ed268252a54a8440e129fa221"
+    },
+    {
+      "path": "decompiled/hooks/hook_215_viewDidLayoutSubviews_3d394.c",
+      "size": 3178,
+      "sha256": "4086dd9cf10e4a562f125a0f485b39dbc5b4420e1c40fce4fe4a1387e699b9d4"
+    },
+    {
+      "path": "decompiled/hooks/hook_216_mesRefreshTableView_3d6bc.c",
+      "size": 661,
+      "sha256": "38b920f1b1fab025f4df789c1884436f1500f2c91be1be8a362222fb9a319c38"
+    },
+    {
+      "path": "decompiled/hooks/hook_217_setHeaderView__3d6f0.c",
+      "size": 898,
+      "sha256": "0fec2a9d9ba838616dd0695a506be82ea706ae48d8b834eba468c16dd967dee7"
+    },
+    {
+      "path": "decompiled/hooks/hook_218_initTableHeaderView_3d75c.c",
+      "size": 633,
+      "sha256": "629e61c67e160b53c309785620148e7fc86df5575792fd3ba0fb3267aa10dbed"
+    },
+    {
+      "path": "decompiled/hooks/hook_219_initTableHeaderTopView_3d788.c",
+      "size": 636,
+      "sha256": "8e2fdde3cc276ff1e3ef72f6af030e683997d38987d7e265855b050e0390cf9a"
+    },
+    {
+      "path": "decompiled/hooks/hook_220_showTableHeaderTopView_fromScene__3d7b4.c",
+      "size": 647,
+      "sha256": "0db06030ad3b3c95d2a242256253618b8595eba8136ff45a9a85c8bc8043c36c"
+    },
+    {
+      "path": "decompiled/hooks/hook_221_setHidden__3d7e0.c",
+      "size": 314,
+      "sha256": "cd022d2e0289929c85f28c38fc96365d5ef307071eefa4f01bc17ae696e9670d"
+    },
+    {
+      "path": "decompiled/hooks/hook_222_didMoveToWindow_3d83c.c",
+      "size": 573,
+      "sha256": "a47c2abbae345ef749579516953ee8349a4f8682b6febb2f181f7ff14ffb96dc"
+    },
+    {
+      "path": "decompiled/hooks/hook_223_layoutSubviews_3d894.c",
+      "size": 738,
+      "sha256": "0e5ab6179325b8087d1d0de9de06e9b90613f78bb88d214c576e4355c2ae6308"
+    },
+    {
+      "path": "decompiled/hooks/hook_224_setHidden__3d900.c",
+      "size": 314,
+      "sha256": "e308fef829eaec4b6a47593796acaa8cb108dea81d2c071ff3bfdebc062de8e9"
+    },
+    {
+      "path": "decompiled/hooks/hook_225_didMoveToWindow_3d95c.c",
+      "size": 573,
+      "sha256": "8474b7c332914aa9f267e54c8ae51abda00142ca290682ae6e901eaa99dc660a"
+    },
+    {
+      "path": "decompiled/hooks/hook_226_layoutSubviews_3d9b4.c",
+      "size": 738,
+      "sha256": "f68a16da7ddf0347f35131c3b335d14a46058102121f922d3f28e8bb8c919f22"
+    },
+    {
+      "path": "decompiled/hooks/hook_227_setHidden__3da20.c",
+      "size": 314,
+      "sha256": "c55f781580ab8d58200e9780abd8d5953a8bc30752ade197b9d31fbcb6500c83"
+    },
+    {
+      "path": "decompiled/hooks/hook_228_didMoveToWindow_3da7c.c",
+      "size": 573,
+      "sha256": "f51acdbaf0d160481a270de4f30f7eb7e861848c3d64734049820421cf23cbee"
+    },
+    {
+      "path": "decompiled/hooks/hook_229_layoutSubviews_3dad4.c",
+      "size": 738,
+      "sha256": "6953dd389d52f12ddc7a9162ac5283634077ce0bb935c9024a844c99f76b0a6e"
+    },
+    {
+      "path": "decompiled/hooks/hook_230_setHidden__3db40.c",
+      "size": 314,
+      "sha256": "bd19b41202c9044603cd6f60cf4ab1e94ba0355301aa391fb1027e38f1fc4539"
+    },
+    {
+      "path": "decompiled/hooks/hook_231_didMoveToWindow_3db9c.c",
+      "size": 573,
+      "sha256": "60f89c247958fbb64ff64dd7c337986312c367389604b9ec30edb171cb186512"
+    },
+    {
+      "path": "decompiled/hooks/hook_232_layoutSubviews_3dbf4.c",
+      "size": 738,
+      "sha256": "2d31b35a997b236db45bd4596c51005a7e25316d8765d9b84bd61b9fb77b56e6"
+    },
+    {
+      "path": "decompiled/hooks/hook_233_layoutSubviews_3dc60.c",
+      "size": 386,
+      "sha256": "12747b0f0f81d7363d7a0173cb1e2e8bb5a437a5e603beeae4b3da42912f9648"
+    },
+    {
+      "path": "decompiled/hooks/hook_234_becomeVisible_3dca0.c",
+      "size": 386,
+      "sha256": "9f36ecb2833b87f9b05cf7856d306fc2cf739a6a6898e5fe920e08a3eac6b17e"
+    },
+    {
+      "path": "decompiled/hooks/hook_235_layoutFakeNavigationBarRightButton_3dce0.c",
+      "size": 407,
+      "sha256": "f3a4ed4880f84572b08907c7dc9d494f01a9671f5dd1121c902d0c4bbdc77f4e"
+    },
+    {
+      "path": "decompiled/hooks/hook_236_didMoveToWindow_3dd20.c",
+      "size": 629,
+      "sha256": "5a977bf2f321a364ead8357429692e04f2e8608a1e306970273b67fbabdaf698"
+    },
+    {
+      "path": "decompiled/hooks/hook_237_setTableHeaderView__3dd4c.c",
+      "size": 903,
+      "sha256": "ebce66619a6b9b3496196eb4a496df1ff7508c8b0f47ac6ca3f89b379f8f3488"
+    },
+    {
+      "path": "decompiled/hooks/hook_238_reloadData_3ddb8.c",
+      "size": 641,
+      "sha256": "8f3d5a6f5ec8c30a35f98d998951ea6137328208c4df439457c6e74f653c8200"
+    },
+    {
+      "path": "decompiled/hooks/hook_239_layoutSubviews_3dde8.c",
+      "size": 2970,
+      "sha256": "728005d00caad481a752d1032a6ea6b15bb9f8b0a0b16879691690fe77f92f13"
+    },
+    {
+      "path": "decompiled/hooks/hook_240_setContentOffset__3dfb8.c",
+      "size": 648,
+      "sha256": "6d33f53eb30363b345f8c66462193caba4b48f8c1850063476da7851ef91f2da"
+    },
+    {
+      "path": "decompiled/hooks/hook_241_viewDidAppear__3e9e4.c",
+      "size": 387,
+      "sha256": "bff25d3bec946704ec8bc3c9aee17891fa70ed57f5b7660a35293af4b1b23549"
+    },
+    {
+      "path": "decompiled/hooks/hook_242_viewDidLayoutSubviews_3ea24.c",
+      "size": 394,
+      "sha256": "4a62377788a7dfb1ceb1dd9f5075b1f16a09256f7b680aeb7e072473070ce68c"
+    },
+    {
+      "path": "decompiled/hooks/hook_243_traitCollectionDidChange__3ea64.c",
+      "size": 933,
+      "sha256": "c257449ed7e11bdeecb24bcedf9ba7463a8eb2a55f0a6450ced926aacf69875f"
+    },
+    {
+      "path": "decompiled/hooks/hook_244_layoutSubviews_3ead8.c",
+      "size": 396,
+      "sha256": "eb7dbf3635032ae05749780dbf6b75e0e3c912942b6aaefc358b2ca07b296987"
+    },
+    {
+      "path": "decompiled/hooks/hook_245_reloadData_3eb20.c",
+      "size": 383,
+      "sha256": "d71456b3de42b32880945414f7ffbe09593e278877f3ac0af86cc1db30f743e5"
+    },
+    {
+      "path": "decompiled/hooks/hook_246_setBackgroundView__3eb60.c",
+      "size": 1061,
+      "sha256": "c275513fd990dc632a0c21e735ea1986206459744c4c3f61261b8c3bcb7ee679"
+    },
+    {
+      "path": "decompiled/hooks/hook_247_viewDidAppear__3ec40.c",
+      "size": 628,
+      "sha256": "003ad91392a0399b8c796ae0873acc77617a4b2d9cb3e24ec97316c1ea87346c"
+    },
+    {
+      "path": "decompiled/hooks/hook_248_viewDidLayoutSubviews_3ec6c.c",
+      "size": 635,
+      "sha256": "3813d31af32096b49a29c42b600d568c797f27942597f26dddcc63ea887c0a5d"
+    },
+    {
+      "path": "decompiled/hooks/hook_249_reloadAllItems_3f30c.c",
+      "size": 1030,
+      "sha256": "42b1d8c715d9269e94081e2e8d2fe15daa5a9e78e8c1bef0cd88b5c13e01f69d"
+    },
+    {
+      "path": "decompiled/hooks/hook_250_m_arrShowIDs_3f38c.c",
+      "size": 1861,
+      "sha256": "545ff0de2950e7062e670f5ec7eeec844a49aba694be0759bf9556388af4e56d"
+    },
+    {
+      "path": "decompiled/hooks/hook_251_layoutSubviews_428e0.c",
+      "size": 1009,
+      "sha256": "9a5a050cd26faeb640fb7dc99dd535949803c3afb2817fcc8f7aa1fba723df29"
+    },
+    {
+      "path": "decompiled/hooks/hook_252_didMoveToWindow_42978.c",
+      "size": 764,
+      "sha256": "66b2587807a88b2eb9348a82584806052b5c2aaff9881dfcae76e94ed207c836"
+    },
+    {
+      "path": "decompiled/hooks/hook_253_updateTypingTitle__429ec.c",
+      "size": 2179,
+      "sha256": "2d3a0caa74865ece0f774f0ec50c919e0991c666ab5e35572155bd6f0b780dd2"
+    },
+    {
+      "path": "decompiled/hooks/hook_254_layoutSubviews_42b90.c",
+      "size": 628,
+      "sha256": "45a455f7d5ae486590ca25f21f95241187d340c5b8dbe28ced83019bae7506ed"
+    },
+    {
+      "path": "decompiled/hooks/hook_255_didMoveToWindow_42bbc.c",
+      "size": 629,
+      "sha256": "fe920a85226e31b1c04762368af1fca0163d8a1b0d496e478d60b4b9624723e6"
+    },
+    {
+      "path": "decompiled/hooks/hook_256_layoutSubviews_42be8.c",
+      "size": 626,
+      "sha256": "81a9d49ff54cc67c3dc0566d81a143e1c9b7a498b071d1c46271af4892ef3496"
+    },
+    {
+      "path": "decompiled/hooks/hook_257_didMoveToWindow_42c14.c",
+      "size": 629,
+      "sha256": "00d6f7167c0e20d10a345114f5ebe479d60bfcf66cc1ec1b5a883cd9cf158a6a"
+    },
+    {
+      "path": "decompiled/hooks/hook_258_layoutSubviews_42c40.c",
+      "size": 1561,
+      "sha256": "75008e1f5f4c9853b32baeb0396865d31d70bd7f74a6963e18621c6f399def8a"
+    },
+    {
+      "path": "decompiled/hooks/hook_259_didMoveToWindow_42dd0.c",
+      "size": 1563,
+      "sha256": "bc9840d398b954657c3ecaa0d224009b9bd163c7f0ef1d3dae2337a25126a678"
+    },
+    {
+      "path": "decompiled/hooks/hook_260_layoutSubviews_42f68.c",
+      "size": 4656,
+      "sha256": "4beea1b49926e1b7cfb92018781e3090029b6ce67b2f00166f4a8e12e98d53f6"
+    },
+    {
+      "path": "decompiled/hooks/hook_261_layoutSubviews_43284.c",
+      "size": 201,
+      "sha256": "f9041728e516cb5dfe9b805dbd6681ac2eb44860b85d37e6a10527d55417d4f1"
+    },
+    {
+      "path": "decompiled/hooks/hook_262_setContentOffset__43290.c",
+      "size": 577,
+      "sha256": "dcd46a0e7fe7d323ee8a9ad8a881f6151f96751c6cfff2602d4053b561a68c30"
+    },
+    {
+      "path": "decompiled/hooks/hook_263_setContentOffset_animated__43300.c",
+      "size": 615,
+      "sha256": "c7a18e491d6e78d1ae632d843d6a87f6b9728f4e257f2561ee1c76f5deba7c10"
+    },
+    {
+      "path": "decompiled/hooks/hook_264_touchesBegan_withEvent__43384.c",
+      "size": 1007,
+      "sha256": "ed0bc0d19f64dae069af6049409b572cdc6229924b3a0d3505bb6862eddf1ed0"
+    },
+    {
+      "path": "decompiled/hooks/hook_265_touchesEnded_withEvent__43410.c",
+      "size": 1006,
+      "sha256": "e18ae9110b5dccf81a703348a8a1c66b8dba9b7265e86d1b788ed471333c6706"
+    },
+    {
+      "path": "decompiled/hooks/hook_266_touchesCancelled_withEvent__4349c.c",
+      "size": 1010,
+      "sha256": "861e5e76531a184708ad730711fdff4f92ee39d98c044b1190d21bac08d72e8c"
+    },
+    {
+      "path": "decompiled/hooks/hook_267_didMoveToWindow_43528.c",
+      "size": 629,
+      "sha256": "19913007793201b9d0b77257a0a5c650e5caa66a7a1f0ecf1e9d1d43b9a269a0"
+    },
+    {
+      "path": "decompiled/hooks/hook_268_dictationIcon_43554.c",
+      "size": 929,
+      "sha256": "ff40a4a89b8622d11c1eb6a09049ad663d167163aad8552af6828a3a4bb56bb5"
+    },
+    {
+      "path": "decompiled/hooks/hook_269_hitTest_withEvent__435f8.c",
+      "size": 1508,
+      "sha256": "a7a359ed10b7d9ab505d0a70e88703e44817d22c0aa656af20fb049158fed23b"
+    },
+    {
+      "path": "decompiled/hooks/hook_270_layoutSubviews_436e4.c",
+      "size": 628,
+      "sha256": "a3f37070eab5ca73ab4cbdd560143b26d020e7124bbe767ee6e3c3a5e7264775"
+    },
+    {
+      "path": "decompiled/hooks/hook_271_layoutSubviews_43710.c",
+      "size": 628,
+      "sha256": "f02fc62ecaa9a1baacef9e78a6a5f7c621e85bbd2143b1c9b9f9b06090000f48"
+    },
+    {
+      "path": "decompiled/hooks/hook_272_pushViewController_animated__4373c.c",
+      "size": 8829,
+      "sha256": "5f327e86ea9a504f13b63aabb61b86f666eba7ffc1f82a144aca3116f74290fa"
+    },
+    {
+      "path": "decompiled/hooks/hook_273_viewDidLoad_43f90.c",
+      "size": 688,
+      "sha256": "4d14121dfb859bf7803ba43ac3ddc4140167a3af682ec02c9183c596e9da0e2c"
+    },
+    {
+      "path": "decompiled/hooks/hook_274_updateTitleView__43fdc.c",
+      "size": 1429,
+      "sha256": "f7d41cbe3ca9f8927227ea69874722c7baa034c6014c5c11a16462caeb94a7e6"
+    },
+    {
+      "path": "decompiled/hooks/hook_275_updateTitleView_ignoreAnimation__440c0.c",
+      "size": 1466,
+      "sha256": "d3794bd623e5248b6d10e6349ce2220008f734d3dc054c27243273b131fae5a8"
+    },
+    {
+      "path": "decompiled/hooks/hook_276_setTitle_subTitle_leftLoading_rightView_rightViewLeftMargin_subLeftView_titleOffset__441ac.c",
+      "size": 1795,
+      "sha256": "463809592ade559fb1a50940ac9f649b0270a603c03e62a762c52d3a89984964"
+    },
+    {
+      "path": "decompiled/hooks/hook_277_installMinimizationTransitionController_442a8.c",
+      "size": 256,
+      "sha256": "b7f4bde1e3ea19261bce0306d5c0832daf74d1c570e0a96dfd4049ffa296e7d9"
+    },
+    {
+      "path": "decompiled/hooks/hook_278_canPushMiniTaskViewController_442c8.c",
+      "size": 255,
+      "sha256": "d9a2e74fd7b22d922cb8c24d6f01614b8cb5b4beeec8468c900d9d123d5ea3cd"
+    },
+    {
+      "path": "decompiled/hooks/hook_279_canPushMiniTaskViewController__442ec.c",
+      "size": 620,
+      "sha256": "ec3996e73ba84f8b960c78aa6aab5a93662def4b997840062f0127be45d833b8"
+    },
+    {
+      "path": "decompiled/hooks/hook_280_viewWillAppear__44374.c",
+      "size": 985,
+      "sha256": "f192b60a0547d19a139099af2d9fa761a0fae5d6c05ce966c6dce5cb3794b868"
+    },
+    {
+      "path": "decompiled/hooks/hook_281_viewDidAppear__443f4.c",
+      "size": 648,
+      "sha256": "dca02ebb56be7e1930f401ee20bf4fcbd40241d3035f73342a5c5dc5ad35d73c"
+    },
+    {
+      "path": "decompiled/hooks/hook_282_viewWillLayoutSubviews_4442c.c",
+      "size": 331,
+      "sha256": "fe3355bfdf64b6fa5c3e0ad98d446fa744b4b6493de88626f087a6a827f54720"
+    },
+    {
+      "path": "decompiled/hooks/hook_283_viewDidLayoutSubviews_44464.c",
+      "size": 635,
+      "sha256": "84c88a77f85108875f3137aba570794f6aaef64437b20ef3e8028dab2357b94f"
+    },
+    {
+      "path": "decompiled/hooks/hook_284_viewWillDisappear__44494.c",
+      "size": 1654,
+      "sha256": "f400a65fc09e253c094083bfba7fda577ae5f9fe487adbf7433e1490842da0af"
+    },
+    {
+      "path": "decompiled/hooks/hook_285_viewDidDisappear__44604.c",
+      "size": 648,
+      "sha256": "31c1b2360841cc4f93dd3416475be85e909b2ccba0ee92e1346199f614abcb94"
+    },
+    {
+      "path": "decompiled/hooks/hook_286_gestureRecognizer_shouldBeRequiredToFailByGestureRecognizer__4463c.c",
+      "size": 7378,
+      "sha256": "93476352f9fc2ab923d0dc0e7608384c5f9294fc9e7993b95d4f0045384d318d"
+    },
+    {
+      "path": "decompiled/hooks/hook_287_imageRectForContentRect__4e9c0.c",
+      "size": 1017,
+      "sha256": "28fbf6412ff4597d872282b0b573a8b7949cbc413eb7804bfc1a564bef2e140f"
+    },
+    {
+      "path": "decompiled/hooks/hook_288_layoutSubviews_4ea2c.c",
+      "size": 628,
+      "sha256": "bcc359f83cd1642b07119d114965513aa12ee1e874c742d8d4348223ce9fe9e3"
+    },
+    {
+      "path": "decompiled/hooks/hook_289_imageRectForContentRect__4ea58.c",
+      "size": 1017,
+      "sha256": "820fee1f9f1d904071dbfd0c7c7a2f5109f7c84da0820f5de6b22810ac284325"
+    },
+    {
+      "path": "decompiled/hooks/hook_290_layoutSubviews_4eac4.c",
+      "size": 626,
+      "sha256": "b03592cf15ff5f4baa7b2fbb14621251c67839c6a1d275d59ba3ad9b9b689312"
+    },
+    {
+      "path": "decompiled/hooks/hook_291_layoutSubviews_507cc.c",
+      "size": 843,
+      "sha256": "0158069a4fbf62df13ab1b9c2b0a32e927144d25c45128ef24a6d2ff5b408b49"
+    },
+    {
+      "path": "decompiled/hooks/hook_292_didMoveToWindow_50850.c",
+      "size": 844,
+      "sha256": "72903c5948bf0d0068f2e66314bf11f735ce9735e2094f6bebcdabf8857d8b41"
+    },
+    {
+      "path": "decompiled/hooks/hook_293_setHidden__508d4.c",
+      "size": 391,
+      "sha256": "d615fb48e93dfaeac7dc846d0eb849f6c14adb735feb88e1fd8c1cb0bd394e8b"
+    },
+    {
+      "path": "decompiled/hooks/hook_294_setAlpha__50918.c",
+      "size": 390,
+      "sha256": "7382a7c0175ebeae7edf6ae2630ee66e3920d8e6da0956089d38ef3b359cfe58"
+    },
+    {
+      "path": "decompiled/hooks/hook_295_didAddSubview__5095c.c",
+      "size": 928,
+      "sha256": "f382c5e64361a41d03945c5dde34777c7bb081ab4436799b28c8fa176c0e820e"
+    },
+    {
+      "path": "decompiled/hooks/hook_296_layoutSubviews_509d4.c",
+      "size": 805,
+      "sha256": "d206ef38f7f284d5497a9129d85365d7dd1d74e1a9636bb7fc32bf53d3190768"
+    },
+    {
+      "path": "decompiled/hooks/hook_297_didMoveToWindow_50a50.c",
+      "size": 806,
+      "sha256": "ac9fbd08e3a30c6ab9a897295341a7f5e1e6b4bfbdb85c397e62d075cfc69935"
+    },
+    {
+      "path": "decompiled/hooks/hook_298_setAlpha__50acc.c",
+      "size": 1468,
+      "sha256": "18303dfe2d40a7b186420efd6b807631ead87c6771619a2209557af3cd25e819"
+    },
+    {
+      "path": "decompiled/hooks/hook_299_setHidden__50ba8.c",
+      "size": 1434,
+      "sha256": "9f55457a799c826fb8b525c687cfad2856e35b879109a801db12a796a8486e3e"
+    },
+    {
+      "path": "decompiled/hooks/hook_300_layoutSubviews_59d58.c",
+      "size": 727,
+      "sha256": "8f70cae3e3f9f8e30ee1528c2a667ff81df678fe43fe177c6e3bc792c67b1cde"
+    },
+    {
+      "path": "decompiled/hooks/hook_301_didAddSubview__59dac.c",
+      "size": 981,
+      "sha256": "696a73f7b4d011ddbd878b0259468d34f1b85fb7bb470e3b1edd91d17bdc85c4"
+    },
+    {
+      "path": "decompiled/hooks/hook_302_didMoveToWindow_59e38.c",
+      "size": 728,
+      "sha256": "f987cbb680b7a5a4ddf52d6dc9194b008009b5a3c01c44615bb3f40884188b7c"
+    },
+    {
+      "path": "decompiled/hooks/hook_303_traitCollectionDidChange__59e8c.c",
+      "size": 1013,
+      "sha256": "ade3f59227d07a5894b4971a6197862bd2c4373cf1f7c037c5d41b944124ebad"
+    },
+    {
+      "path": "decompiled/hooks/hook_304_setBackgroundColor__59f20.c",
+      "size": 1304,
+      "sha256": "b28fa7ebc516b23b113e599a32a3ab4d2ce6e08931125157f349fa9fa075f741"
+    },
+    {
+      "path": "decompiled/hooks/hook_305_setBarTintColor__59fc8.c",
+      "size": 1301,
+      "sha256": "d375b8e6373a00ae684b9b1c7af5d806cdbc79b2f0d6dfab1ad4b55064d47126"
+    },
+    {
+      "path": "decompiled/hooks/hook_306_setBackgroundImage__5a070.c",
+      "size": 1191,
+      "sha256": "cf6d667b0cafc614ec5ce25a189dbe9846e11e8c6a5df60681d5b9de188efa9b"
+    },
+    {
+      "path": "decompiled/hooks/hook_307_setShadowImage__5a100.c",
+      "size": 1187,
+      "sha256": "d2d5c561cb29a46e3985021c32bed69bda773c9922310bc58fd7668f1eec3560"
+    },
+    {
+      "path": "decompiled/hooks/hook_308_setStandardAppearance__5a190.c",
+      "size": 1192,
+      "sha256": "7f085b522efa3d5183d2a0adf277739d8459ceafefb683ccf5e02fb79d2b9174"
+    },
+    {
+      "path": "decompiled/hooks/hook_309_setScrollEdgeAppearance__5a224.c",
+      "size": 1194,
+      "sha256": "1b307ede0647591fc14610ff803dd7219d5aca3be574588a3faa343613924adc"
+    },
+    {
+      "path": "decompiled/hooks/hook_310_layoutSubviews_5a2b8.c",
+      "size": 824,
+      "sha256": "a4e8ba704fa4fe4eebfa4ac890a79bd24466d66d9e782d21aaa980f926651001"
+    },
+    {
+      "path": "decompiled/hooks/hook_311_didAddSubview__5a324.c",
+      "size": 1073,
+      "sha256": "a759118e8cb64216581149c4d9c1daa155342c0d6a839106ccdea28c2a5bde88"
+    },
+    {
+      "path": "decompiled/hooks/hook_312_setFrame__5a3c8.c",
+      "size": 819,
+      "sha256": "111109011ab7a34398c4d678ccff6e1c864b06a23cb5e52279cafecc37b60570"
+    },
+    {
+      "path": "decompiled/hooks/hook_313_setHidden__5a434.c",
+      "size": 624,
+      "sha256": "0557c798e049cc92a8d45f494aa281a28f4d903fac7e63cf9ea3d866829bf055"
+    },
+    {
+      "path": "decompiled/hooks/hook_314_setAlpha__5a460.c",
+      "size": 623,
+      "sha256": "47e1fbe4eb0a104b54a33b65e361edfb6a7bab8525d12c26afe2c672384df332"
+    },
+    {
+      "path": "decompiled/hooks/hook_315_didMoveToWindow_5a48c.c",
+      "size": 825,
+      "sha256": "cbc82e86678134edc7bc9e081863432c642cf3fd033a240d6bf39004c408dfe7"
+    },
+    {
+      "path": "decompiled/hooks/hook_316_traitCollectionDidChange__5a4f8.c",
+      "size": 1109,
+      "sha256": "368a02b7150a1eac0215d0eadeae4a990decdf52546562fce3297eacdff35fbe"
+    },
+    {
+      "path": "decompiled/hooks/hook_317_relayoutButtons__5a5a4.c",
+      "size": 921,
+      "sha256": "8a8362208f9ec046f624ada3b31cee381da9674c08a216b10607170b5c6e0291"
+    },
+    {
+      "path": "decompiled/hooks/hook_318_makeSureFrame_5a618.c",
+      "size": 644,
+      "sha256": "f64aa21082b15b005bf210a3c85dbd971f7761d6f8af7c33e3d12a7d2b23aef0"
+    },
+    {
+      "path": "decompiled/hooks/hook_319_setViewControllers__5a64c.c",
+      "size": 924,
+      "sha256": "80fc6bf21f9b6693ecd1f2af3eb58aaf32163b5d51e0c97cd6906fb09c8c12f7"
+    },
+    {
+      "path": "decompiled/hooks/hook_320_setHighlightImage__5a6c0.c",
+      "size": 904,
+      "sha256": "b6f13ee329395687bba331fb773d35548a1bcaa73cea201f671510cd0ae304e1"
+    },
+    {
+      "path": "decompiled/hooks/hook_321_setSelectedImage__5a730.c",
+      "size": 903,
+      "sha256": "0a6bd4997eccb9030b639fe6de17a5016ceb1da2fe187c99fcc9f156216e13a0"
+    },
+    {
+      "path": "decompiled/hooks/hook_322_layoutSubviews_5a7a0.c",
+      "size": 837,
+      "sha256": "1729d8896ca89e1d9b4c8131f40585875240acd1b9ce47487ba7dc5c0dea725e"
+    },
+    {
+      "path": "decompiled/hooks/hook_323_setItem__5a820.c",
+      "size": 916,
+      "sha256": "833d75057b035e8430c303e9ac30c7db0bcf0e478637e8f73e0dc19da2238339"
+    },
+    {
+      "path": "decompiled/hooks/hook_324_setIsSelected__5a898.c",
+      "size": 628,
+      "sha256": "56d463e72bc9cbdc0b93fad3eb3ab276a9aec78bc5552d2b002aeed89ab2a58b"
+    },
+    {
+      "path": "decompiled/hooks/hook_325_traitCollectionDidChange__5a8c4.c",
+      "size": 908,
+      "sha256": "86a023ff6a968c2087d68572d168188a20268cd17a357b42906847a22a569257"
+    },
+    {
+      "path": "decompiled/hooks/hook_326_didMoveToWindow_5a930.c",
+      "size": 794,
+      "sha256": "e28a2572abf771d54f37226a5d3640e27bdcf335ee9f9824d69ff6ddd06879e9"
+    },
+    {
+      "path": "decompiled/hooks/hook_327_didMoveToSuperview_5a9a0.c",
+      "size": 797,
+      "sha256": "39230058d1b84a29704b59bbf44543ff52239b68155628b42f0df2af44a2507f"
+    },
+    {
+      "path": "decompiled/hooks/hook_328_didAddSubview__5aa10.c",
+      "size": 1112,
+      "sha256": "5c2eda8d22e493856fe9a7b0f281485ef238676e05885c7795654b8bbcefa8ca"
+    },
+    {
+      "path": "decompiled/hooks/hook_329_setFrame__5aac0.c",
+      "size": 771,
+      "sha256": "4af4359f128fed4672e907854fa95e07040883b65edd09b480b4c4f57ad41c39"
+    },
+    {
+      "path": "decompiled/hooks/hook_330_setCenter__5ab38.c",
+      "size": 771,
+      "sha256": "9071230122f49c2f7b9b828f6d29689179ebca8e50c5917e68d8018d72f2a26b"
+    },
+    {
+      "path": "decompiled/hooks/hook_331_setHidden__5abb0.c",
+      "size": 769,
+      "sha256": "d0e07d43f8edf72668a67a14f4bbfd0f183e32b449624bf1b8b18a06f89a2132"
+    },
+    {
+      "path": "decompiled/hooks/hook_332_setAlpha__5ac18.c",
+      "size": 768,
+      "sha256": "4296da8b462dac819bb2539bb6719080a714f2fe5fb9fe6b2039fa323d8c7512"
+    },
+    {
+      "path": "decompiled/hooks/hook_333_layoutSubviews_5ac80.c",
+      "size": 628,
+      "sha256": "035c554b9e1b25da7a32fbfce468fd4643fc74dbf4f9b2a814a69025dcddc667"
+    },
+    {
+      "path": "decompiled/hooks/hook_334_didMoveToWindow_5acac.c",
+      "size": 472,
+      "sha256": "8194c5eb330ed684b773040820b8cbb7cada07eed00507cac655f81c60eca403"
+    },
+    {
+      "path": "decompiled/hooks/hook_335_didMoveToSuperview_5acf0.c",
+      "size": 475,
+      "sha256": "5e9b9ed159a0d2395b357388ee7f48d8200cade63966dd5cc1a8a24a8164e5d3"
+    },
+    {
+      "path": "decompiled/hooks/hook_336_setFrame__5ad34.c",
+      "size": 622,
+      "sha256": "2c10c1ed5407c18361a7687b1be51a1fd1ab3905ead68839c60584ae6eaa7b9c"
+    },
+    {
+      "path": "decompiled/hooks/hook_337_setBackgroundColor__5ad60.c",
+      "size": 1559,
+      "sha256": "f87e789a4be2a805955e7eff5e6af90962a32bf64d96d2a36c63044b28ef9711"
+    },
+    {
+      "path": "decompiled/hooks/hook_338_didMoveToWindow_5ae14.c",
+      "size": 521,
+      "sha256": "db39999952123632e1a9a23a93f200d6f01e1a62bc0943f01f38fe39a3fa77c3"
+    },
+    {
+      "path": "decompiled/hooks/hook_339_didMoveToSuperview_5ae6c.c",
+      "size": 524,
+      "sha256": "d8abd2e15708560abf10819fdb7ebaddaab3a75e201468019b997cbdd7d91f9a"
+    },
+    {
+      "path": "decompiled/hooks/hook_340_setBackgroundColor__5aec4.c",
+      "size": 1769,
+      "sha256": "df09b7ed248a2131d606e6d9d469c838b2fa26391c2ea73f5cc8b1c97f35128e"
+    },
+    {
+      "path": "decompiled/hooks/hook_341_setBorderWidth__5afc4.c",
+      "size": 1268,
+      "sha256": "f865ebf6e9229ea99842a790d63144f6bde34fbf2aae469d71549ce8b34e0555"
+    },
+    {
+      "path": "decompiled/hooks/hook_342_setBorderColor__5b080.c",
+      "size": 1765,
+      "sha256": "7f86cfc45c9024e1405fdb0f1a92bd9757f24efc33a106a1c711a012fc6aa14b"
+    },
+    {
+      "path": "decompiled/hooks/hook_343_setShadowOpacity__5b180.c",
+      "size": 1270,
+      "sha256": "a5ce25239d3856d02e6c2814fbdfa8051dfec8fbe97326ad1247f75fa2a504b0"
+    },
+    {
+      "path": "decompiled/hooks/hook_344_setShadowColor__5b23c.c",
+      "size": 1765,
+      "sha256": "568c7873a73c0bd4532131ee49ecf8bf0a88e14291c1a1d21aaaa05b0b3bcc9d"
+    },
+    {
+      "path": "decompiled/hooks/hook_345_viewDidLayoutSubviews_62440.c",
+      "size": 635,
+      "sha256": "23c35d7b2cba1025b1b1f1de89daf791d601b8f0c99787856cf7d6fe947d9dd8"
+    },
+    {
+      "path": "decompiled/hooks/hook_346_viewDidAppear__6246c.c",
+      "size": 628,
+      "sha256": "b60d4808f38727edb9608578d80bf5f9879f36eca7e7e52b058ef206d18ffcd0"
+    },
+    {
+      "path": "decompiled/hooks/hook_347_didMoveToWindow_62498.c",
+      "size": 4914,
+      "sha256": "2fb4662f491d196952812f5162d1c3eaa54bfe39696a8972a0b52d6c1b18dcf1"
+    },
+    {
+      "path": "decompiled/hooks/hook_348_layoutSubviews_681a8.c",
+      "size": 643,
+      "sha256": "35fac8666e34969b0d2a863d7daffd494bf4ceba6d4ba7a986d459b66fd57617"
+    },
+    {
+      "path": "decompiled/hooks/hook_349_didMoveToWindow_681dc.c",
+      "size": 645,
+      "sha256": "1df03b4856535a71f157ae9f961b580aa6999bf3ed893c2de6c1701802c9b126"
+    },
+    {
+      "path": "decompiled/hooks/hook_350_sizeThatFits__68210.c",
+      "size": 627,
+      "sha256": "a7758c6a5441b29a471724c38421124bcd05c3057519913e5197a331609b37cc"
+    },
+    {
+      "path": "decompiled/hooks/hook_351_intrinsicContentSize_6823c.c",
+      "size": 634,
+      "sha256": "7983b8b33c0d1d620b87b5cb14f80d18638198abf80180b665f54eb86661ccc8"
+    },
+    {
+      "path": "decompiled/hooks/hook_352_setHighlightedIcon__68268.c",
+      "size": 902,
+      "sha256": "ce43c61e65eeac82ec707b55e8e7202458a9a5a109a6cbeb4191f3bda3b4610d"
+    },
+    {
+      "path": "decompiled/hooks/hook_353_setHighlightedIconImage__682d4.c",
+      "size": 907,
+      "sha256": "79ea7fac4c80357edfd0e8512231bdf19a496a4095b81ea892af7e9f8d95ee45"
+    },
+    {
+      "path": "decompiled/hooks/hook_354_layoutSubviews_68340.c",
+      "size": 686,
+      "sha256": "986f92797d3acf3453be7e45175b656b87529f6c31a71f0e66f7e406509dddd8"
+    },
+    {
+      "path": "decompiled/hooks/hook_355_didMoveToWindow_68384.c",
+      "size": 687,
+      "sha256": "eca158c8c09d201c56b2b38b462ab3f3a4e13e3c52d2b6e15b7d702539c62f8c"
+    },
+    {
+      "path": "decompiled/hooks/hook_356_traitCollectionDidChange__683c8.c",
+      "size": 1722,
+      "sha256": "033c0b02efa853b599c7fdef114aa89a23ace4d8eaac691a2c61bd0e5bf6a80d"
+    },
+    {
+      "path": "decompiled/hooks/hook_357_viewWillAppear__684dc.c",
+      "size": 1676,
+      "sha256": "6ed70b03227ef3fa98af9fa4335d8edc629ff99bf1a4918f3df7d4e76b73827d"
+    },
+    {
+      "path": "decompiled/hooks/hook_358_viewDidAppear__685cc.c",
+      "size": 1675,
+      "sha256": "8db69552a53ed0cf27d11e0becde9c165353e9c3d17f9dd4500e8176a1a88514"
+    },
+    {
+      "path": "decompiled/hooks/hook_359_viewDidLayoutSubviews_686bc.c",
+      "size": 1682,
+      "sha256": "8ad993c9953a9f7b034347d014a4641a14959be5865d230cfd401fd21a9f0801"
+    },
+    {
+      "path": "decompiled/hooks/hook_360_viewWillDisappear__687ac.c",
+      "size": 1495,
+      "sha256": "6713462302475f35e2463f90cfb87a1c603413baa58706a97b8f5d1b90fd3ff1"
+    },
+    {
+      "path": "decompiled/hooks/hook_361_setBackgroundImage_forBarMetrics__68860.c",
+      "size": 1082,
+      "sha256": "83a69372b00388690fe3f93d3a55dbf868a1da6903828772958ecdaf3b5b4bc6"
+    },
+    {
+      "path": "decompiled/hooks/hook_362_layoutSubviews_688e4.c",
+      "size": 741,
+      "sha256": "ebf2209fe7c1247d7dd9f0508894d8c18ab3572e21af303902c500497513d1ec"
+    },
+    {
+      "path": "decompiled/hooks/hook_363_didMoveToWindow_68950.c",
+      "size": 742,
+      "sha256": "74f4c7cfe35c1a6f466324bc2127ef74f798af02a54860c1eb5ab5ddb0c4ec05"
+    },
+    {
+      "path": "decompiled/hooks/hook_364_setFrame__689bc.c",
+      "size": 736,
+      "sha256": "9bc07dbe005361bae1ad732f8218fa9f9e492d77e708115952b1796854352bd2"
+    },
+    {
+      "path": "decompiled/hooks/hook_365_setBounds__68a28.c",
+      "size": 737,
+      "sha256": "1248e399b537803e4ec6275867ac69aa7ec57dc957ca376120640e34a8e42c67"
+    },
+    {
+      "path": "decompiled/hooks/hook_366_didAddSubview__68a94.c",
+      "size": 741,
+      "sha256": "18c306c3b9d6c474bb1dcf7e59ccf5dbf3167b9315c9b8cb890eaa9aca1c49f9"
+    },
+    {
+      "path": "decompiled/hooks/hook_367_setHidden__68b00.c",
+      "size": 313,
+      "sha256": "1245271bc93efa7e2a1143299a33df47b0936625b587ca2c3f71d4cca981f48a"
+    },
+    {
+      "path": "decompiled/hooks/hook_368_setAlpha__68b58.c",
+      "size": 295,
+      "sha256": "302a77c0f29cb186937276df74360f7eb670fe1bfd6ebd54b522f098fcecdaf7"
+    },
+    {
+      "path": "decompiled/hooks/hook_369_didMoveToSuperview_68bb0.c",
+      "size": 527,
+      "sha256": "98c395aadc6c5caef2974de0abf06eadff5905cfcb02021727a410ef8966354d"
+    },
+    {
+      "path": "decompiled/hooks/hook_370_layoutSubviews_68c10.c",
+      "size": 523,
+      "sha256": "2fe0b7353355fb79c247abf4e4fce88c89830d1019879b656f40a0d85b1373cd"
+    },
+    {
+      "path": "decompiled/hooks/hook_371_setImage_forState__68c70.c",
+      "size": 1786,
+      "sha256": "e5b46f70219bd8f7166b337ca235c4eb895031a27210ce5e2aff71d867b75799"
+    },
+    {
+      "path": "decompiled/hooks/hook_372_setHighlightedImage__68d88.c",
+      "size": 2087,
+      "sha256": "101288425bde1e3063528addcc1d50972e7f97dc56a61b7e1df90e7c27289c1e"
+    },
+    {
+      "path": "decompiled/hooks/hook_373_setHighlighted__68f08.c",
+      "size": 1760,
+      "sha256": "429c9e3e67ba076d06cd893a73382e76914d5340466549c097bba8d89cd66fb9"
+    },
+    {
+      "path": "decompiled/hooks/hook_374_traitCollectionDidChange__690b0.c",
+      "size": 1058,
+      "sha256": "38f3840d2b3b0b1447284699f54062bd98fd9456cfc2d2382171038f53535692"
+    },
+    {
+      "path": "decompiled/hooks/hook_375_systemLayoutSizeFittingSize__692f4.c",
+      "size": 658,
+      "sha256": "7089fdb362900e4a5e5f3ca71530386dc4fdbdd8d6269ae8a428ced16c1f93c2"
+    },
+    {
+      "path": "decompiled/hooks/hook_376_systemLayoutSizeFittingSize_withHorizontalFittingPriority_verticalFittingPriority__69328.c",
+      "size": 696,
+      "sha256": "471a260e34220bbfb75a3c89fcfa5bc4575ad5c0c32ab79db17101d54019d64d"
+    },
+    {
+      "path": "decompiled/hooks/hook_377_setTitle_forState__69354.c",
+      "size": 966,
+      "sha256": "8b4d91f8399ca432f6b65fe0557b2fd3bfd8586d87229875a3a656cd8e6fb9b7"
+    },
+    {
+      "path": "decompiled/hooks/hook_378_setAttributedTitle_forState__693d0.c",
+      "size": 976,
+      "sha256": "8605397d04e060d9d85d47761359b9c882659fca9ace81aaf8e3bf796e4f619b"
+    },
+    {
+      "path": "decompiled/hooks/hook_379_setFrame__6944c.c",
+      "size": 623,
+      "sha256": "db7bbb190344f6323b229f25633e7db7d0d7c058dfde152ab96310f6705aa012"
+    },
+    {
+      "path": "decompiled/hooks/hook_380_setBounds__69480.c",
+      "size": 624,
+      "sha256": "7cbfc2954f8cf9e58ed99a9d55b9476a79d97bdcdf0baac5cb5b578cf71ab80b"
+    },
+    {
+      "path": "decompiled/hooks/hook_381_layoutSubviews_694b4.c",
+      "size": 858,
+      "sha256": "2eeb431f27f351c344f8332589f91dfda0483151dee76b73b5a7147c8f9997c9"
+    },
+    {
+      "path": "decompiled/hooks/hook_382_didMoveToWindow_69528.c",
+      "size": 860,
+      "sha256": "c2de12cd3b72f311850cf692936dbe1436bbfa93f5e4e2016ec2e132ed8a9e6f"
+    },
+    {
+      "path": "decompiled/hooks/hook_383_systemLayoutSizeFittingSize__695f4.c",
+      "size": 642,
+      "sha256": "a331ba8d032638c186e6b38ea9e0cbda0cac80d9c5985ffe9caca63b653a580c"
+    },
+    {
+      "path": "decompiled/hooks/hook_384_systemLayoutSizeFittingSize_withHorizontalFittingPriority_verticalFittingPriority__69620.c",
+      "size": 696,
+      "sha256": "0731ddffd13964d62147e2b1d04a73d1c2928e360191e8d8cfba266b9e96d8eb"
+    },
+    {
+      "path": "decompiled/hooks/hook_385_layoutSubviews_6964c.c",
+      "size": 519,
+      "sha256": "08fd04f98f775e2cce132eb674d4a8248601c89183f79930432e1d3043dbdf6a"
+    },
+    {
+      "path": "decompiled/hooks/hook_386_didMoveToWindow_696cc.c",
+      "size": 520,
+      "sha256": "df29aafcb5a5e23e525a6e58a28d193cf134f7bd44036feacc9c75a5d34c313b"
+    },
+    {
+      "path": "decompiled/hooks/hook_387_setText__6974c.c",
+      "size": 891,
+      "sha256": "a76e209e88dd901742d65432cd12c88336a1d4b6fd31b575fb603de8d3c73e16"
+    },
+    {
+      "path": "decompiled/hooks/hook_388_setTextColor__697b8.c",
+      "size": 1018,
+      "sha256": "c1b9bdd69fbbb3bf5011e6976bcedbca84aaee15ac6aafdbde2f6ec1bcb7b902"
+    },
+    {
+      "path": "decompiled/hooks/hook_389_setAttributedText__6984c.c",
+      "size": 1051,
+      "sha256": "37c205cc63d8e6326516672332f16eeef1e9bcbb6046448460e61c329ac536d1"
+    },
+    {
+      "path": "decompiled/hooks/hook_390_setEffect__7ada0.c",
+      "size": 1173,
+      "sha256": "e56e6292a93cffd173d332289d8064d34721f635ef79148927d9303cfae3701a"
+    },
+    {
+      "path": "decompiled/hooks/hook_391_setHidden__7ae38.c",
+      "size": 336,
+      "sha256": "6fb8b1e4339a5c4308a2d997b496cd0f62d146120595aa74f3ec6e8b5e0f3d95"
+    },
+    {
+      "path": "decompiled/hooks/hook_392_setAlpha__7ae7c.c",
+      "size": 760,
+      "sha256": "2638b09f54a929610a14b317c4c36ea67660a529ce60faa4ba9ea9a38b7cc62f"
+    },
+    {
+      "path": "decompiled/hooks/hook_393_didMoveToSuperview_7aec8.c",
+      "size": 655,
+      "sha256": "21470cee969b534f497c7d2da35b350cf25ca4126113632cdf151094ed45c60c"
+    },
+    {
+      "path": "decompiled/hooks/hook_394_layoutSubviews_7af5c.c",
+      "size": 651,
+      "sha256": "aa2ff4c3a2987058a4f4ece99251bffc8cd1a0adf678fb92b0cd4226819699e5"
+    },
+    {
+      "path": "decompiled/hooks/hook_395_onHeadImageDoubleClick__7c0a0.c",
+      "size": 2103,
+      "sha256": "e9d457812ed7b041478d7df1e36ab34ee0fee5f221c000bd23a51a9483e7d63d"
+    },
+    {
+      "path": "decompiled/hooks/hook_396_didMoveToWindow_7cd90.c",
+      "size": 849,
+      "sha256": "87c4471045babf838d61c7ff626fa4db78bf25b60d0d0cc6d6d71d8ae26b9da5"
+    },
+    {
+      "path": "decompiled/hooks/hook_397__layoutTopViewController_7cde0.c",
+      "size": 17297,
+      "sha256": "6e7442146d8d9599509b737ef955b860f66899663f2da50b11f33b10cd1f40b5"
+    },
+    {
+      "path": "decompiled/hooks/hook_398_gestureRecognizerShouldBegin__7de5c.c",
+      "size": 14396,
+      "sha256": "46b93533a455bb5ab34bdab0e613d659373af0620f1f79b353890b3205286a36"
+    },
+    {
+      "path": "decompiled/hooks/hook_399__finishInteractiveTransition_transitionContext__7ed1c.c",
+      "size": 722,
+      "sha256": "7200a197257fac48761f0eb41ea826391baf9e8b40a0b9085b7dbf254278b7dd"
+    },
+    {
+      "path": "decompiled/hooks/hook_400_layoutSubviews_7f484.c",
+      "size": 3557,
+      "sha256": "bcd896ffa8bf28d08fa4f181485abea2cc89fe93135b874bdf17c17c3e68292d"
+    },
+    {
+      "path": "decompiled/hooks/hook_401_OnMultiForwardMessage_800dc.c",
+      "size": 2182,
+      "sha256": "da7e4a053ae82b9ac148eeefc15c5d640d74180012cea31195ccad358ea56f09"
+    },
+    {
+      "path": "decompiled/hooks/hook_402_forwardMsgList_toContacts__802e4.c",
+      "size": 4831,
+      "sha256": "715bec9cb5dc2173858445aa9677e89af08d6202ca370c11cad86cab2d6d2dd3"
+    },
+    {
+      "path": "decompiled/hooks/hook_403_setInputMode_animated__856e4.c",
+      "size": 257,
+      "sha256": "0a3d8e553b248182d7b1c79d7db0979f570c12e82be4d746cc1f88e413428e36"
+    },
+    {
+      "path": "decompiled/hooks/hook_404_ShowPreparing_85738.c",
+      "size": 439,
+      "sha256": "e11e8bd380e55a07b9456cc3bfcb3814ee6401846a061e2b3eb94ab3d32ea576"
+    },
+    {
+      "path": "decompiled/hooks/hook_405_ShowRecording_8579c.c",
+      "size": 439,
+      "sha256": "65651e501283290a08932037072e5d5072ca748c3b79fd5cf4e935888e5b8cf6"
+    },
+    {
+      "path": "decompiled/hooks/hook_406_layoutSubviews_85800.c",
+      "size": 440,
+      "sha256": "fe4cb77363e70f640744d01dea51bc294ab035030a3513db802697aad8aa8ddc"
+    },
+    {
+      "path": "decompiled/hooks/hook_407_exitVoiceRecord_85864.c",
+      "size": 517,
+      "sha256": "43213e0e574e206a4c72fca6f659170505d470af24f98a0a99ac2f89a8f4d80f"
+    },
+    {
+      "path": "decompiled/hooks/hook_408_layoutSubviews_86380.c",
+      "size": 628,
+      "sha256": "0cdb7c5797273d24d8615470e960b83155ae38c83739692342588ea67c448fe8"
+    },
+    {
+      "path": "decompiled/hooks/hook_409_didMoveToWindow_863ac.c",
+      "size": 629,
+      "sha256": "3f6e68e7ee40c214b9651f219c898d306f342d2a739e85b17023af5389035c72"
+    },
+    {
+      "path": "decompiled/hooks/hook_410_layoutSubviews_863d8.c",
+      "size": 628,
+      "sha256": "bc670fc8cc9cdb5fbf1b37718e61434715d58ef8df7949143fa518ebd6f6e1ad"
+    },
+    {
+      "path": "decompiled/hooks/hook_411_didMoveToWindow_86404.c",
+      "size": 629,
+      "sha256": "d857814d66f85cbe09db81b6e48e0ee002a32d27129c1b7203d0623b2c5fe8be"
+    },
+    {
+      "path": "decompiled/hooks/hook_412_setConfiguration__86430.c",
+      "size": 901,
+      "sha256": "1a3dd425c7e4425adff8f5b0d1ab66af4922d1e590fd58c409bd2dc54acb4ad6"
+    },
+    {
+      "path": "decompiled/hooks/hook_413_layoutSubviews_8649c.c",
+      "size": 472,
+      "sha256": "98d82b7c88d7042067dad46ccbfe18ebaffe6109f81999f36bfc9ac23d0cbae8"
+    },
+    {
+      "path": "decompiled/hooks/hook_414_layoutSubviews_864e0.c",
+      "size": 628,
+      "sha256": "cfac32812163c10c93a235aea999ec7b8eadb3c9a8a420eed84f739a02a49b80"
+    },
+    {
+      "path": "decompiled/hooks/hook_415_didMoveToWindow_8650c.c",
+      "size": 629,
+      "sha256": "56cecbfabb4bce07642bea76629a46ab42a1c5a888865f5f8716b8512e0d351b"
+    },
+    {
+      "path": "decompiled/hooks/hook_416_layoutSubviews_86538.c",
+      "size": 628,
+      "sha256": "00d56428aa99fd90f78ce771110890352063a64afe00cebf513cb35e0acf4203"
+    },
+    {
+      "path": "decompiled/hooks/hook_417_didMoveToWindow_86564.c",
+      "size": 629,
+      "sha256": "44f67c4e0178224d485f6a4efe2f5d4c2ad5107cedc23431e2426feca553b3ef"
+    },
+    {
+      "path": "decompiled/hooks/hook_418_viewDidAppear__86590.c",
+      "size": 1293,
+      "sha256": "b6c3f414c5967ceb042afe5b6b993c4cd035183a73963599ef0da99692133f6f"
+    },
+    {
+      "path": "decompiled/hooks/manifest.json",
+      "size": 135643,
+      "sha256": "e60687247dad0985e2312ecd17ff77253c9193353dadd4e0bc6bc5a5fd532e5b"
+    },
+    {
+      "path": "decompiled/initializers/initializer_01_4000.c",
+      "size": 9373,
+      "sha256": "cc6ebd200e12b2f163b696ad39a4ab387a76235c74bdf4bd1b8ac825221e43a1"
+    },
+    {
+      "path": "decompiled/initializers/initializer_02_5f1c.c",
+      "size": 4092,
+      "sha256": "81027d21a89a70eeeefb6e34bc3c83a274ba000382013f8ae327e8d5893fe76d"
+    },
+    {
+      "path": "decompiled/initializers/initializer_03_7fcc.c",
+      "size": 2868,
+      "sha256": "ec34db58233c288e0e6cdb04d48f611dc3e81c32f789441ecb828b672bff8ded"
+    },
+    {
+      "path": "decompiled/initializers/initializer_04_aaec.c",
+      "size": 2909,
+      "sha256": "334160d466ca7686cbf7b38f7c1581d7afd8bffda52ab7c6f2951b1463437eae"
+    },
+    {
+      "path": "decompiled/initializers/initializer_05_110b8.c",
+      "size": 2724,
+      "sha256": "a02cd15a66ccca496066adf5c9532e79918ba81a145abc78266636e43392996d"
+    },
+    {
+      "path": "decompiled/initializers/initializer_06_13078.c",
+      "size": 7705,
+      "sha256": "06ebb777534038b27148e2ca69626ce21a9cd4c968fb190f39056f77db2e8ebb"
+    },
+    {
+      "path": "decompiled/initializers/initializer_07_1af00.c",
+      "size": 27229,
+      "sha256": "96a179e771e85195a8847a65d2e67fe23481df2c63eaea77fef18a38f255a1ef"
+    },
+    {
+      "path": "decompiled/initializers/initializer_08_286fc.c",
+      "size": 6743,
+      "sha256": "776919072e00a19b2c7f1f34170355507c1fb27a56a574ac9c6961fd3a430047"
+    },
+    {
+      "path": "decompiled/initializers/initializer_09_29e28.c",
+      "size": 8906,
+      "sha256": "2c303ca326cad3c6f81f4e65c11bd7465286c8d9d3372aa3fedc78ca62adb4e9"
+    },
+    {
+      "path": "decompiled/initializers/initializer_10_38988.c",
+      "size": 2949,
+      "sha256": "af6bdd80c6ef5603b1818852f688edad00dff8bc45375644ac91bbb86f491823"
+    },
+    {
+      "path": "decompiled/initializers/initializer_11_397e0.c",
+      "size": 6207,
+      "sha256": "8c7989124161d70dc2d1cb2caf44a5dbf7f1ce4ba49c33812d84e4bcc563bbdb"
+    },
+    {
+      "path": "decompiled/initializers/initializer_12_3bf10.c",
+      "size": 3599,
+      "sha256": "1eb12fde10171c585be28c06fccfed4b443dd4b447adea03b29d7c01c23a1060"
+    },
+    {
+      "path": "decompiled/initializers/initializer_13_3c4ac.c",
+      "size": 9515,
+      "sha256": "7dcc4f76e839dc12ca6d6acf09f2d5716337a09f7c6f43296e39c9b39b4040a2"
+    },
+    {
+      "path": "decompiled/initializers/initializer_14_3e1e4.c",
+      "size": 5209,
+      "sha256": "72d1d5d7ac4f314df6ab5f9b437b4aecd0d7d7a131a6553466d9e44daefe8c92"
+    },
+    {
+      "path": "decompiled/initializers/initializer_15_3ed38.c",
+      "size": 3589,
+      "sha256": "b409c5c3886bc79bed4192ab0515322b26ef9f8fa6111df03735ed25bae08080"
+    },
+    {
+      "path": "decompiled/initializers/initializer_16_413ec.c",
+      "size": 14832,
+      "sha256": "c5b97fff49088376d1381c177cdcc34c9c727251b3c393f221d62d6becb3be5f"
+    },
+    {
+      "path": "decompiled/initializers/initializer_17_4e544.c",
+      "size": 3126,
+      "sha256": "b4e9108020ba8ac7e134b155aa17ec9b51d31669d6a68caa6f62b65c44773970"
+    },
+    {
+      "path": "decompiled/initializers/initializer_18_50058.c",
+      "size": 5240,
+      "sha256": "4404b8787192989c0ba3bb3c671e70fff2898ae3747bc984848dba71ba7325a0"
+    },
+    {
+      "path": "decompiled/initializers/initializer_19_55308.c",
+      "size": 2682,
+      "sha256": "3974678a6517628bdc38866a43cae70e7ccf38c8e4dab95a018c51255c53a5f8"
+    },
+    {
+      "path": "decompiled/initializers/initializer_20_56e48.c",
+      "size": 3696,
+      "sha256": "ff64c9d21aded2dc1c4a2af844e9eae976f70628c9ebca07e75259f6663722fa"
+    },
+    {
+      "path": "decompiled/initializers/initializer_21_590c4.c",
+      "size": 9049,
+      "sha256": "249d45a72fcf0a786328e9a0556af10beda41eb3ffdcd2056dd909558c5c90b9"
+    },
+    {
+      "path": "decompiled/initializers/initializer_22_62144.c",
+      "size": 2210,
+      "sha256": "01b12b34f669f8b6405fc766e80633ad82a92b492d0af9de544f692024547984"
+    },
+    {
+      "path": "decompiled/initializers/initializer_23_6714c.c",
+      "size": 11254,
+      "sha256": "2b4f8de59db53e51163001f344dd896f51bf50c658751bfb1a25c1afb65f0ebd"
+    },
+    {
+      "path": "decompiled/initializers/initializer_24_7ab34.c",
+      "size": 2018,
+      "sha256": "08abd6ef471d3daf9e73432d2060128ac8401a3342322d750117f9c6509341e3"
+    },
+    {
+      "path": "decompiled/initializers/initializer_25_7be7c.c",
+      "size": 1687,
+      "sha256": "a67620c4326d6b38e4fac0f8c25f5765ced23d438c14998457d7cbe1836193f0"
+    },
+    {
+      "path": "decompiled/initializers/initializer_26_7c398.c",
+      "size": 731,
+      "sha256": "b27fd6118221c54b2be65e16c25324313e1e0e6426a45fa28ccf15d9c9f1de67"
+    },
+    {
+      "path": "decompiled/initializers/initializer_27_7c404.c",
+      "size": 6606,
+      "sha256": "e76731d86194e9e95d6d5b7441fac0f6df51948148a200610ab5375fed9fccd9"
+    },
+    {
+      "path": "decompiled/initializers/initializer_28_7f20c.c",
+      "size": 2031,
+      "sha256": "4d613cc46a8b9187dc48e328fc1a6c8e5b44a3648e47128fe0133d26d932b21d"
+    },
+    {
+      "path": "decompiled/initializers/initializer_29_7fc50.c",
+      "size": 3164,
+      "sha256": "af1cc0111b6c605d1ea912d1eaf23a8bd21b0fbd1003ffa580e24be1fc52c255"
+    },
+    {
+      "path": "decompiled/initializers/initializer_30_85394.c",
+      "size": 2382,
+      "sha256": "a23ed4cf4fc661ec74b572c25b2c15e05727548243950269aa402aa0b2049866"
+    },
+    {
+      "path": "decompiled/initializers/initializer_31_8591c.c",
+      "size": 6942,
+      "sha256": "11ee3f37c84633832ddf09e42a373c16f3ce60e1fa491a730c15eac70f790377"
+    },
+    {
+      "path": "decompiled/initializers/initializer_32_87c38.c",
+      "size": 13751,
+      "sha256": "749714364a87ec1567128ef42cd7fe7a043726f501c4e909cc29785d33493a85"
+    },
+    {
+      "path": "decompiled/initializers/initializer_33_45e458.c",
+      "size": 1916,
+      "sha256": "67e2e882f0a95cd472bd8b77f4a1d70bd03aa85f4ccc977a46a51e65d7223378"
+    },
+    {
+      "path": "decompiled/initializers/manifest.json",
+      "size": 6669,
+      "sha256": "743b41d73c6b91c384b88d34c8eb18e7a3a14fd0e4bd6c53f426f8575e698d34"
+    },
+    {
+      "path": "decompiled/manifest.json",
+      "size": 28159,
+      "sha256": "83bd35a1f3c1ceff3a4e238e0a0cba4a0489f15faf5a4705adde89c718add598"
+    },
+    {
+      "path": "decompiled/selector_annotations.json",
+      "size": 157895,
+      "sha256": "1d7c67126f2efaa4a54261ea9fc8f2d0d98e9d424c82231e3cdc43c0662bb2ee"
+    },
+    {
+      "path": "decompiled/WCGMultiDownloader__fetchRange_session___2ed9dc.c",
+      "size": 4251,
+      "sha256": "0d8b999b4afb2ea428d8737d2ae414838c3e855d429f737c938e11510b739589"
+    },
+    {
+      "path": "decompiled/WCLGAvatarPickerHandler__imagePickerController_didFinishPickingMediaWithInfo___11a280.c",
+      "size": 2655,
+      "sha256": "2a87cf87219e2a3b4cf752a7cbf82a3f51edb9b77540216fd250dc7810cf120a"
+    },
+    {
+      "path": "decompiled/WCLGBubbleFlushDriver__tick___1a9b3c.c",
+      "size": 2580,
+      "sha256": "5befd567d06834fc9452102157c97600fc8e97b0c28e8b39c44852ff692a69cc"
+    },
+    {
+      "path": "decompiled/WCLGCapsulePinnedContainerView__pointInside_withEvent___318464.c",
+      "size": 3562,
+      "sha256": "a245b0bc669f464c20823c0443995ad1fdcc12d2a9e36e699f7cb8f40a3e02bb"
+    },
+    {
+      "path": "decompiled/WCLGCapsuleSearchGestureTarget__handleLongPress___2165b8.c",
+      "size": 3121,
+      "sha256": "af227d752efe0640af24ff75f4638af291b8433cceed05544f289f163615e2f3"
+    },
+    {
+      "path": "decompiled/WCLGChatAvatarMenuDelegate__contextMenuInteraction_willEndForConfiguration_animator___125d58.c",
+      "size": 1351,
+      "sha256": "e5bdc02c932a1988c9ccc84b39766b156785f3e706b10f10fd2ac364131502dc"
+    },
+    {
+      "path": "decompiled/WCLGChatBottomFadeOverlayHost__initWithFrame___22a43c.c",
+      "size": 3641,
+      "sha256": "9e36d506ce88ca99cf8f97873035e2e8888ed000e7841d69bade08f72f6060c6"
+    },
+    {
+      "path": "decompiled/WCLGChatBottomSMSProxySendTarget__wclg_smsSendTapped___12a9dc.c",
+      "size": 14739,
+      "sha256": "b18cb051cbb74ad5f98748a0c83bdd36e68b979aac394cec4f93444987c7ca82"
+    },
+    {
+      "path": "decompiled/WCLGChatPinnedHitCatcher__hitTest_withEvent___2984c.c",
+      "size": 5559,
+      "sha256": "0c389b4db7888000e4afee149bc01dfde7f980db52edd2c5617d4c261ff7c5ce"
+    },
+    {
+      "path": "decompiled/WCLGChatTextApplyState__init__19765c.c",
+      "size": 832,
+      "sha256": "196f454973a3ec6ac437c96d78f21403dae6a028f145a637efb1789b45f98b06"
+    },
+    {
+      "path": "decompiled/WCLGChatTopAvatarOverlayView__layoutSubviews__2343d4.c",
+      "size": 1536,
+      "sha256": "3d81184edfec8f03f571a0baa471a017c1f98b7e6f0b252080159b37820565bd"
+    },
+    {
+      "path": "decompiled/WCLGChatTopCapsuleHostView__initWithFrame___225e8c.c",
+      "size": 6695,
+      "sha256": "dddd53ea30b40f34fa4d45492b8a1582ecdfb38ffb4c1b4ccab7363556cfffe5"
+    },
+    {
+      "path": "decompiled/WCLGChatTopFadeOverlayHost__initWithFrame___229d60.c",
+      "size": 3446,
+      "sha256": "85a9820a3dfca001e8dd357857e0cb5cba6a367491ef40ab010d02d27f6c261e"
+    },
+    {
+      "path": "decompiled/WCLGChatTopMorphHostView__updateChrome__2348a8.c",
+      "size": 7725,
+      "sha256": "b18c909bf883babcad2b0d6d4d7d3152abeda964c4070bfc1ddcb95a96112b65"
+    },
+    {
+      "path": "decompiled/WCLGChatTopMorphMenuView__reloadRows__231f90.c",
+      "size": 10201,
+      "sha256": "f795221e52bc38c5845d05da6dda801b5bf64930dcfcb37284617f3d1d1b2ed4"
+    },
+    {
+      "path": "decompiled/WCLGCodeLibraryViewController__viewDidLoad__243874.c",
+      "size": 10941,
+      "sha256": "73d2b73c7414411dc17813844633500e826da47a9dffd829ec6074cacedf2487"
+    },
+    {
+      "path": "decompiled/WCLGColorCanvasView__initWithFrame___24a0d4.c",
+      "size": 6948,
+      "sha256": "ddc84668a06c6c8adfbe9569ef653d625e62c3ae3611e9413bbf002619d888f9"
+    },
+    {
+      "path": "decompiled/WCLGColorPickerBackgroundView__layoutSubviews__249c8c.c",
+      "size": 1984,
+      "sha256": "38d7c00f1891ba5f616786133215b9856be4f6e387bca258edfcc0acd19e08fb"
+    },
+    {
+      "path": "decompiled/WCLGColorPickerViewController__viewDidLoad__252424.c",
+      "size": 89910,
+      "sha256": "2530b5749a81ed89adfe5411d9fb7a34e8b11985bad4b7d239c06623995bed54"
+    },
+    {
+      "path": "decompiled/WCLGConfig__setBool_forKey___28c228.c",
+      "size": 7838,
+      "sha256": "8bd6cc1bc119983f91d30794341bbcd032ae25abdd72ffd1acc9efd41d0ec899"
+    },
+    {
+      "path": "decompiled/WCLGConfig__shouldForceTrueForUserDefaultsKey___28fa24.c",
+      "size": 3271,
+      "sha256": "65b93aad3ee9dd1eab263e6536bc20861b5fd9959815bfa7bea7163658709d8e"
+    },
+    {
+      "path": "decompiled/WCLGDownloadCenterViewController__viewDidLoad__298154.c",
+      "size": 15278,
+      "sha256": "db6621048fb930f20dca328f7ac4270ddc8555cc245bd10ef54a7ff182023e83"
+    },
+    {
+      "path": "decompiled/WCLGEdgeEffectView__updateWithContentColor_blur_alpha_rect_edge_edgeSize_blurRadius___29b548.c",
+      "size": 308,
+      "sha256": "2fa5df1e6bc21e95d1806c9d125949f858b5cefdd9caa9f1391090c5284ee51e"
+    },
+    {
+      "path": "decompiled/WCLGForegroundReaffirm__appDidBecomeActive___3aa5e4.c",
+      "size": 4047,
+      "sha256": "b193022ea29b687383f2258db9d020c9fa68f15ad5f0ed94b449633316b57a68"
+    },
+    {
+      "path": "decompiled/WCLGFriendCapsuleButton__layoutSubviews__314508.c",
+      "size": 13049,
+      "sha256": "c161962c5fe61801d04f454cd9549d1f2603f87ffb3056b86ece7672c54f61f4"
+    },
+    {
+      "path": "decompiled/WCLGFuncCardChromeView__traitCollectionDidChange___31d90c.c",
+      "size": 1021,
+      "sha256": "b270229fb29c67778efa78766a6e926bfbf95be6e1156b70da213a7cc1b36c3c"
+    },
+    {
+      "path": "decompiled/WCLGFuncCardDocPickerDelegate__documentPicker_didPickDocumentsAtURLs___322208.c",
+      "size": 6690,
+      "sha256": "785d11c655c5d95d2868ba84f879d81fa48fc17b13295ff6666e61dcfff27200"
+    },
+    {
+      "path": "decompiled/WCLGFuncCardMediaController__userContentController_didReceiveScriptMessage___29d300.c",
+      "size": 41911,
+      "sha256": "5916284e3387b21da4ca57c838d109b36a4c011feaf25969a147cdc5770d6659"
+    },
+    {
+      "path": "decompiled/WCLGFuncCardPanelView__metricDefinitions__2dc240.c",
+      "size": 25620,
+      "sha256": "1e4ef3a0bfbe9c0d9601aef7ae962842cc143055afd8ea3883557165de3520dd"
+    },
+    {
+      "path": "decompiled/WCLGGetButton__initWithFrame___4454f4.c",
+      "size": 11071,
+      "sha256": "c322cd24251eadb2155f4a7aaa7697bf3f1cce65cb10d8bfba96cfcdd8eb7a11"
+    },
+    {
+      "path": "decompiled/WCLGGlassBackgroundView__initWithFrame___2faed0.c",
+      "size": 5744,
+      "sha256": "b4bea841c9999c02a62921d513a0fbec595fa066588f975f85dd5a9b6b78d7e7"
+    },
+    {
+      "path": "decompiled/WCLGGlassPackage__applyInstalled___2e9610.c",
+      "size": 11806,
+      "sha256": "a2b34953c2c28b023451973ddb41b0e6ef0d96f40322c18185da6a787762bf75"
+    },
+    {
+      "path": "decompiled/WCLGGlassPackage__decryptContainer_themeId_wxid_signKey_glassMaster_error___2e4dd8.c",
+      "size": 15886,
+      "sha256": "eaeeada91c2184206b399aee224a3df3e0465315bec1b38309160385595bbd78"
+    },
+    {
+      "path": "decompiled/WCLGGlassPackage__importGlassData_wxid_signKey_glassMaster_iconURL_error___2e5ecc.c",
+      "size": 25745,
+      "sha256": "c3f57a3cb79b4c3f1e4c27c477d840b48bbb830a4a426279b3be2df7e1f87b18"
+    },
+    {
+      "path": "decompiled/WCLGGlassPackage__performConfidentialityMigrationIfNeeded__2e2c50.c",
+      "size": 29126,
+      "sha256": "f62a115691cb15eb9d3033c054f6bfa78c5f2e8d38e5934ace7c4210467c8996"
+    },
+    {
+      "path": "decompiled/WCLGGlassStore__apiPubKey__2ee608.c",
+      "size": 15932,
+      "sha256": "369d137a918d96491e6729eb052e04c7adf2694aa0fcaec40d3f6e856e3275af"
+    },
+    {
+      "path": "decompiled/WCLGGlassStore__buildRequest_requestKey_nonce___2f198c.c",
+      "size": 17825,
+      "sha256": "27863f66f3b5cf0a69560400f2e1590538c1f01b11a88839d25b820bbae55312"
+    },
+    {
+      "path": "decompiled/WCLGGlassStore__decryptResponse_requestKey_nonce___2f3140.c",
+      "size": 19146,
+      "sha256": "b4ff69ed3632d88d1a8fbf5dd4db895b664c0ec3085facd4a9a2a90765fddee5"
+    },
+    {
+      "path": "decompiled/WCLGGlassStore__fetchCardPreviewHTMLForTheme_completion___2f706c.c",
+      "size": 8621,
+      "sha256": "6c83fe06ec6ca9833fccd1f8a4e7f8c27b43d25f92753f9910aa39696c051a14"
+    },
+    {
+      "path": "decompiled/WCLGGlassStore__postPath_payload_completion___2f45b4.c",
+      "size": 7860,
+      "sha256": "a9afebcfdccb7475d240be915d2c854196a2f8b971e42daec2cac24ed537855c"
+    },
+    {
+      "path": "decompiled/WCLGGlassThemeCell__initWithStyle_reuseIdentifier___29606c.c",
+      "size": 31579,
+      "sha256": "b2d20c531458a08183d36b279a490b4bff45c2c81f16b1b853abd42a1bbb03fa"
+    },
+    {
+      "path": "decompiled/WCLGGlassUI__trimThemeIconDiskCacheIfNeeded__2fe150.c",
+      "size": 8583,
+      "sha256": "c9320b5d81b0f9f40dd15efbd69021cf3a54fb98c07c18f1f6b16980f5dc5e09"
+    },
+    {
+      "path": "decompiled/WCLGGroupMemberPicker__tableView_didSelectRowAtIndexPath___30a970.c",
+      "size": 809,
+      "sha256": "f59c78c31343582e9d90702cf1b38b60cbffa74eda23c9f9ac410cd4ba24b700"
+    },
+    {
+      "path": "decompiled/WCLGGroupPill__applyVisualStateExpanded_newButton_title___325a78.c",
+      "size": 35128,
+      "sha256": "cefd1b02b535ccdef4ea50dc5015b4c25c795d64d42463978dbc63999da7af4c"
+    },
+    {
+      "path": "decompiled/WCLGHGFullscreenDrawer__buildPillsWithFontSize___333df8.c",
+      "size": 271,
+      "sha256": "0c8f0ae45a56e5d021892360fe98381837a6782b707fa24ba29b288e5bf30133"
+    },
+    {
+      "path": "decompiled/WCLGHGFullscreenGestureTarget__handleEdgePan___3366f4.c",
+      "size": 4411,
+      "sha256": "e669ed45859768916cd201a76243418f02b415caf4065728215cfc62715db124"
+    },
+    {
+      "path": "decompiled/WCLGHGPassthroughView__hitTest_withEvent___337404.c",
+      "size": 834,
+      "sha256": "cccbf9475d34fd62345815c2e867a4b38e96daa9143653a5466ed73909dea9b3"
+    },
+    {
+      "path": "decompiled/WCLGHomeCapsulePinnedController__presentActionsForUser___315324.c",
+      "size": 10731,
+      "sha256": "40d19f277306657aeadbd3426d73ce974e629b70018492ce93cd29e66699659e"
+    },
+    {
+      "path": "decompiled/WCLGHomeGroupBar__scrollSelectedPillToVisibleIfNeededAnimated___32ce8c.c",
+      "size": 553,
+      "sha256": "99ce958ef46ac377f6b43f4084db7f6d8db3f7d8bd6d305cc8ddca3d1d317d30"
+    },
+    {
+      "path": "decompiled/WCLGHomeGroups__loadFromDisk__34ab94.c",
+      "size": 831,
+      "sha256": "78dd02e80f24c978e5e17aca34f3f8086284bc4b4c754ec20397c067dc05113e"
+    },
+    {
+      "path": "decompiled/WCLGHomeGroups__persistGroupsLocked__34c254.c",
+      "size": 708,
+      "sha256": "ba928880558d771f85464e240759e41d0714ccd49daae85d4a2225d19325356a"
+    },
+    {
+      "path": "decompiled/WCLGHomeGroups__setMembers_forGroupID___360498.c",
+      "size": 991,
+      "sha256": "776c0942b6b427dfc52e56f171c6a2d93186523ce2388274810c2b3a8567e602"
+    },
+    {
+      "path": "decompiled/WCLGHomeGroupsChrome__homeGroupBar_didRequestManageDisplayIndex_sourceView___369228.c",
+      "size": 17691,
+      "sha256": "7a7cfcece4d48923ea30ffa6037cef4f9a371eb62007993d85365f759278eb50"
+    },
+    {
+      "path": "decompiled/WCLGHomeGroupsGestureTarget__wclgHandleLongPress___36f250.c",
+      "size": 27611,
+      "sha256": "cd4f16e747ce88766da0a525996ecccb847cbb18c8d38118cdfade683eb03e67"
+    },
+    {
+      "path": "decompiled/WCLGHomePinnedController__presentMaskPickerFromController___382724.c",
+      "size": 10072,
+      "sha256": "5acdd09ab2de8151974a8a002f43fe4223630eb0364701cdd7359b519c9cc530"
+    },
+    {
+      "path": "decompiled/WCLGHomePinnedPanelView__rowDefinitions__3874dc.c",
+      "size": 40469,
+      "sha256": "a078cffac4ae026ecbb5ce52073ecf4f34600eb5d62cfca9fd095908196b557c"
+    },
+    {
+      "path": "decompiled/WCLGHomeStripSwipeTarget__handleSwipe___371650.c",
+      "size": 3745,
+      "sha256": "52b96ace6096ee86bd50949a2ea61bc8993c6c3d135842bcb6306a771b7c8eeb"
+    },
+    {
+      "path": "decompiled/WCLGHomeSwipeBlockerDelegate__gestureRecognizerShouldBegin___370b58.c",
+      "size": 282,
+      "sha256": "f397e46589511e2dd16cf2d251a86c3ef93ae6498e6fb6dd182f37800070952e"
+    },
+    {
+      "path": "decompiled/WCLGHomeTextHeaderWrapperView__layoutSubviews__38e354.c",
+      "size": 267,
+      "sha256": "7309a6d7c0c1f576153e34e1135729e5a8eea7ffd1c6b00652263afaddc295a5"
+    },
+    {
+      "path": "decompiled/WCLGHueBarView__layoutSubviews__24aff0.c",
+      "size": 668,
+      "sha256": "a639b97ca0fa3c926963a76a9d7cff76fa0079e16246df216fecc1c7cd289799"
+    },
+    {
+      "path": "decompiled/WCLGImageLibraryPickerViewController__viewDidLoad__11b558.c",
+      "size": 10336,
+      "sha256": "6d8c2f9a9d146071e0e2e9e57e25c911052a73ec1ddb534b39ce6572e875c5a8"
+    },
+    {
+      "path": "decompiled/WCLGImageZoom__viewDidLoad__446740.c",
+      "size": 6049,
+      "sha256": "e51bb63a26b73daf5da586bc8447bca5f4e2e6fd8078b68b377285617011d9fc"
+    },
+    {
+      "path": "decompiled/WCLGKeyboardObserver__updateFromNote_visibleHint___3a9cb4.c",
+      "size": 11971,
+      "sha256": "d1cf56d370561291a2702be01165e805f58f1420ea8901279ba777dbe3435e91"
+    },
+    {
+      "path": "decompiled/WCLGNativeProfileTitleHitView__pointInside_withEvent___1db720.c",
+      "size": 2881,
+      "sha256": "aa351c947e5f0e69d4767a65179f4c2a81ba4977aa23e488c25e7df4ba0ff221"
+    },
+    {
+      "path": "decompiled/WCLGNativeProfileTitleTapTarget__wclg_nativeProfileTitleTapped___1db8d0.c",
+      "size": 17419,
+      "sha256": "f30f342e72747549144b50a9a6e1d2cc9fbb0b8709a0876669f4417de511c026"
+    },
+    {
+      "path": "decompiled/WCLGSearchActionTarget__sharedTarget__3b5bcc.c",
+      "size": 2037,
+      "sha256": "6917bedb72cc2b6d5120c821dd7c46ae2b41c52a75b66352af77686602f235dd"
+    },
+    {
+      "path": "decompiled/WCLGSearchTabBarOverlay__layoutSubviews__3c9354.c",
+      "size": 264,
+      "sha256": "4b0c2682cc9b83f45d4b268fc8421d4d0f13a21f503375fe9a252077d7df1035"
+    },
+    {
+      "path": "decompiled/WCLGSessionGroup__groupWithDictionary___3493a0.c",
+      "size": 1737,
+      "sha256": "9d66f935892405a8a507ad9b87e8baf02f8b59c2504a31ad0e52f929eea15e0e"
+    },
+    {
+      "path": "decompiled/WCLGSettingsViewController__rootGridCellForTableView_indexPath___3e63e8.c",
+      "size": 288,
+      "sha256": "1b9e9301eae2b47a3693001b2768f5b86350302b3c16fadaa9e85d89c75491b4"
+    },
+    {
+      "path": "decompiled/WCLGSMSBackContentView__layoutSubviews__64c70.c",
+      "size": 261,
+      "sha256": "75a5c53d987237a0aa179c6f9e5b4225ec8a220e9673e3c4ec74fb1eba7bf231"
+    },
+    {
+      "path": "decompiled/WCLGTextEditorViewController__viewDidLoad__3d5c08.c",
+      "size": 7013,
+      "sha256": "406898ea7e71f546a1f11ec4b6ce9a3d0e84e3aafbb3b13dddb3e804336eae86"
+    },
+    {
+      "path": "decompiled/WCLGThemeDetailViewController__buildContent__447c98.c",
+      "size": 29769,
+      "sha256": "1dabe4075b99864c48052cf8e48845c821b1f5edc8885154993ebaabe97950bb"
+    },
+    {
+      "path": "decompiled/WCLGThemeDetailViewController__renderLiveCardPreviewHTML_generation___44c610.c",
+      "size": 6187,
+      "sha256": "fd776efbb9b30d580490d18be78ce5dde4c3d9f6126922f636d5fcae7b54bd2e"
+    },
+    {
+      "path": "decompiled/WCLGThemeManageCell__initWithStyle_reuseIdentifier___44f094.c",
+      "size": 29382,
+      "sha256": "280f2a3a3af0adea3305b7a2e6fea490781ffc919eccfd26a29759f6b19efe62"
+    },
+    {
+      "path": "decompiled/WCLGThemeManageViewController__viewDidLoad__4511b8.c",
+      "size": 13802,
+      "sha256": "1a05bda58c41614891bd956f3c133646c1516caaba1d0861c9720a92507eaae8"
+    },
+    {
+      "path": "decompiled/WCLGVariableBlurHostView__initWithFrame___29a6dc.c",
+      "size": 3615,
+      "sha256": "f651f65d40b385aad82aa59be0303f445822f3688d2e9dfa83ab9cefb1d77e8b"
+    },
+    {
+      "path": "decompiled/WCLGVoiceHoldRecognizer__wclgBeginRecording__840b4.c",
+      "size": 2761,
+      "sha256": "19c564da8baf7c5bd1f775b3d577ea208d80a9681d79fafd21c8de24e7241b28"
+    },
+    {
+      "path": "decompiled/WCLGVoiceHoldRecognizer__wclgMountWaveViewOnToolView___822a8.c",
+      "size": 11745,
+      "sha256": "fc098c0147753aee432e6675d3781c665a3b7589ae5f3069f5a82198578b7ddb"
+    },
+    {
+      "path": "decompiled/WCLGVoiceWaveView__initWithFrame___4596f0.c",
+      "size": 6013,
+      "sha256": "804529be32c47c385fb22c61c155b03cd5e0e94bab8c39a8cf2de3987be83d28"
+    },
+    {
+      "path": "README.md",
+      "size": 2282,
+      "sha256": "7bb9a040903580af758f26f4004b457177bd9a8c33a28677fac9e1703bfd1508"
+    },
+    {
+      "path": "slices/WCGlass.arm64.dylib",
+      "size": 5867328,
+      "sha256": "196b064c5e0a6d392cae670f21c8581227a54bb2a66b0fc9bd8cfa8ff0cdf0d9"
+    },
+    {
+      "path": "slices/WCGlass.arm64e.dylib",
+      "size": 5950448,
+      "sha256": "dff8a4ee4a185291338546d14c7054187ce49e7c8b001c1166bf68bda65573e8"
+    },
+    {
+      "path": "src/RecoveredClasses.h",
+      "size": 91220,
+      "sha256": "69b2623aaff1a9cd9d605e8466aee684f61f903d0a0303904c0bcb0c0768e3c5"
+    },
+    {
+      "path": "src/WCGMultiDownloader.m",
+      "size": 3376,
+      "sha256": "a176f618a11a089d77db52383fc27a6a6df258cdfde0702610a5f40de9e29eb1"
+    },
+    {
+      "path": "src/WCLGAvatarPickerHandler.m",
+      "size": 981,
+      "sha256": "5835173883ec30f2cc7bc6ffc7d88dbc0c81c80664da70017c45535e0e5a63a1"
+    },
+    {
+      "path": "src/WCLGBubbleFlushDriver.m",
+      "size": 575,
+      "sha256": "a3fcb0ce463585cc9a3de0ea9276843faa65e2f161c821039ce63e0c6542dce6"
+    },
+    {
+      "path": "src/WCLGCapsulePinnedContainerView.m",
+      "size": 219,
+      "sha256": "69e21f738304669a642cf50a72c38c74ed818cebe710ee1603f9cd1a483bced3"
+    },
+    {
+      "path": "src/WCLGCapsuleSearchGestureTarget.m",
+      "size": 301,
+      "sha256": "49393fa478e4b7bdf239a45641fb735249382b56a4ba577d3322844415fca8fc"
+    },
+    {
+      "path": "src/WCLGChatAvatarMenuDelegate.m",
+      "size": 1630,
+      "sha256": "fe490159ed5d2ba9cad3712b542ff07f56aee7f00b0604c56062700419f8efdf"
+    },
+    {
+      "path": "src/WCLGChatBottomFadeOverlayHost.m",
+      "size": 957,
+      "sha256": "e30e37f140ed1f218fad22030e8272c3143cbcec768483b8835f88a5872d6d6f"
+    },
+    {
+      "path": "src/WCLGChatBottomSMSProxySendTarget.m",
+      "size": 564,
+      "sha256": "e7b6377a6a618ab586fa59730ef8020b11c9fc046d56504f2a5255e86e9b5551"
+    },
+    {
+      "path": "src/WCLGChatPinnedHitCatcher.m",
+      "size": 209,
+      "sha256": "04cf9a1af7b65f61b2972feeb02cd94ef1946ab00bafc735acd066277730c88f"
+    },
+    {
+      "path": "src/WCLGChatTextApplyState.m",
+      "size": 4650,
+      "sha256": "fd0f42126f42224209d2bb2ecb44bb5bbbe51a1f7fd4cd04ebaf317ccdba3d3e"
+    },
+    {
+      "path": "src/WCLGChatTextTarget.m",
+      "size": 3000,
+      "sha256": "1059cf95af32efc1ee3835d1c2b25f98a99d86af09eda74494321ef0d468309b"
+    },
+    {
+      "path": "src/WCLGChatTopAvatarOverlayView.m",
+      "size": 191,
+      "sha256": "8aa7506e5e8003b0f67cbf136fbfc94829be970c0f12517d273aa91780fa30f4"
+    },
+    {
+      "path": "src/WCLGChatTopCapsuleHostView.m",
+      "size": 1920,
+      "sha256": "b1924d86ff5c3b65c2a133f5557a0fa19108ccf29690ee204ac1ee5786bfdd16"
+    },
+    {
+      "path": "src/WCLGChatTopFadeOverlayHost.m",
+      "size": 936,
+      "sha256": "2428890d17168ae557359bedd61d1ed4b6058e993d92c31fdcfb74e739a31fb7"
+    },
+    {
+      "path": "src/WCLGChatTopMorphHostView.m",
+      "size": 3430,
+      "sha256": "797c605cbf0a022e51aadec72e7d42ae90b9a27d0cd42776c989a8b0a0bd519c"
+    },
+    {
+      "path": "src/WCLGChatTopMorphMenuView.m",
+      "size": 1919,
+      "sha256": "7a672b6d3cd4ed5c59b556aa4ebdfa606fcabe506f62b5f61177c501ccd3f02a"
+    },
+    {
+      "path": "src/WCLGCodeLibraryEntry.m",
+      "size": 897,
+      "sha256": "0fa206b87eb7181658f44501fc1254101158807bfd1ba26db7bae670bb0e0268"
+    },
+    {
+      "path": "src/WCLGCodeLibraryViewController.m",
+      "size": 6056,
+      "sha256": "ff49dc29ed48aeea25460b538be58b8a4cadc0338c3ee8ccba88a1a2019b3d49"
+    },
+    {
+      "path": "src/WCLGColorCanvasView.m",
+      "size": 1131,
+      "sha256": "48940ba0671d32b7ea971a10affb361876c0ac974d4f27d508d43f3b37b2f066"
+    },
+    {
+      "path": "src/WCLGColorPickerBackgroundView.m",
+      "size": 296,
+      "sha256": "113d7c6bcf134989bf1d7d67f07773e436d6cfacd108f50ff40828c710c0f07c"
+    },
+    {
+      "path": "src/WCLGColorPickerViewController.m",
+      "size": 17216,
+      "sha256": "51df9bdf2c6ea1e5615e3b5bd8523678a91e9024ed2ef1204cffe641c3814e9a"
+    },
+    {
+      "path": "src/WCLGConfig.m",
+      "size": 17093,
+      "sha256": "a17a71d2f0f106935c3967ddf971fb09fb4128e4d293f7cd6c9107e7fdab87b0"
+    },
+    {
+      "path": "src/WCLGDownloadCenterViewController.m",
+      "size": 3681,
+      "sha256": "fec6969923cb4bd616b0c7c62b242f1d04cd673235951ff6efc164bc974f1d31"
+    },
+    {
+      "path": "src/WCLGEdgeEffectView.m",
+      "size": 2994,
+      "sha256": "05632f26d728f02013bac98e17322797940a74df9c81b75e2016bec2353a9464"
+    },
+    {
+      "path": "src/WCLGForegroundReaffirm.m",
+      "size": 304,
+      "sha256": "21d3a3b184d71c2916c8118d2f7eb8d00ecb2cacb8383352d48007c11bbefd5c"
+    },
+    {
+      "path": "src/WCLGFriendCapsuleButton.m",
+      "size": 2810,
+      "sha256": "d8526d85c15e1e502987b9cfd0af16ec3e307bb05e72db4e1f97bdaf08c3ca2b"
+    },
+    {
+      "path": "src/WCLGFuncCardChromeView.m",
+      "size": 204,
+      "sha256": "ccaacd6abf9faf69af54abd2885c6f88eaa22e9e87c3d757c7c36bea36d93832"
+    },
+    {
+      "path": "src/WCLGFuncCardDocPickerDelegate.m",
+      "size": 777,
+      "sha256": "a688b212588882a9fe38100c2500755b35413e516f057881ce5912ffddc75f35"
+    },
+    {
+      "path": "src/WCLGFuncCardLongPressTarget.m",
+      "size": 466,
+      "sha256": "6d6647342c402a4f092063ad5a45c0043a652bcb17f2cbd01442c5a28ea18d6a"
+    },
+    {
+      "path": "src/WCLGFuncCardMediaController.m",
+      "size": 4952,
+      "sha256": "e36069bac71f35aa7d66234984e3856a4a422e39393acef9077c1d896911e6f2"
+    },
+    {
+      "path": "src/WCLGFuncCardPanelView.m",
+      "size": 5779,
+      "sha256": "1211aedc9f6da0aaa4295bafedda833fb018f4eef4832d9a79288f171f3f323b"
+    },
+    {
+      "path": "src/WCLGGetButton.m",
+      "size": 2273,
+      "sha256": "a19716467240ac40202ddbd30e6efa7d069d90b2e5c22dd754895d65292e20b0"
+    },
+    {
+      "path": "src/WCLGGlassBackgroundView.m",
+      "size": 1329,
+      "sha256": "a52732f48df995aaae104d68d7dac396f146392d14a72c996c313c4f02cce3ba"
+    },
+    {
+      "path": "src/WCLGGlassInstalledItem.m",
+      "size": 1926,
+      "sha256": "a0c12d4c28fb1ae0c1636e89f8ec5272c13bfa0dd549283f25b058edaa65637f"
+    },
+    {
+      "path": "src/WCLGGlassPackage.m",
+      "size": 2789,
+      "sha256": "d065f7f7f6c1781431a55ea3b8119cd17359fa580fa90923cd7161c9f88344af"
+    },
+    {
+      "path": "src/WCLGGlassStore.m",
+      "size": 2173,
+      "sha256": "5392525b50204833de12fe5d4e3baf3112701f59f878533f1b98162ba437ecdf"
+    },
+    {
+      "path": "src/WCLGGlassTheme.m",
+      "size": 3378,
+      "sha256": "c46f14b9c78cbdf46db98bef8baab42a9c31031aae8146f969eb5609a55508f8"
+    },
+    {
+      "path": "src/WCLGGlassThemeCell.m",
+      "size": 1774,
+      "sha256": "b2247c7c379365bc03cd357ceb2af51f521897a26a850721a3090e65974a5c93"
+    },
+    {
+      "path": "src/WCLGGlassUI.m",
+      "size": 2681,
+      "sha256": "5662fa566c1a06fda78b1e55eeb4c542eee849d161438cb222adca3cfa827956"
+    },
+    {
+      "path": "src/WCLGGroupMemberPicker.m",
+      "size": 7200,
+      "sha256": "e3336e21ab07b20cc5dbc5262efe0950dc12af964ae0a670dc7b1f035b1e162e"
+    },
+    {
+      "path": "src/WCLGGroupPill.m",
+      "size": 3621,
+      "sha256": "9be6467d7ed586aa547b5b4e17e8dec5d71e7c90f47ff16a7c9d153ac1124275"
+    },
+    {
+      "path": "src/WCLGHGFullscreenDrawer.m",
+      "size": 3158,
+      "sha256": "20d8c8f782762721f90f399e5dc6c37420dbb8ce21585696dfcbf80e9ada0a1d"
+    },
+    {
+      "path": "src/WCLGHGFullscreenGestureTarget.m",
+      "size": 617,
+      "sha256": "954bcdb649352e73689aad8563e3830d9e553096aa6b53a403e36d07c602e860"
+    },
+    {
+      "path": "src/WCLGHGPassthroughView.m",
+      "size": 205,
+      "sha256": "90dea6961ae2043e0cd73e38f6faae82d150e859d0b4be5546bb0fefc83f6b48"
+    },
+    {
+      "path": "src/WCLGHomeCapsulePinnedController.m",
+      "size": 1287,
+      "sha256": "1816d026027fbf79596716a04cdb6b23a6285ee606d4565babb12c1bc31716cb"
+    },
+    {
+      "path": "src/WCLGHomeGroupBar.m",
+      "size": 2457,
+      "sha256": "f982c488e3582643b51ca0d6128f423150802e0879c53c190be5ec2a62bf92b4"
+    },
+    {
+      "path": "src/WCLGHomeGroups.m",
+      "size": 10747,
+      "sha256": "ef35ec1c06a0597489293c31126f770b81d8590c4c9e0bf01f4d8947b95d7f85"
+    },
+    {
+      "path": "src/WCLGHomeGroupsChrome.m",
+      "size": 877,
+      "sha256": "1946befeaf19d990f601b2adda46246561534399a54c09abcc88d27b6ab73120"
+    },
+    {
+      "path": "src/WCLGHomeGroupsControllerState.m",
+      "size": 1869,
+      "sha256": "4125a77ee56d7ae8a2a0b7ba6fc41116f196a0489db889aabb2ca1db16995ab1"
+    },
+    {
+      "path": "src/WCLGHomeGroupsGestureTarget.m",
+      "size": 507,
+      "sha256": "9c87648442721ba4bc144aa7774d313ffb4b0ef343328d886967d63b4037bb30"
+    },
+    {
+      "path": "src/WCLGHomePinnedController.m",
+      "size": 2083,
+      "sha256": "5e3fcdb19b4bfc027b6fa35ff92f8684a6b1e7261142307e931acf34e97f4e4a"
+    },
+    {
+      "path": "src/WCLGHomePinnedPanelView.m",
+      "size": 5081,
+      "sha256": "28597b6905b618bfc2ba3a1896b0734b7762ffae06986713ac48bf9a216bdd4a"
+    },
+    {
+      "path": "src/WCLGHomeStripSwipeTarget.m",
+      "size": 611,
+      "sha256": "e0128a21b82f7ac6968e0eec79125a71095bca4c18e969eedc0ff574b8983306"
+    },
+    {
+      "path": "src/WCLGHomeSwipeBlockerDelegate.m",
+      "size": 538,
+      "sha256": "9aa836a6e75a5e9b63aaf90d801a578c7af3fdacc8c5b2eb164ef15b16985980"
+    },
+    {
+      "path": "src/WCLGHomeSwipeBlockerPan.m",
+      "size": 337,
+      "sha256": "f4c8b679cabaeb4649617e0a9dd5af1bcf6b9c86ddfaa4b1bbd820020db85960"
+    },
+    {
+      "path": "src/WCLGHomeSwipeBlockerTarget.m",
+      "size": 287,
+      "sha256": "c9d1e0f06f0ebf1a7f4b15e3f6217af1f6fcf45cf5b552777d6a76fcfd1aacd1"
+    },
+    {
+      "path": "src/WCLGHomeTextCardLongPressTarget.m",
+      "size": 295,
+      "sha256": "1e12ffd68180f8dce2630232a1fa19626916188c5e320730145d51013490147f"
+    },
+    {
+      "path": "src/WCLGHomeTextHeaderWrapperView.m",
+      "size": 321,
+      "sha256": "faffc19963ef3be818ac72255d13fb297067e264e681f8f0f9c898419d59a1fd"
+    },
+    {
+      "path": "src/WCLGHueBarView.m",
+      "size": 395,
+      "sha256": "834bbd673e414a50211d045b37a8daeb35e5323f19ac50e7c31acbd815d0581f"
+    },
+    {
+      "path": "src/WCLGImageLibraryPickerViewController.m",
+      "size": 2380,
+      "sha256": "e2766d9beb4a9837d066139f99d6ae17275c36ab6b2095ece502f288f0fef795"
+    },
+    {
+      "path": "src/WCLGImageZoom.m",
+      "size": 1238,
+      "sha256": "eed7ef6c9ec9a4ee17c36e0e9b1fa90e7d823be06f0e241395fcdc35ec1fa7c0"
+    },
+    {
+      "path": "src/WCLGKeyboardObserver.m",
+      "size": 1021,
+      "sha256": "9d748545fc2069f679d2d9a2e66acb0eebf038fe098f28a300dabab35269896f"
+    },
+    {
+      "path": "src/WCLGMsgMergeCellHotCache.m",
+      "size": 82,
+      "sha256": "87b1204b18182a6733f007fba5e0f4b916509b9ef65bcf2cef9d81a662f78cc0"
+    },
+    {
+      "path": "src/WCLGNativeProfileTitleHitView.m",
+      "size": 773,
+      "sha256": "a23b3a1e5c00d1cc8e7c3358fdc21b16582076982bc7acac2f4f8e27680cf328"
+    },
+    {
+      "path": "src/WCLGNativeProfileTitleTapTarget.m",
+      "size": 430,
+      "sha256": "b062db745dcd91df11b35842bb48e9a1d9db954c1edf5a6a1fd48ba75ea4647c"
+    },
+    {
+      "path": "src/WCLGSearchActionTarget.m",
+      "size": 296,
+      "sha256": "78600130c8ca5ffc49590d26933028ea77256bccaff3d844e6b4a2ee19294d5e"
+    },
+    {
+      "path": "src/WCLGSearchTabBarOverlay.m",
+      "size": 11359,
+      "sha256": "d770ab8792ef452714afae3bc1c501aa92dde805dc5156adcfb82a8535f814b1"
+    },
+    {
+      "path": "src/WCLGSessionGroup.m",
+      "size": 1641,
+      "sha256": "56b71ba73f877322302624695593cb103ccb150bf41ce3bd15fa0e5842d4bec8"
+    },
+    {
+      "path": "src/WCLGSettingsViewController.m",
+      "size": 28449,
+      "sha256": "e7032ecb9b4c3ffbc8dd73997188c22c68e5bd6fa7d525100af9bfad0043a8cb"
+    },
+    {
+      "path": "src/WCLGSMSBackContentView.m",
+      "size": 1263,
+      "sha256": "ed473b8aaf905e95e341df0e71cd901f0c8381b59028f1bacee89035b6415ad9"
+    },
+    {
+      "path": "src/WCLGTabBarVisualHostView.m",
+      "size": 82,
+      "sha256": "e4c406b42037672133c72ab2828323a6ba10b106b8c1a82a47ceb254791a25fc"
+    },
+    {
+      "path": "src/WCLGTextEditorViewController.m",
+      "size": 2299,
+      "sha256": "230579306113356574afcc42d9637612c6f5da81d2e648f72abe17b8cf2d484b"
+    },
+    {
+      "path": "src/WCLGThemeDetailViewController.m",
+      "size": 7452,
+      "sha256": "c6caf06b47bfe480defe81f4e66986ac24e296487f654d38689acc9f390d1fd7"
+    },
+    {
+      "path": "src/WCLGThemeManageCell.m",
+      "size": 1559,
+      "sha256": "d6f6363825f4b19d6475e5245114f8165160b1b73b25fa54c567c7895cdd6fb6"
+    },
+    {
+      "path": "src/WCLGThemeManageViewController.m",
+      "size": 5284,
+      "sha256": "f5d87610dca05102839de8002d4890b5e126d1a771d54af6ea7dd54ba9ebd334"
+    },
+    {
+      "path": "src/WCLGVariableBlurHostView.m",
+      "size": 1616,
+      "sha256": "f24d0997019f13c35dfc43521e7d88a4bf3a99245110e397bac4b5782164a8f9"
+    },
+    {
+      "path": "src/WCLGVoiceHoldRecognizer.m",
+      "size": 4442,
+      "sha256": "55cd57969b5a11af90639ec523c3855e2ad11619fa9880607f0cdb7c9683737b"
+    },
+    {
+      "path": "src/WCLGVoiceWaveView.m",
+      "size": 2828,
+      "sha256": "48321d4ca39f16142ceff1e9f8701059aa185a3a13c34e8d4a960986d828da6d"
+    },
+    {
+      "path": "tools/__pycache__/decompile_selected.cpython-312.pyc",
+      "size": 11371,
+      "sha256": "2a6e50cc8add023be7a93594e418ff6c82e1c721d26f6f0d3730435e6d8c04b9"
+    },
+    {
+      "path": "tools/decompile_hooks.py",
+      "size": 4641,
+      "sha256": "53f50ea85da4dfd7cabcd88750d8828240bc028ffe68927282ebe44c47a263ac"
+    },
+    {
+      "path": "tools/decompile_initializers.py",
+      "size": 3869,
+      "sha256": "8a06c9f315595cfd8ff474948ba434853c45e531022d5cb06d73c9df48821209"
+    },
+    {
+      "path": "tools/decompile_selected.py",
+      "size": 8143,
+      "sha256": "65a54678891291d09d2c3cdde458ba5afb9244c8a39087048aaa9f89bd93a963"
+    },
+    {
+      "path": "tools/recover_structure.py",
+      "size": 6286,
+      "sha256": "0737bb4cf558819826fbe3dbbd37fcdc425ffa825d74ff6f2b43836c29a821ba"
+    }
+  ]
+}

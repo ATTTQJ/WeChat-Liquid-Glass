@@ -7,7 +7,7 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = WCLGAuthCachePoC
 
-WCLGAuthCachePoC_FILES = WCLGAuthCachePoC.m
+WCLGAuthCachePoC_FILES = ../WCGlass_recovered/src/WCLGAuthCachePoC.m
 WCLGAuthCachePoC_CFLAGS = -fobjc-arc -fblocks
 WCLGAuthCachePoC_FRAMEWORKS = Foundation
 

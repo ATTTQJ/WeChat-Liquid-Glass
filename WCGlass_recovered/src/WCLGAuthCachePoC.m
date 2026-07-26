@@ -1,6 +1,26 @@
+/*
+ * WCGlass local authorization-cache tamper PoC
+ *
+ * Purpose:
+ *   Reproduce the trust-boundary issue found in the recovered dylib by writing
+ *   the same independent values consumed by WCLGConfig. This file is enabled
+ *   by default for the requested device test. Remove it from the target, or set
+ *   WCLG_AUTH_CACHE_POC_ENABLED=0, after verification.
+ *
+ * Expected device flow:
+ *   1. Build this file into the dylib and launch once.
+ *   2. Fully terminate the host process.
+ *   3. Launch again. The original cache loader should consume the modified
+ *      persisted values even though the existing Token was not changed.
+ *
+ * Exported rollback entry:
+ *   WCLGAuthCachePoCRestore();
+ */
+
 #import <Foundation/Foundation.h>
 #import <dispatch/dispatch.h>
 #import <objc/message.h>
+#import <objc/runtime.h>
 
 #ifndef WCLG_AUTH_CACHE_POC_ENABLED
 #define WCLG_AUTH_CACHE_POC_ENABLED 1
@@ -28,12 +48,16 @@ static NSArray<NSString *> *WCLGPoCTargetKeys(void) {
 
 static NSDictionary<NSString *, id> *WCLGPoCOverrideValues(void) {
     NSTimeInterval now = NSDate.date.timeIntervalSince1970;
+    NSTimeInterval expires = now + 30.0 * 24.0 * 60.0 * 60.0;
     return @{
         @"FLGUnifiedServerAuthAllowed": @YES,
         @"FLGUnifiedServerAuthHardBlocked": @NO,
-        @"FLGUnifiedServerAuthExpiresAt": @(now + 30.0 * 24.0 * 60.0 * 60.0),
+        @"FLGUnifiedServerAuthExpiresAt": @(expires),
         @"FLGUnifiedServerAuthVerifiedAt": @(now),
-        @"FLGUnifiedServerAuthFeatures": @[@"liquid_glass", @"home_groups"],
+        @"FLGUnifiedServerAuthFeatures": @[
+            @"liquid_glass",
+            @"home_groups",
+        ],
         @"denied_features": @[],
         @"WCLGLocalOfficialOK": @YES,
         @"WCLGLocalGroupOK": @YES,
@@ -44,24 +68,24 @@ static NSDictionary<NSString *, id> *WCLGPoCOverrideValues(void) {
 
 static id WCLGPoCSharedConfig(void) {
     Class configClass = NSClassFromString(@"WCLGConfig");
-    SEL selector = NSSelectorFromString(@"sharedConfig");
-    if (configClass == Nil || ![configClass respondsToSelector:selector]) {
+    SEL sharedSelector = NSSelectorFromString(@"sharedConfig");
+    if (configClass == Nil || ![configClass respondsToSelector:sharedSelector]) {
         return nil;
     }
-    return ((id (*)(id, SEL))objc_msgSend)(configClass, selector);
+    return ((id (*)(id, SEL))objc_msgSend)(configClass, sharedSelector);
+}
+
+static void WCLGPoCCacheObject(id config, NSString *key, id value) {
+    SEL selector = NSSelectorFromString(@"setCachedObject:forKey:");
+    if (config != nil && [config respondsToSelector:selector]) {
+        ((void (*)(id, SEL, id, id))objc_msgSend)(config, selector, value, key);
+    }
 }
 
 static void WCLGPoCSendVoid(id target, NSString *selectorName) {
     SEL selector = NSSelectorFromString(selectorName);
     if (target != nil && [target respondsToSelector:selector]) {
         ((void (*)(id, SEL))objc_msgSend)(target, selector);
-    }
-}
-
-static void WCLGPoCSetCachedObject(id config, id value, NSString *key) {
-    SEL selector = NSSelectorFromString(@"setCachedObject:forKey:");
-    if (config != nil && [config respondsToSelector:selector]) {
-        ((void (*)(id, SEL, id, id))objc_msgSend)(config, selector, value, key);
     }
 }
 
@@ -96,16 +120,29 @@ void WCLGAuthCachePoCApply(void) {
 
         NSDictionary<NSString *, id> *overrides = WCLGPoCOverrideValues();
         id config = WCLGPoCSharedConfig();
+
+        /*
+         * Write both layers:
+         * - NSUserDefaults reproduces the persisted-cache weakness.
+         * - setCachedObject:forKey: updates WCLGConfig's process cache and its
+         *   atomic mirrors, matching the recovered storage path at 0x28bc9c.
+         */
         [overrides enumerateKeysAndObjectsUsingBlock:
             ^(NSString *key, id value, BOOL *stop) {
                 (void)stop;
                 [defaults setObject:value forKey:key];
-                WCLGPoCSetCachedObject(config, value, key);
+                WCLGPoCCacheObject(config, key, value);
             }];
 
         [defaults synchronize];
         WCLGPoCSendVoid(config, @"flush");
         WCLGPoCSendVoid(config, @"refreshAtomicMirrors");
+
+        /*
+         * FLGUnifiedServerAuthToken, WCLGLocalWXID and the device identifier
+         * are deliberately left untouched. This isolates the finding that the
+         * decision accepts independently modified cache fields.
+         */
         NSLog(@"%@ applied: allowed=1 hardBlocked=0 expiresAt=%@ tokenChanged=0",
               WCLGPoCLogPrefix,
               overrides[@"FLGUnifiedServerAuthExpiresAt"]);
@@ -125,12 +162,13 @@ void WCLGAuthCachePoCRestore(void) {
         NSDictionary *values = backup[@"values"];
         NSArray *missing = backup[@"missing"];
         id config = WCLGPoCSharedConfig();
+
         if ([values isKindOfClass:NSDictionary.class]) {
             [values enumerateKeysAndObjectsUsingBlock:
                 ^(NSString *key, id value, BOOL *stop) {
                     (void)stop;
                     [defaults setObject:value forKey:key];
-                    WCLGPoCSetCachedObject(config, value, key);
+                    WCLGPoCCacheObject(config, key, value);
                 }];
         }
         if ([missing isKindOfClass:NSArray.class]) {
@@ -169,6 +207,12 @@ __attribute__((constructor))
 static void WCLGAuthCachePoCInitialize(void) {
     @autoreleasepool {
         WCLGAuthCachePoCApply();
+
+        /*
+         * Repeat after app initialization so a late-created WCLGConfig instance
+         * receives the same values. The persisted cache makes the next cold
+         * launch the definitive validation step.
+         */
         dispatch_async(dispatch_get_main_queue(), ^{
             WCLGAuthCachePoCApply();
             dispatch_after(

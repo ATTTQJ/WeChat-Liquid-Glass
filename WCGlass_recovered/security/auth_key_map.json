@@ -1,0 +1,111 @@
+{
+  "binary_sha256": "76BA59A63BA3606753CDDD7C63C557D9A3765BAECB85FE3D1F39384E62227320",
+  "architecture": "arm64",
+  "storage": "NSUserDefaults via WCLGConfig",
+  "keys": [
+    {
+      "name": "FLGUnifiedServerAuthFeatures",
+      "cfstring_object": "0x4a9918",
+      "const_pointer": "0x4a3ff8",
+      "roles": ["load", "persist"]
+    },
+    {
+      "name": "denied_features",
+      "cfstring_object": "0x4a9938",
+      "const_pointer": "0x4a4000",
+      "roles": ["load", "persist"]
+    },
+    {
+      "name": "FLGUnifiedServerAuthExpiresAt",
+      "cfstring_object": "0x4a9958",
+      "const_pointer": "0x4a4008",
+      "roles": ["load", "persist"]
+    },
+    {
+      "name": "FLGUnifiedServerAuthVerifiedAt",
+      "cfstring_object": "0x4a9978",
+      "const_pointer": "0x4a4010",
+      "roles": ["load", "persist"]
+    },
+    {
+      "name": "FLGUnifiedServerAuthDeviceID",
+      "cfstring_object": "0x4a9998",
+      "roles": ["identity"]
+    },
+    {
+      "name": "FLGUnifiedServerAuthToken",
+      "cfstring_object": "0x4a99b8",
+      "const_pointer": "0x4a4020",
+      "roles": ["persist_only_in_observed_paths"]
+    },
+    {
+      "name": "FLGUnifiedServerAuthLastCode",
+      "cfstring_object": "0x4a99d8",
+      "const_pointer": "0x4a4028",
+      "roles": ["load", "persist"]
+    },
+    {
+      "name": "FLGUnifiedServerAuthLastMessage",
+      "cfstring_object": "0x4a99f8",
+      "const_pointer": "0x4a4030",
+      "roles": ["load", "persist"]
+    },
+    {
+      "name": "FLGUnifiedServerAuthAllowed",
+      "cfstring_object": "0x4a9a18",
+      "const_pointer": "0x4a4038",
+      "roles": ["load_to_global_gate", "persist"]
+    },
+    {
+      "name": "FLGUnifiedServerAuthHardBlocked",
+      "cfstring_object": "0x4a9a38",
+      "const_pointer": "0x4a4040",
+      "roles": ["load_to_global_gate", "persist"]
+    },
+    {
+      "name": "WCLGLocalAuthScannedAt",
+      "cfstring_object": "0x4a9a58",
+      "const_pointer": "0x4a4048",
+      "roles": ["local_scan_cache"]
+    },
+    {
+      "name": "WCLGLocalOfficialOK",
+      "cfstring_object": "0x4a9a78",
+      "const_pointer": "0x4a4050",
+      "roles": ["local_boolean_gate"]
+    },
+    {
+      "name": "WCLGLocalGroupOK",
+      "cfstring_object": "0x4a9a98",
+      "const_pointer": "0x4a4058",
+      "roles": ["local_boolean_gate"]
+    },
+    {
+      "name": "WCLGLocalGroupScannedAt",
+      "cfstring_object": "0x4a9ab8",
+      "const_pointer": "0x4a4060",
+      "roles": ["local_scan_cache"]
+    },
+    {
+      "name": "WCLGLocalWXID",
+      "cfstring_object": "0x4a9ad8",
+      "const_pointer": "0x4a4068",
+      "roles": ["local_identity_cache"]
+    },
+    {
+      "name": "WCLGLocalNickname",
+      "cfstring_object": "0x4a9af8",
+      "const_pointer": "0x4a4070",
+      "roles": ["local_identity_cache"]
+    }
+  ],
+  "functions": {
+    "0x28ba98": "WCLGConfig cachedObjectForKey -> NSUserDefaults",
+    "0x28bc9c": "WCLGConfig setCachedObjectForKey -> dirty cache and delayed persistence",
+    "0x28c070": "WCLGConfig boolForKey defaultValue -> permissive boolValue",
+    "0x28feb8": "WCLGConfig flush -> NSUserDefaults synchronize",
+    "0xc134c": "local identity and qualification snapshot persistence",
+    "0xc1a84": "server authorization cache load and global gate hydration",
+    "0xc7640": "server authorization response persistence"
+  }
+}

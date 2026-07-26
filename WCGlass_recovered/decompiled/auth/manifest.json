@@ -1,0 +1,262 @@
+[
+  {
+    "label": "settings_and_local_identity",
+    "address": 757180,
+    "address_hex": "0xb8dbc",
+    "size": 30052,
+    "file": "settings_and_local_identity_b8dbc.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 29.078
+  },
+  {
+    "label": "local_authorization_snapshot",
+    "address": 791372,
+    "address_hex": "0xc134c",
+    "size": 1572,
+    "file": "local_authorization_snapshot_c134c.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 1.457
+  },
+  {
+    "label": "server_authorization_cache_load",
+    "address": 793220,
+    "address_hex": "0xc1a84",
+    "size": 2440,
+    "file": "server_authorization_cache_load_c1a84.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 2.68
+  },
+  {
+    "label": "server_authorization_response_persist",
+    "address": 816704,
+    "address_hex": "0xc7640",
+    "size": 3804,
+    "file": "server_authorization_response_persist_c7640.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 3.434
+  },
+  {
+    "label": "local_group_status_consumer",
+    "address": 825036,
+    "address_hex": "0xc96cc",
+    "size": 5812,
+    "file": "local_group_status_consumer_c96cc.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 3.945
+  },
+  {
+    "label": "local_authorization_ui_consumer",
+    "address": 830848,
+    "address_hex": "0xcad80",
+    "size": 13768,
+    "file": "local_authorization_ui_consumer_cad80.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 9.129
+  },
+  {
+    "label": "local_group_gate_consumer",
+    "address": 864500,
+    "address_hex": "0xd30f4",
+    "size": 12108,
+    "file": "local_group_gate_consumer_d30f4.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 9.562
+  },
+  {
+    "label": "local_official_status_consumer",
+    "address": 898168,
+    "address_hex": "0xdb478",
+    "size": 2428,
+    "file": "local_official_status_consumer_db478.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 2.813
+  },
+  {
+    "label": "local_authorization_refresh",
+    "address": 900596,
+    "address_hex": "0xdbdf4",
+    "size": 1340,
+    "file": "local_authorization_refresh_dbdf4.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 1.154
+  },
+  {
+    "label": "local_scan_timestamp_consumer",
+    "address": 928812,
+    "address_hex": "0xe2c2c",
+    "size": 896,
+    "file": "local_scan_timestamp_consumer_e2c2c.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 1.162
+  },
+  {
+    "label": "local_identity_consumer",
+    "address": 930164,
+    "address_hex": "0xe3174",
+    "size": 25140,
+    "file": "local_identity_consumer_e3174.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 21.494
+  },
+  {
+    "label": "local_wxid_consumer",
+    "address": 986428,
+    "address_hex": "0xf0d3c",
+    "size": 3180,
+    "file": "local_wxid_consumer_f0d3c.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 3.651
+  },
+  {
+    "label": "config_shared_instance",
+    "address": 2514044,
+    "address_hex": "0x265c7c",
+    "size": 116,
+    "file": "config_shared_instance_265c7c.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.23
+  },
+  {
+    "label": "config_cached_object_for_key",
+    "address": 2669208,
+    "address_hex": "0x28ba98",
+    "size": 516,
+    "file": "config_cached_object_for_key_28ba98.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.584
+  },
+  {
+    "label": "config_set_cached_object_for_key",
+    "address": 2669724,
+    "address_hex": "0x28bc9c",
+    "size": 432,
+    "file": "config_set_cached_object_for_key_28bc9c.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.515
+  },
+  {
+    "label": "config_bool_for_key",
+    "address": 2670688,
+    "address_hex": "0x28c060",
+    "size": 16,
+    "file": "config_bool_for_key_28c060.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.238
+  },
+  {
+    "label": "config_bool_for_key_default",
+    "address": 2670704,
+    "address_hex": "0x28c070",
+    "size": 180,
+    "file": "config_bool_for_key_default_28c070.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.38
+  },
+  {
+    "label": "config_double_for_key",
+    "address": 2671016,
+    "address_hex": "0x28c1a8",
+    "size": 116,
+    "file": "config_double_for_key_28c1a8.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.281
+  },
+  {
+    "label": "config_object_for_key",
+    "address": 2671132,
+    "address_hex": "0x28c21c",
+    "size": 12,
+    "file": "config_object_for_key_28c21c.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.227
+  },
+  {
+    "label": "config_set_bool_for_key",
+    "address": 2671144,
+    "address_hex": "0x28c228",
+    "size": 2268,
+    "file": "config_set_bool_for_key_28c228.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 1.58
+  },
+  {
+    "label": "config_set_double_for_key",
+    "address": 2674540,
+    "address_hex": "0x28cf6c",
+    "size": 140,
+    "file": "config_set_double_for_key_28cf6c.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.301
+  },
+  {
+    "label": "config_set_object_for_key",
+    "address": 2674680,
+    "address_hex": "0x28cff8",
+    "size": 12,
+    "file": "config_set_object_for_key_28cff8.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.181
+  },
+  {
+    "label": "config_has_value_for_key",
+    "address": 2674692,
+    "address_hex": "0x28d004",
+    "size": 60,
+    "file": "config_has_value_for_key_28d004.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.905
+  },
+  {
+    "label": "config_force_true_policy",
+    "address": 2685476,
+    "address_hex": "0x28fa24",
+    "size": 1172,
+    "file": "config_force_true_policy_28fa24.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.779
+  },
+  {
+    "label": "config_flush",
+    "address": 2686648,
+    "address_hex": "0x28feb8",
+    "size": 84,
+    "file": "config_flush_28feb8.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.317
+  },
+  {
+    "label": "config_invalidate_cache",
+    "address": 2686732,
+    "address_hex": "0x28ff0c",
+    "size": 384,
+    "file": "config_invalidate_cache_28ff0c.c",
+    "status": "ok",
+    "error": "",
+    "seconds": 0.524
+  }
+]
