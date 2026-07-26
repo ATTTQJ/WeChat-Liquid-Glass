@@ -1,8 +1,8 @@
 Package: com.atttqj.wclgauthcachepoc
-Name: WCGlass Merged Auth Regression
-Version: 0.3.0
+Name: WCGlass Free Mode
+Version: 0.4.0
 Architecture: iphoneos-arm
-Description: Single WCGlass FAT dylib with the authorization-state regression patch merged in place.
+Description: Single full-feature WCGlass FAT dylib with authorization checks removed.
 Maintainer: ATTTQJ
 Author: ATTTQJ
 Section: Tweaks

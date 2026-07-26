@@ -47,7 +47,8 @@ Token 的情况下由拒绝翻转为允许；测试记录位于 `security/TEST_R
 ## 单文件合并构建
 
 `tools/build_merged_wcglass.py` 对已确认 SHA-256 的原始 FAT dylib 执行
-同长度机器码替换，不增加 load command 或第二个 dylib。两个架构共 17 条替换记录、
+同长度机器码替换，不增加 load command 或第二个 dylib。当前 free-mode 构建在两个架构
+共包含 37 条替换记录，覆盖服务器授权响应、本地资格门控、授权红色背景和点击弹窗；
 原始/新机器码、文件偏移及反汇编结果见
 `security/WCGlass.single-file-patch-manifest.json`。可安装产物由
 `../AuthCachePoC` 打包，包内仅包含 `WCGlass.dylib` 与注入过滤 plist。

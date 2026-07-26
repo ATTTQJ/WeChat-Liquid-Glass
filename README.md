@@ -4,7 +4,7 @@ This repository contains small independent UIKit tweaks:
 
 - [SoftScrollEdge](SoftScrollEdge): forces available UIKit scroll edge effects to use the system soft style in WeChat.
 - [TabBarGlassFix](TabBarGlassFix): keeps plugin-created tab bar glass behind native tab item labels and icons.
-- [AuthCachePoC](AuthCachePoC): single full WCGlass dylib with the recovered authorization-state patch merged directly into both architecture slices.
+- [AuthCachePoC](AuthCachePoC): single full WCGlass free-mode dylib with server authorization, local eligibility locks, red authorization styling, and authorization-required dialogs removed from both architecture slices.
 - [WCGlass_recovered](WCGlass_recovered): complete static-recovery workspace containing Objective-C class skeletons, hook pseudocode, analysis data, extracted architecture slices, security tests, and recovery tools.
 
 The UI tweaks remain independent. `AuthCachePoC` is a separately packaged,

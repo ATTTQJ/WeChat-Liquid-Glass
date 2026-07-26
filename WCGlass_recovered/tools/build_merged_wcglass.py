@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Build a single-file WCGlass FAT dylib with the recovered auth state patch.
+"""Build a single-file WCGlass FAT dylib in authorization-free mode.
 
 The patch is deliberately same-size: no load commands, sections, or slice
 boundaries are added.  Each replacement is checked against the original bytes
-before it is written so the script fails closed on a different input build.
+before it is written so a different input build is never patched accidentally.
 """
 
 from __future__ import annotations
@@ -37,6 +37,8 @@ class Patch:
 
 PATCHES = {
     CPU_SUBTYPE_ARM64_ALL: (
+        Patch(0x0C7640, bytes.fromhex("eb2bb86d"), bytes.fromhex("c0035fd6"),
+              "disable server authorization request/response handler"),
         Patch(0x0C1E84, bytes.fromhex("28e11639"), bytes.fromhex("3fe11639"),
               "force hard-block/expiry state write to false"),
         Patch(0x0C1EAC, bytes.fromhex("e83b4039"), bytes.fromhex("28008052"),
@@ -51,8 +53,28 @@ PATCHES = {
               "force first authorization mirror fallback true"),
         Patch(0x289E38, bytes.fromhex("e0000034"), bytes.fromhex("37008052"),
               "force second authorization mirror true"),
+        Patch(0x3D70C8, bytes.fromhex("f30302aa"), bytes.fromhex("33008052"),
+              "render authorization settings cells as ordinary allowed cells"),
+        Patch(0x3D71A4, bytes.fromhex("f30303aa"), bytes.fromhex("33008052"),
+              "apply ordinary allowed background to authorization settings cells"),
+        Patch(0x4063C8, bytes.fromhex("f85fbca9"), bytes.fromhex("c0035fd6"),
+              "disable authorization-required alert"),
+        Patch(0x4066A0, bytes.fromhex("f657bda9"), bytes.fromhex("20008052"),
+              "make settings actions authorization-independent"),
+        Patch(0x4066A4, bytes.fromhex("f44f01a9"), bytes.fromhex("c0035fd6"),
+              "return settings action ready=true"),
+        Patch(0x0D30F4, bytes.fromhex("ff8304d1"), bytes.fromhex("20008052"),
+              "make local group eligibility gate always ready"),
+        Patch(0x0D30F8, bytes.fromhex("e9230b6d"), bytes.fromhex("c0035fd6"),
+              "return local group eligibility=true"),
+        Patch(0x0DB478, bytes.fromhex("ff0302d1"), bytes.fromhex("20008052"),
+              "make local official-account eligibility gate always ready"),
+        Patch(0x0DB47C, bytes.fromhex("fc6f02a9"), bytes.fromhex("c0035fd6"),
+              "return local official-account eligibility=true"),
     ),
     CPU_SUBTYPE_ARM64E: (
+        Patch(0x0CF6A0, bytes.fromhex("7f2303d5"), bytes.fromhex("c0035fd6"),
+              "disable server authorization request/response handler"),
         Patch(0x0C9BF4, bytes.fromhex("e8334039"), bytes.fromhex("28008052"),
               "force cached server authorization allowed=true (path A)"),
         Patch(0x0CA010, bytes.fromhex("e9334039"), bytes.fromhex("29008052"),
@@ -73,6 +95,24 @@ PATCHES = {
               "force first authorization mirror fallback true"),
         Patch(0x2984BC, bytes.fromhex("e0000034"), bytes.fromhex("37008052"),
               "force second authorization mirror true"),
+        Patch(0x3E7004, bytes.fromhex("f30302aa"), bytes.fromhex("33008052"),
+              "render authorization settings cells as ordinary allowed cells"),
+        Patch(0x3E70F4, bytes.fromhex("f30303aa"), bytes.fromhex("33008052"),
+              "apply ordinary allowed background to authorization settings cells"),
+        Patch(0x416A58, bytes.fromhex("7f2303d5"), bytes.fromhex("c0035fd6"),
+              "disable authorization-required alert"),
+        Patch(0x416D44, bytes.fromhex("7f2303d5"), bytes.fromhex("20008052"),
+              "make settings actions authorization-independent"),
+        Patch(0x416D48, bytes.fromhex("f657bda9"), bytes.fromhex("c0035fd6"),
+              "return settings action ready=true"),
+        Patch(0x0DCACC, bytes.fromhex("7f2303d5"), bytes.fromhex("20008052"),
+              "make local group eligibility gate always ready"),
+        Patch(0x0DCAD0, bytes.fromhex("ffc304d1"), bytes.fromhex("c0035fd6"),
+              "return local group eligibility=true"),
+        Patch(0x0E3AB0, bytes.fromhex("7f2303d5"), bytes.fromhex("20008052"),
+              "make local official-account eligibility gate always ready"),
+        Patch(0x0E3AB4, bytes.fromhex("ff0302d1"), bytes.fromhex("c0035fd6"),
+              "return local official-account eligibility=true"),
     ),
 }
 

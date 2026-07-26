@@ -1,8 +1,8 @@
 {
   "input": "D:\\weixin\\xwechat_files\\wxid_znvkhk8uvxtq22_8e6e\\msg\\file\\2026-07\\WCGlass.dylib",
-  "output": "C:\\Users\\daim2\\Documents\\破甲\\WCGlass_recovered\\dist\\merged\\WCGlass.dylib",
+  "output": "C:\\Users\\daim2\\Documents\\破甲\\WCGlass_recovered\\dist\\free-mode\\WCGlass.dylib",
   "input_sha256": "76ba59a63ba3606753cddd7c63c557d9a3765baecb85fe3d1f39384e62227320",
-  "output_sha256": "1645e862e44392c5c4ad86423b7872a4be98ecc9f8437c7988a0c858b66c5de1",
+  "output_sha256": "d7279d7b448accdce7ebab516c40782ad848b51163e199e1165ef5f7053ffe84",
   "input_size": 11848688,
   "output_size": 11848688,
   "fat_slices": [
@@ -23,8 +23,19 @@
       "align": 14
     }
   ],
-  "patch_count": 17,
+  "patch_count": 37,
   "patches": [
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0xc7640",
+      "fat_file_offset": "0xcb640",
+      "old_bytes": "eb2bb86d",
+      "new_bytes": "c0035fd6",
+      "old_instruction": "stp d11, d10, [sp, #-0x80]!",
+      "new_instruction": "ret",
+      "purpose": "disable server authorization request/response handler"
+    },
     {
       "cpu_subtype": "0x00000000",
       "slice_offset": 16384,
@@ -101,6 +112,116 @@
       "old_instruction": "cbz w0, #0x289e54",
       "new_instruction": "mov w23, #1",
       "purpose": "force second authorization mirror true"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0x3d70c8",
+      "fat_file_offset": "0x3db0c8",
+      "old_bytes": "f30302aa",
+      "new_bytes": "33008052",
+      "old_instruction": "mov x19, x2",
+      "new_instruction": "mov w19, #1",
+      "purpose": "render authorization settings cells as ordinary allowed cells"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0x3d71a4",
+      "fat_file_offset": "0x3db1a4",
+      "old_bytes": "f30303aa",
+      "new_bytes": "33008052",
+      "old_instruction": "mov x19, x3",
+      "new_instruction": "mov w19, #1",
+      "purpose": "apply ordinary allowed background to authorization settings cells"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0x4063c8",
+      "fat_file_offset": "0x40a3c8",
+      "old_bytes": "f85fbca9",
+      "new_bytes": "c0035fd6",
+      "old_instruction": "stp x24, x23, [sp, #-0x40]!",
+      "new_instruction": "ret",
+      "purpose": "disable authorization-required alert"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0x4066a0",
+      "fat_file_offset": "0x40a6a0",
+      "old_bytes": "f657bda9",
+      "new_bytes": "20008052",
+      "old_instruction": "stp x22, x21, [sp, #-0x30]!",
+      "new_instruction": "mov w0, #1",
+      "purpose": "make settings actions authorization-independent"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0x4066a4",
+      "fat_file_offset": "0x40a6a4",
+      "old_bytes": "f44f01a9",
+      "new_bytes": "c0035fd6",
+      "old_instruction": "stp x20, x19, [sp, #0x10]",
+      "new_instruction": "ret",
+      "purpose": "return settings action ready=true"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0xd30f4",
+      "fat_file_offset": "0xd70f4",
+      "old_bytes": "ff8304d1",
+      "new_bytes": "20008052",
+      "old_instruction": "sub sp, sp, #0x120",
+      "new_instruction": "mov w0, #1",
+      "purpose": "make local group eligibility gate always ready"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0xd30f8",
+      "fat_file_offset": "0xd70f8",
+      "old_bytes": "e9230b6d",
+      "new_bytes": "c0035fd6",
+      "old_instruction": "stp d9, d8, [sp, #0xb0]",
+      "new_instruction": "ret",
+      "purpose": "return local group eligibility=true"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0xdb478",
+      "fat_file_offset": "0xdf478",
+      "old_bytes": "ff0302d1",
+      "new_bytes": "20008052",
+      "old_instruction": "sub sp, sp, #0x80",
+      "new_instruction": "mov w0, #1",
+      "purpose": "make local official-account eligibility gate always ready"
+    },
+    {
+      "cpu_subtype": "0x00000000",
+      "slice_offset": 16384,
+      "virtual_address": "0xdb47c",
+      "fat_file_offset": "0xdf47c",
+      "old_bytes": "fc6f02a9",
+      "new_bytes": "c0035fd6",
+      "old_instruction": "stp x28, x27, [sp, #0x20]",
+      "new_instruction": "ret",
+      "purpose": "return local official-account eligibility=true"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0xcf6a0",
+      "fat_file_offset": "0x66f6a0",
+      "old_bytes": "7f2303d5",
+      "new_bytes": "c0035fd6",
+      "old_instruction": "pacibsp",
+      "new_instruction": "ret",
+      "purpose": "disable server authorization request/response handler"
     },
     {
       "cpu_subtype": "0x80000002",
@@ -211,6 +332,105 @@
       "old_instruction": "cbz w0, #0x2984d8",
       "new_instruction": "mov w23, #1",
       "purpose": "force second authorization mirror true"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0x3e7004",
+      "fat_file_offset": "0x987004",
+      "old_bytes": "f30302aa",
+      "new_bytes": "33008052",
+      "old_instruction": "mov x19, x2",
+      "new_instruction": "mov w19, #1",
+      "purpose": "render authorization settings cells as ordinary allowed cells"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0x3e70f4",
+      "fat_file_offset": "0x9870f4",
+      "old_bytes": "f30303aa",
+      "new_bytes": "33008052",
+      "old_instruction": "mov x19, x3",
+      "new_instruction": "mov w19, #1",
+      "purpose": "apply ordinary allowed background to authorization settings cells"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0x416a58",
+      "fat_file_offset": "0x9b6a58",
+      "old_bytes": "7f2303d5",
+      "new_bytes": "c0035fd6",
+      "old_instruction": "pacibsp",
+      "new_instruction": "ret",
+      "purpose": "disable authorization-required alert"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0x416d44",
+      "fat_file_offset": "0x9b6d44",
+      "old_bytes": "7f2303d5",
+      "new_bytes": "20008052",
+      "old_instruction": "pacibsp",
+      "new_instruction": "mov w0, #1",
+      "purpose": "make settings actions authorization-independent"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0x416d48",
+      "fat_file_offset": "0x9b6d48",
+      "old_bytes": "f657bda9",
+      "new_bytes": "c0035fd6",
+      "old_instruction": "stp x22, x21, [sp, #-0x30]!",
+      "new_instruction": "ret",
+      "purpose": "return settings action ready=true"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0xdcacc",
+      "fat_file_offset": "0x67cacc",
+      "old_bytes": "7f2303d5",
+      "new_bytes": "20008052",
+      "old_instruction": "pacibsp",
+      "new_instruction": "mov w0, #1",
+      "purpose": "make local group eligibility gate always ready"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0xdcad0",
+      "fat_file_offset": "0x67cad0",
+      "old_bytes": "ffc304d1",
+      "new_bytes": "c0035fd6",
+      "old_instruction": "sub sp, sp, #0x130",
+      "new_instruction": "ret",
+      "purpose": "return local group eligibility=true"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0xe3ab0",
+      "fat_file_offset": "0x683ab0",
+      "old_bytes": "7f2303d5",
+      "new_bytes": "20008052",
+      "old_instruction": "pacibsp",
+      "new_instruction": "mov w0, #1",
+      "purpose": "make local official-account eligibility gate always ready"
+    },
+    {
+      "cpu_subtype": "0x80000002",
+      "slice_offset": 5898240,
+      "virtual_address": "0xe3ab4",
+      "fat_file_offset": "0x683ab4",
+      "old_bytes": "ff0302d1",
+      "new_bytes": "c0035fd6",
+      "old_instruction": "sub sp, sp, #0x80",
+      "new_instruction": "ret",
+      "purpose": "return local official-account eligibility=true"
     }
   ],
   "signing_note": "Code signature is expected to be replaced by the installer."

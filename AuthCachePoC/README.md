@@ -1,13 +1,19 @@
-# WCGlass merged authorization regression build
+# WCGlass free-mode build
 
-Single-plugin test package for the recovered authorization-state finding.
+Single-plugin build that keeps the complete feature implementation while making
+the protected settings behave like ordinary settings.
 
 ## Behavior
 
 - Installs one universal `WCGlass.dylib` containing both arm64 and arm64e.
 - Keeps every original section, dependency, and feature implementation.
-- Replaces 17 same-size instructions in the two slices so the recovered runtime
-  authorization state is written as `Allowed=true` and `HardBlocked=false`.
+- Replaces 37 same-size instructions across the two slices.
+- Writes the runtime state as `Allowed=true` and `HardBlocked=false`.
+- Disables the server authorization request/response handler.
+- Makes local official-account and group eligibility gates return ready.
+- Renders protected settings cells with the ordinary allowed appearance.
+- Makes protected switch actions proceed normally and suppresses the
+  authorization-required dialog.
 - Does not load or install `WCLGAuthCachePoC.dylib`.
 - Installs `WCGlass.plist` only as the MobileSubstrate injection filter.
 - Ad-hoc signs the staged dylib with `ldid`; a deployment pipeline may replace
@@ -27,8 +33,8 @@ make package
 
 The GitHub Actions run publishes two artifacts:
 
-- `WCGlassMerged-package`: the installable `.deb`;
-- `WCGlassMerged-raw-plugin`: the signed `WCGlass.dylib`, its injection plist,
+- `WCGlassFreeMode-package`: the installable `.deb`;
+- `WCGlassFreeMode-raw-plugin`: the signed `WCGlass.dylib`, its injection plist,
   package-content listing, and SHA-256 manifest.
 
 A `.deb` is an `ar` container. Archive viewers normally show `data.tar` at the

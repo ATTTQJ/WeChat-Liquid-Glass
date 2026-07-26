@@ -21,7 +21,7 @@ cp "$project_dir/control" "$control_dir/control"
 # artifact kept in git.
 ldid -S "$plugin_dir/WCGlass.dylib"
 
-package="$package_dir/com.atttqj.wclgauthcachepoc_0.3.0_iphoneos-arm.deb"
+package="$package_dir/com.atttqj.wclgauthcachepoc_0.4.0_iphoneos-arm.deb"
 dpkg-deb --root-owner-group -Zxz --build "$stage_dir" "$package"
 
 echo "Built $package"
