@@ -23,6 +23,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Verify 3.0.2-5 source binding
+        run: |
+          set -euo pipefail
+          python3 WCLGFreeModeHook/tools/verify_wcglass_3025.py \
+            --binding-only \
+            --output WCLGFreeModeHook/binding-source-check.json
+
       - name: Install Theos
         run: |
           brew install ldid xz
@@ -68,7 +75,16 @@ jobs:
           cp "$plugin_dir/000WCLGFreeModeHook.plist" "$raw_dir/"
           cd "$raw_dir"
           shasum -a 256 * > SHA256SUMS.txt
+          test -s SHA256SUMS.txt
           ls -lah
+
+      - name: Upload binding verification
+        uses: actions/upload-artifact@v4
+        with:
+          name: WCLGFreeModeHook-binding-check
+          path: WCLGFreeModeHook/binding-source-check.json
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Upload package
         uses: actions/upload-artifact@v4

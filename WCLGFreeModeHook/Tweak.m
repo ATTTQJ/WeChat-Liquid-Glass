@@ -14,195 +14,102 @@
 #include <stdbool.h>
 #include <string.h>
 
-/*
- * Companion hook for the recovered WCGlass build.
- *
- * The original WCGlass.dylib stays byte-for-byte separate from this tweak.
- * UIKit/NSUserDefaults hooks are installed immediately. WCGlass-specific
- * Objective-C hooks are installed as soon as dyld maps its image.
- *
- * Important: the original authorization response and local-account scan
- * routines are deliberately left intact. They perform initialization and
- * persistence in addition to returning authorization state.
- */
+#import "WCGlass3025Bindings.h"
 
+/*
+ * Companion hook for WCGlass 3.0.2-5.  The target image remains unmodified.
+ * All WCGlass-specific behavior is inactive until the matching architecture
+ * UUID has been observed; this prevents cross-version cache writes or native
+ * calls.  Authorization-related originals run first, then a normalized cache
+ * snapshot is written through the original setters and its atomic mirrors are
+ * refreshed.  No authorization C routine is replaced.
+ */
 static NSString *const WCLGHookLogPrefix = @"[WCLGFreeModeHook]";
 static NSString *const WCLGTargetImageName = @"WCGlass.dylib";
 
 enum {
-    WCLGHookStatusDefaults       = 1u << 0,
-    WCLGHookStatusAlertGuard     = 1u << 1,
-    WCLGHookStatusImageDetected  = 1u << 2,
-    WCLGHookStatusScalarGates    = 1u << 3,
-    WCLGHookStatusConfigHooks    = 1u << 4,
-    WCLGHookStatusSettingsHooks  = 1u << 5,
-    WCLGHookStatusSeedApplied    = 1u << 6,
-    WCLGHookStatusFeatureReplay  = 1u << 7,
+    WCLGHookStatusRuntime = 1u << 0,
+    WCLGHookStatusImage = 1u << 1,
+    WCLGHookStatusUUID = 1u << 2,
+    WCLGHookStatusConfig = 1u << 3,
+    WCLGHookStatusSettings = 1u << 4,
+    WCLGHookStatusNormalized = 1u << 5,
+    WCLGHookStatusFeatureReplay = 1u << 6,
 };
 
 static _Atomic(uint32_t) gHookStatus = 0;
 static _Atomic(uintptr_t) gWCGlassHeader = 0;
 static _Atomic(intptr_t) gWCGlassSlide = 0;
+static _Atomic(bool) gTargetValidated = false;
+static _Atomic(bool) gRuntimeHooksInstalled = false;
 static _Atomic(bool) gConfigHooksInstalled = false;
 static _Atomic(bool) gSettingsHooksInstalled = false;
-static _Atomic(bool) gRuntimeHooksInstalled = false;
 static _Atomic(bool) gFeatureReplayAttempted = false;
 static _Atomic(bool) gFeatureReplaySucceeded = false;
-
-#if defined(__arm64e__)
-static const uintptr_t kAuthAllowedGlobalOffset = 0x5971D8;
-static const uintptr_t kHardBlockedGlobalOffset = 0x4F46D8;
-static const uintptr_t kExpiresGlobalOffset = 0x591D68;
-static const uintptr_t kVerifiedGlobalOffset = 0x591D70;
-static const uintptr_t kLiquidGlassEnabledGlobalOffset = 0x5970A8;
-static const uintptr_t kFirstFeatureOriginalSlotOffset = 0x58F360;
-static const uintptr_t kGatedFeatureInitializerOffsets[] = {
-    0x4000,  0x5FE8,  0x8244,  0xAEBC,  0x11594, 0x136D4,
-    0x1BBF0, 0x29FF0, 0x2B280, 0x3E2BC, 0x40390, 0x51008,
-    0x52C00, 0x5C0A4, 0x6571C, 0x6A8A8, 0x7EE68, 0x8024C,
-    0x836F8, 0x84168, 0x89AD8, 0x8A0FC,
-};
-static const uint8_t kExpectedWCGlassUUID[16] = {
-    0x6D, 0xC8, 0x03, 0x1F, 0x9E, 0xA1, 0x36, 0xB5,
-    0x87, 0xCC, 0xD7, 0xC3, 0x00, 0x42, 0xDB, 0xF8,
-};
-#else
-static const uintptr_t kAuthAllowedGlobalOffset = 0x5830B8;
-static const uintptr_t kHardBlockedGlobalOffset = 0x4E05B8;
-static const uintptr_t kExpiresGlobalOffset = 0x57DC48;
-static const uintptr_t kVerifiedGlobalOffset = 0x57DC50;
-static const uintptr_t kLiquidGlassEnabledGlobalOffset = 0x582F88;
-static const uintptr_t kFirstFeatureOriginalSlotOffset = 0x57B250;
-static const uintptr_t kGatedFeatureInitializerOffsets[] = {
-    0x4000,  0x5F1C,  0x7FCC,  0xAAEC,  0x110B8, 0x13078,
-    0x1AF00, 0x286FC, 0x29E28, 0x3C4AC, 0x3E1E4, 0x4E544,
-    0x50058, 0x590C4, 0x62144, 0x6714C, 0x7AB34, 0x7BE7C,
-    0x7F20C, 0x7FC50, 0x85394, 0x8591C,
-};
-static const uint8_t kExpectedWCGlassUUID[16] = {
-    0x49, 0x19, 0x76, 0x97, 0x5E, 0x57, 0x3C, 0xD4,
-    0x8A, 0x02, 0x47, 0x5A, 0xB6, 0x8E, 0xD7, 0xAA,
-};
-#endif
+static _Thread_local BOOL gNormalizing = NO;
 
 static void WCLGSetStatus(uint32_t flag) {
     atomic_fetch_or_explicit(&gHookStatus, flag, memory_order_relaxed);
+}
+
+static BOOL WCLGTargetIsActive(void) {
+    return atomic_load_explicit(&gTargetValidated, memory_order_acquire);
 }
 
 static BOOL WCLGKeyEquals(id key, NSString *expected) {
     return [key isKindOfClass:NSString.class] && [(NSString *)key isEqualToString:expected];
 }
 
-static BOOL WCLGIsForcedTrueKey(id key) {
+static BOOL WCLGIsAllowedKey(id key) {
     return WCLGKeyEquals(key, @"FLGUnifiedServerAuthAllowed") ||
            WCLGKeyEquals(key, @"WCLGLocalOfficialOK") ||
            WCLGKeyEquals(key, @"WCLGLocalGroupOK") ||
            WCLGKeyEquals(key, @"xg_liquid_glass_enabled");
 }
-
-static BOOL WCLGIsForcedFalseKey(id key) {
-    return WCLGKeyEquals(key, @"FLGUnifiedServerAuthHardBlocked");
-}
-
-static BOOL WCLGIsExpiryKey(id key) {
-    return WCLGKeyEquals(key, @"FLGUnifiedServerAuthExpiresAt");
-}
-
+static BOOL WCLGIsHardBlockedKey(id key) { return WCLGKeyEquals(key, @"FLGUnifiedServerAuthHardBlocked"); }
+static BOOL WCLGIsExpiryKey(id key) { return WCLGKeyEquals(key, @"FLGUnifiedServerAuthExpiresAt"); }
 static BOOL WCLGIsVerifiedKey(id key) {
     return WCLGKeyEquals(key, @"FLGUnifiedServerAuthVerifiedAt") ||
            WCLGKeyEquals(key, @"WCLGLocalAuthScannedAt") ||
            WCLGKeyEquals(key, @"WCLGLocalGroupScannedAt");
 }
-
-static BOOL WCLGIsFeatureKey(id key) {
-    return WCLGKeyEquals(key, @"FLGUnifiedServerAuthFeatures");
-}
-
+static BOOL WCLGIsFeatureKey(id key) { return WCLGKeyEquals(key, @"FLGUnifiedServerAuthFeatures"); }
 static BOOL WCLGIsDeniedFeaturesKey(id key) {
-    return WCLGKeyEquals(key, @"denied_features") ||
-           WCLGKeyEquals(key, @"FLGUnifiedServerAuthDeniedFeatures");
+    return WCLGKeyEquals(key, @"denied_features") || WCLGKeyEquals(key, @"FLGUnifiedServerAuthDeniedFeatures");
 }
-
-static BOOL WCLGIsLastCodeKey(id key) {
-    return WCLGKeyEquals(key, @"FLGUnifiedServerAuthLastCode");
-}
-
-static BOOL WCLGIsLastMessageKey(id key) {
-    return WCLGKeyEquals(key, @"FLGUnifiedServerAuthLastMessage");
-}
-
+static BOOL WCLGIsLastCodeKey(id key) { return WCLGKeyEquals(key, @"FLGUnifiedServerAuthLastCode"); }
+static BOOL WCLGIsLastMessageKey(id key) { return WCLGKeyEquals(key, @"FLGUnifiedServerAuthLastMessage"); }
 static BOOL WCLGIsControlledKey(id key) {
-    return WCLGIsForcedTrueKey(key) ||
-           WCLGIsForcedFalseKey(key) ||
-           WCLGIsExpiryKey(key) ||
-           WCLGIsVerifiedKey(key) ||
-           WCLGIsFeatureKey(key) ||
-           WCLGIsDeniedFeaturesKey(key) ||
-           WCLGIsLastCodeKey(key) ||
-           WCLGIsLastMessageKey(key);
+    return WCLGIsAllowedKey(key) || WCLGIsHardBlockedKey(key) || WCLGIsExpiryKey(key) ||
+           WCLGIsVerifiedKey(key) || WCLGIsFeatureKey(key) || WCLGIsDeniedFeaturesKey(key) ||
+           WCLGIsLastCodeKey(key) || WCLGIsLastMessageKey(key);
 }
 
-static NSTimeInterval WCLGFarFutureTimestamp(void) {
-    return 4102444800.0; /* 2100-01-01 UTC */
-}
-
-static id WCLGFeatureList(void) {
+static NSTimeInterval WCLGFarFutureTimestamp(void) { return 4102444800.0; }
+static NSArray<NSString *> *WCLGFeatureList(void) {
     static NSArray<NSString *> *features;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        features = @[@"__wclg_all__"];
+        features = @[@"__wclg_all__", @"long_press_menu", @"flow_bubble", @"tabbar_search_capsule",
+                     @"search_tab_bar", @"chat_native_profile_title", @"liquid_glass", @"voip_bubble",
+                     @"payment_card", @"chat_bubble", @"chat_bottom_tg", @"home_groups", @"message_merge"];
     });
     return features;
 }
 
-static BOOL WCLGApplyRuntimeGlobals(void);
-
-static id WCLGOverrideObjectForKey(id key, id originalValue, BOOL *didOverride) {
-    if (WCLGIsForcedTrueKey(key)) {
-        *didOverride = YES;
-        return @YES;
-    }
-    if (WCLGIsForcedFalseKey(key)) {
-        *didOverride = YES;
-        return @NO;
-    }
-    if (WCLGIsExpiryKey(key)) {
-        *didOverride = YES;
-        return @(WCLGFarFutureTimestamp());
-    }
-    if (WCLGIsVerifiedKey(key)) {
-        *didOverride = YES;
-        return @(NSDate.date.timeIntervalSince1970);
-    }
-    if (WCLGIsFeatureKey(key)) {
-        *didOverride = YES;
-        return WCLGFeatureList();
-    }
-    if (WCLGIsDeniedFeaturesKey(key)) {
-        *didOverride = YES;
-        return @[];
-    }
-    if (WCLGIsLastCodeKey(key)) {
-        *didOverride = YES;
-        return @0;
-    }
-    if (WCLGIsLastMessageKey(key)) {
-        *didOverride = YES;
-        return @"";
-    }
-
-    *didOverride = NO;
-    return originalValue;
+static id WCLGCanonicalValue(id key) {
+    if (WCLGIsAllowedKey(key)) return @YES;
+    if (WCLGIsHardBlockedKey(key)) return @NO;
+    if (WCLGIsExpiryKey(key)) return @(WCLGFarFutureTimestamp());
+    if (WCLGIsVerifiedKey(key)) return @(NSDate.date.timeIntervalSince1970);
+    if (WCLGIsFeatureKey(key)) return WCLGFeatureList();
+    if (WCLGIsDeniedFeaturesKey(key)) return @[];
+    if (WCLGIsLastCodeKey(key)) return @0;
+    if (WCLGIsLastMessageKey(key)) return @"";
+    return nil;
 }
 
-static id WCLGCoerceWriteObject(id key, id requestedValue) {
-    BOOL overridden = NO;
-    id value = WCLGOverrideObjectForKey(key, requestedValue, &overridden);
-    return overridden ? value : requestedValue;
-}
-
-#pragma mark - Early NSUserDefaults hooks
-
+#pragma mark - Original methods
 static id (*OrigDefaultsObjectForKey)(NSUserDefaults *, SEL, NSString *);
 static BOOL (*OrigDefaultsBoolForKey)(NSUserDefaults *, SEL, NSString *);
 static double (*OrigDefaultsDoubleForKey)(NSUserDefaults *, SEL, NSString *);
@@ -210,912 +117,269 @@ static void (*OrigDefaultsSetObjectForKey)(NSUserDefaults *, SEL, id, NSString *
 static void (*OrigDefaultsSetBoolForKey)(NSUserDefaults *, SEL, BOOL, NSString *);
 static void (*OrigDefaultsSetDoubleForKey)(NSUserDefaults *, SEL, double, NSString *);
 
-static id HookDefaultsObjectForKey(NSUserDefaults *self, SEL _cmd, NSString *key) {
-    BOOL overridden = NO;
-    id forced = WCLGOverrideObjectForKey(key, nil, &overridden);
-    return overridden ? forced : OrigDefaultsObjectForKey(self, _cmd, key);
-}
+static id (*OrigConfigCachedObject)(id, SEL, id);
+static void (*OrigConfigSetCachedObject)(id, SEL, id, id);
+static BOOL (*OrigConfigBoolDefault)(id, SEL, id, BOOL);
+static void (*OrigConfigSetBool)(id, SEL, BOOL, id);
+static BOOL (*OrigConfigLiquidGlassEnabled)(id, SEL);
+static BOOL (*OrigConfigShouldForceTrue)(id, SEL, id);
+static void (*OrigConfigRefreshAtomicMirrors)(id, SEL);
 
-static BOOL HookDefaultsBoolForKey(NSUserDefaults *self, SEL _cmd, NSString *key) {
-    if (WCLGIsForcedTrueKey(key)) {
-        return YES;
-    }
-    if (WCLGIsForcedFalseKey(key)) {
-        return NO;
-    }
-    return OrigDefaultsBoolForKey(self, _cmd, key);
-}
-
-static double HookDefaultsDoubleForKey(NSUserDefaults *self, SEL _cmd, NSString *key) {
-    if (WCLGIsExpiryKey(key)) {
-        return WCLGFarFutureTimestamp();
-    }
-    if (WCLGIsVerifiedKey(key)) {
-        return NSDate.date.timeIntervalSince1970;
-    }
-    return OrigDefaultsDoubleForKey(self, _cmd, key);
-}
-
-static void HookDefaultsSetObjectForKey(NSUserDefaults *self, SEL _cmd, id value, NSString *key) {
-    OrigDefaultsSetObjectForKey(self, _cmd, WCLGCoerceWriteObject(key, value), key);
-}
-
-static void HookDefaultsSetBoolForKey(NSUserDefaults *self, SEL _cmd, BOOL value, NSString *key) {
-    if (WCLGIsForcedTrueKey(key)) {
-        value = YES;
-    } else if (WCLGIsForcedFalseKey(key)) {
-        value = NO;
-    }
-    OrigDefaultsSetBoolForKey(self, _cmd, value, key);
-}
-
-static void HookDefaultsSetDoubleForKey(NSUserDefaults *self, SEL _cmd, double value, NSString *key) {
-    if (WCLGIsExpiryKey(key)) {
-        value = WCLGFarFutureTimestamp();
-    } else if (WCLGIsVerifiedKey(key)) {
-        value = NSDate.date.timeIntervalSince1970;
-    }
-    OrigDefaultsSetDoubleForKey(self, _cmd, value, key);
-}
-
-#pragma mark - Block-dialog guard
-
-static const void *kWCLGBlockedAlertMarker = &kWCLGBlockedAlertMarker;
-static id (*OrigAlertCreate)(id, SEL, NSString *, NSString *, UIAlertControllerStyle);
-static void (*OrigPresentViewController)(UIViewController *, SEL, UIViewController *, BOOL, void (^)(void));
-
-static BOOL WCLGLooksLikeSuppressedDialog(NSString *title, NSString *message) {
-    NSString *text = [NSString stringWithFormat:@"%@\n%@", title ?: @"", message ?: @""];
-    return [text containsString:@"封禁"] ||
-           [text containsString:@"禁止使用"] ||
-           [text containsString:@"需要授权"] ||
-           [text containsString:@"授权功能"] ||
-           [text containsString:@"关注公众号"] ||
-           [text containsString:@"请先关注"] ||
-           [text localizedCaseInsensitiveContainsString:@"hard blocked"];
-}
-
-static id HookAlertCreate(id self,
-                          SEL _cmd,
-                          NSString *title,
-                          NSString *message,
-                          UIAlertControllerStyle style) {
-    id alert = OrigAlertCreate(self, _cmd, title, message, style);
-    if (alert && WCLGLooksLikeSuppressedDialog(title, message)) {
-        objc_setAssociatedObject(alert,
-                                 kWCLGBlockedAlertMarker,
-                                 @YES,
-                                 OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        NSLog(@"%@ marked blocked authorization dialog: %@ / %@",
-              WCLGHookLogPrefix,
-              title,
-              message);
-    }
-    return alert;
-}
-
-static void HookPresentViewController(UIViewController *self,
-                                      SEL _cmd,
-                                      UIViewController *controller,
-                                      BOOL animated,
-                                      void (^completion)(void)) {
-    NSString *title = nil;
-    NSString *message = nil;
-    if ([controller isKindOfClass:UIAlertController.class]) {
-        UIAlertController *alert = (UIAlertController *)controller;
-        title = alert.title;
-        message = alert.message;
-    }
-
-    BOOL marked = [objc_getAssociatedObject(controller, kWCLGBlockedAlertMarker) boolValue];
-    if (marked || WCLGLooksLikeSuppressedDialog(title, message)) {
-        NSLog(@"%@ suppressed blocked authorization dialog: %@ / %@",
-              WCLGHookLogPrefix,
-              title,
-              message);
-        if (completion) {
-            completion();
-        }
-        return;
-    }
-    OrigPresentViewController(self, _cmd, controller, animated, completion);
-}
+static id (*OrigAuthorizationColor)(id, SEL, BOOL);
+static void (*OrigApplyAuthorizationBackground)(id, SEL, id, BOOL);
+static BOOL (*OrigOfficialAccountReady)(id, SEL);
+static void (*OrigShowOfficialAccountAlert)(id, SEL);
+static void (*OrigToggleSwitch)(id, SEL, UISwitch *);
 
 static BOOL WCLGHookInstanceMethod(Class cls, SEL selector, IMP replacement, IMP *original) {
-    Method method = class_getInstanceMethod(cls, selector);
-    if (!method) {
-        return NO;
-    }
+    if (!cls || !class_getInstanceMethod(cls, selector)) return NO;
     MSHookMessageEx(cls, selector, replacement, original);
     return YES;
 }
 
-static BOOL WCLGHookClassMethod(Class cls, SEL selector, IMP replacement, IMP *original) {
-    Class metaClass = object_getClass(cls);
-    Method method = class_getClassMethod(cls, selector);
-    if (!metaClass || !method) {
-        return NO;
-    }
-    MSHookMessageEx(metaClass, selector, replacement, original);
-    return YES;
+#pragma mark - Default cache hooks (only active for the validated image)
+static id HookDefaultsObjectForKey(NSUserDefaults *self, SEL _cmd, NSString *key) {
+    id original = OrigDefaultsObjectForKey(self, _cmd, key);
+    id canonical = WCLGTargetIsActive() ? WCLGCanonicalValue(key) : nil;
+    return canonical ?: original;
 }
-
-static void WCLGInstallEarlyRuntimeHooks(void) {
-    bool expected = false;
-    if (!atomic_compare_exchange_strong(&gRuntimeHooksInstalled, &expected, true)) {
-        return;
-    }
-
-    Class defaultsClass = NSUserDefaults.class;
-    BOOL defaultsOK =
-        WCLGHookInstanceMethod(defaultsClass,
-                               @selector(objectForKey:),
-                               (IMP)HookDefaultsObjectForKey,
-                               (IMP *)&OrigDefaultsObjectForKey) &&
-        WCLGHookInstanceMethod(defaultsClass,
-                               @selector(boolForKey:),
-                               (IMP)HookDefaultsBoolForKey,
-                               (IMP *)&OrigDefaultsBoolForKey) &&
-        WCLGHookInstanceMethod(defaultsClass,
-                               @selector(doubleForKey:),
-                               (IMP)HookDefaultsDoubleForKey,
-                               (IMP *)&OrigDefaultsDoubleForKey) &&
-        WCLGHookInstanceMethod(defaultsClass,
-                               @selector(setObject:forKey:),
-                               (IMP)HookDefaultsSetObjectForKey,
-                               (IMP *)&OrigDefaultsSetObjectForKey) &&
-        WCLGHookInstanceMethod(defaultsClass,
-                               @selector(setBool:forKey:),
-                               (IMP)HookDefaultsSetBoolForKey,
-                               (IMP *)&OrigDefaultsSetBoolForKey) &&
-        WCLGHookInstanceMethod(defaultsClass,
-                               @selector(setDouble:forKey:),
-                               (IMP)HookDefaultsSetDoubleForKey,
-                               (IMP *)&OrigDefaultsSetDoubleForKey);
-
-    if (defaultsOK) {
-        WCLGSetStatus(WCLGHookStatusDefaults);
-    }
-
-    BOOL alertOK =
-        WCLGHookClassMethod(UIAlertController.class,
-                            @selector(alertControllerWithTitle:message:preferredStyle:),
-                            (IMP)HookAlertCreate,
-                            (IMP *)&OrigAlertCreate) &&
-        WCLGHookInstanceMethod(UIViewController.class,
-                               @selector(presentViewController:animated:completion:),
-                               (IMP)HookPresentViewController,
-                               (IMP *)&OrigPresentViewController);
-
-    if (alertOK) {
-        WCLGSetStatus(WCLGHookStatusAlertGuard);
-    }
-
-    NSLog(@"%@ early hooks: defaults=%d alertGuard=%d",
-          WCLGHookLogPrefix,
-          defaultsOK,
-          alertOK);
+static BOOL HookDefaultsBoolForKey(NSUserDefaults *self, SEL _cmd, NSString *key) {
+    BOOL original = OrigDefaultsBoolForKey(self, _cmd, key);
+    if (!WCLGTargetIsActive()) return original;
+    if (WCLGIsAllowedKey(key)) return YES;
+    if (WCLGIsHardBlockedKey(key)) return NO;
+    return original;
+}
+static double HookDefaultsDoubleForKey(NSUserDefaults *self, SEL _cmd, NSString *key) {
+    double original = OrigDefaultsDoubleForKey(self, _cmd, key);
+    if (!WCLGTargetIsActive()) return original;
+    if (WCLGIsExpiryKey(key)) return WCLGFarFutureTimestamp();
+    if (WCLGIsVerifiedKey(key)) return NSDate.date.timeIntervalSince1970;
+    return original;
+}
+static void HookDefaultsSetObjectForKey(NSUserDefaults *self, SEL _cmd, id value, NSString *key) {
+    OrigDefaultsSetObjectForKey(self, _cmd, value, key);
+    id canonical = WCLGTargetIsActive() && !gNormalizing ? WCLGCanonicalValue(key) : nil;
+    if (canonical) OrigDefaultsSetObjectForKey(self, _cmd, canonical, key);
+}
+static void HookDefaultsSetBoolForKey(NSUserDefaults *self, SEL _cmd, BOOL value, NSString *key) {
+    OrigDefaultsSetBoolForKey(self, _cmd, value, key);
+    if (WCLGTargetIsActive() && !gNormalizing && (WCLGIsAllowedKey(key) || WCLGIsHardBlockedKey(key)))
+        OrigDefaultsSetBoolForKey(self, _cmd, WCLGIsAllowedKey(key), key);
+}
+static void HookDefaultsSetDoubleForKey(NSUserDefaults *self, SEL _cmd, double value, NSString *key) {
+    OrigDefaultsSetDoubleForKey(self, _cmd, value, key);
+    if (WCLGTargetIsActive() && !gNormalizing && WCLGIsExpiryKey(key))
+        OrigDefaultsSetDoubleForKey(self, _cmd, WCLGFarFutureTimestamp(), key);
 }
 
 #pragma mark - WCLGConfig hooks
-
-static id (*OrigConfigCachedObject)(id, SEL, id);
-static id (*OrigConfigObject)(id, SEL, id);
-static BOOL (*OrigConfigBool)(id, SEL, id);
-static BOOL (*OrigConfigBoolDefault)(id, SEL, id, BOOL);
-static NSInteger (*OrigConfigInteger)(id, SEL, id);
-static NSInteger (*OrigConfigIntegerDefault)(id, SEL, id, NSInteger);
-static double (*OrigConfigDouble)(id, SEL, id);
-static BOOL (*OrigConfigHasValue)(id, SEL, id);
-static void (*OrigConfigSetCachedObject)(id, SEL, id, id);
-static void (*OrigConfigSetObject)(id, SEL, id, id);
-static void (*OrigConfigSetBool)(id, SEL, BOOL, id);
-static void (*OrigConfigSetInteger)(id, SEL, NSInteger, id);
-static void (*OrigConfigSetDouble)(id, SEL, double, id);
-static BOOL (*OrigConfigLiquidGlassEnabled)(id, SEL);
-static void (*OrigConfigRefreshAtomicMirrors)(id, SEL);
-static void (*OrigConfigMaybeUpdateMirror)(id, SEL, id, id);
+static void WCLGNormalizeAuthorization(id config) {
+    if (!WCLGTargetIsActive() || !config || gNormalizing || !OrigConfigSetCachedObject || !OrigConfigRefreshAtomicMirrors) return;
+    gNormalizing = YES;
+    NSArray<NSString *> *keys = @[@"FLGUnifiedServerAuthAllowed", @"FLGUnifiedServerAuthHardBlocked",
+        @"FLGUnifiedServerAuthExpiresAt", @"FLGUnifiedServerAuthVerifiedAt", @"FLGUnifiedServerAuthFeatures",
+        @"denied_features", @"FLGUnifiedServerAuthLastCode", @"FLGUnifiedServerAuthLastMessage",
+        @"WCLGLocalOfficialOK", @"WCLGLocalGroupOK", @"WCLGLocalAuthScannedAt",
+        @"WCLGLocalGroupScannedAt", @"xg_liquid_glass_enabled"];
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    for (NSString *key in keys) {
+        id value = WCLGCanonicalValue(key);
+        if (OrigDefaultsSetObjectForKey) OrigDefaultsSetObjectForKey(defaults, @selector(setObject:forKey:), value, key);
+        OrigConfigSetCachedObject(config, @selector(setCachedObject:forKey:), value, key);
+    }
+    OrigConfigRefreshAtomicMirrors(config, @selector(refreshAtomicMirrors));
+    gNormalizing = NO;
+    WCLGSetStatus(WCLGHookStatusNormalized);
+}
 
 static id HookConfigCachedObject(id self, SEL _cmd, id key) {
-    BOOL overridden = NO;
-    id forced = WCLGOverrideObjectForKey(key, nil, &overridden);
-    return overridden ? forced : OrigConfigCachedObject(self, _cmd, key);
+    id original = OrigConfigCachedObject(self, _cmd, key);
+    id canonical = WCLGTargetIsActive() ? WCLGCanonicalValue(key) : nil;
+    return canonical ?: original;
 }
-
-static id HookConfigObject(id self, SEL _cmd, id key) {
-    BOOL overridden = NO;
-    id forced = WCLGOverrideObjectForKey(key, nil, &overridden);
-    return overridden ? forced : OrigConfigObject(self, _cmd, key);
-}
-
-static BOOL HookConfigBool(id self, SEL _cmd, id key) {
-    if (WCLGIsForcedTrueKey(key)) {
-        return YES;
-    }
-    if (WCLGIsForcedFalseKey(key)) {
-        return NO;
-    }
-    return OrigConfigBool(self, _cmd, key);
-}
-
-static BOOL HookConfigBoolDefault(id self, SEL _cmd, id key, BOOL defaultValue) {
-    if (WCLGIsForcedTrueKey(key)) {
-        return YES;
-    }
-    if (WCLGIsForcedFalseKey(key)) {
-        return NO;
-    }
-    return OrigConfigBoolDefault(self, _cmd, key, defaultValue);
-}
-
-static NSInteger HookConfigInteger(id self, SEL _cmd, id key) {
-    if (WCLGIsLastCodeKey(key)) {
-        return 0;
-    }
-    return OrigConfigInteger(self, _cmd, key);
-}
-
-static NSInteger HookConfigIntegerDefault(id self, SEL _cmd, id key, NSInteger defaultValue) {
-    if (WCLGIsLastCodeKey(key)) {
-        return 0;
-    }
-    return OrigConfigIntegerDefault(self, _cmd, key, defaultValue);
-}
-
-static double HookConfigDouble(id self, SEL _cmd, id key) {
-    if (WCLGIsExpiryKey(key)) {
-        return WCLGFarFutureTimestamp();
-    }
-    if (WCLGIsVerifiedKey(key)) {
-        return NSDate.date.timeIntervalSince1970;
-    }
-    return OrigConfigDouble(self, _cmd, key);
-}
-
-static BOOL HookConfigHasValue(id self, SEL _cmd, id key) {
-    if (WCLGIsControlledKey(key)) {
-        return YES;
-    }
-    return OrigConfigHasValue(self, _cmd, key);
-}
-
 static void HookConfigSetCachedObject(id self, SEL _cmd, id value, id key) {
-    OrigConfigSetCachedObject(self, _cmd, WCLGCoerceWriteObject(key, value), key);
+    OrigConfigSetCachedObject(self, _cmd, value, key);
+    if (WCLGTargetIsActive() && WCLGIsControlledKey(key)) WCLGNormalizeAuthorization(self);
 }
-
-static void HookConfigSetObject(id self, SEL _cmd, id value, id key) {
-    OrigConfigSetObject(self, _cmd, WCLGCoerceWriteObject(key, value), key);
+static BOOL HookConfigBoolDefault(id self, SEL _cmd, id key, BOOL defaultValue) {
+    BOOL original = OrigConfigBoolDefault(self, _cmd, key, defaultValue);
+    if (!WCLGTargetIsActive()) return original;
+    if (WCLGIsAllowedKey(key)) return YES;
+    if (WCLGIsHardBlockedKey(key)) return NO;
+    return original;
 }
-
 static void HookConfigSetBool(id self, SEL _cmd, BOOL value, id key) {
-    if (WCLGIsForcedTrueKey(key)) {
-        value = YES;
-    } else if (WCLGIsForcedFalseKey(key)) {
-        value = NO;
-    }
     OrigConfigSetBool(self, _cmd, value, key);
+    if (WCLGTargetIsActive() && WCLGIsControlledKey(key)) WCLGNormalizeAuthorization(self);
 }
-
-static void HookConfigSetInteger(id self, SEL _cmd, NSInteger value, id key) {
-    if (WCLGIsLastCodeKey(key)) {
-        value = 0;
-    }
-    OrigConfigSetInteger(self, _cmd, value, key);
-}
-
-static void HookConfigSetDouble(id self, SEL _cmd, double value, id key) {
-    if (WCLGIsExpiryKey(key)) {
-        value = WCLGFarFutureTimestamp();
-    } else if (WCLGIsVerifiedKey(key)) {
-        value = NSDate.date.timeIntervalSince1970;
-    }
-    OrigConfigSetDouble(self, _cmd, value, key);
-}
-
 static BOOL HookConfigLiquidGlassEnabled(id self, SEL _cmd) {
-    return YES;
+    BOOL original = OrigConfigLiquidGlassEnabled(self, _cmd);
+    return WCLGTargetIsActive() ? YES : original;
 }
-
+static BOOL HookConfigShouldForceTrue(id self, SEL _cmd, id key) {
+    BOOL original = OrigConfigShouldForceTrue(self, _cmd, key);
+    return (WCLGTargetIsActive() && WCLGIsAllowedKey(key)) ? YES : original;
+}
 static void HookConfigRefreshAtomicMirrors(id self, SEL _cmd) {
     OrigConfigRefreshAtomicMirrors(self, _cmd);
-    WCLGApplyRuntimeGlobals();
-}
-
-static void HookConfigMaybeUpdateMirror(id self, SEL _cmd, id key, id value) {
-    OrigConfigMaybeUpdateMirror(self, _cmd, key, value);
-    if (WCLGIsControlledKey(key)) {
-        WCLGApplyRuntimeGlobals();
-    }
+    WCLGNormalizeAuthorization(self);
 }
 
 static BOOL WCLGInstallConfigHooks(void) {
-    if (atomic_load_explicit(&gConfigHooksInstalled, memory_order_acquire)) {
-        return YES;
-    }
-
+    if (atomic_load_explicit(&gConfigHooksInstalled, memory_order_acquire)) return YES;
     Class cls = NSClassFromString(@"WCLGConfig");
-    if (!cls) {
-        return NO;
-    }
-
-    BOOL ok = YES;
-#define WCLG_HOOK_CONFIG(selectorName, replacement, original) \
-    ok = WCLGHookInstanceMethod(cls, NSSelectorFromString(selectorName), \
-                                (IMP)replacement, (IMP *)&original) && ok
-
-    WCLG_HOOK_CONFIG(@"cachedObjectForKey:", HookConfigCachedObject, OrigConfigCachedObject);
-    WCLG_HOOK_CONFIG(@"objectForKey:", HookConfigObject, OrigConfigObject);
-    WCLG_HOOK_CONFIG(@"boolForKey:", HookConfigBool, OrigConfigBool);
-    WCLG_HOOK_CONFIG(@"boolForKey:defaultValue:", HookConfigBoolDefault, OrigConfigBoolDefault);
-    WCLG_HOOK_CONFIG(@"integerForKey:", HookConfigInteger, OrigConfigInteger);
-    WCLG_HOOK_CONFIG(@"integerForKey:defaultValue:", HookConfigIntegerDefault, OrigConfigIntegerDefault);
-    WCLG_HOOK_CONFIG(@"doubleForKey:", HookConfigDouble, OrigConfigDouble);
-    WCLG_HOOK_CONFIG(@"hasValueForKey:", HookConfigHasValue, OrigConfigHasValue);
-    WCLG_HOOK_CONFIG(@"setCachedObject:forKey:", HookConfigSetCachedObject, OrigConfigSetCachedObject);
-    WCLG_HOOK_CONFIG(@"setObject:forKey:", HookConfigSetObject, OrigConfigSetObject);
-    WCLG_HOOK_CONFIG(@"setBool:forKey:", HookConfigSetBool, OrigConfigSetBool);
-    WCLG_HOOK_CONFIG(@"setInteger:forKey:", HookConfigSetInteger, OrigConfigSetInteger);
-    WCLG_HOOK_CONFIG(@"setDouble:forKey:", HookConfigSetDouble, OrigConfigSetDouble);
-    WCLG_HOOK_CONFIG(@"liquidGlassEnabled",
-                     HookConfigLiquidGlassEnabled,
-                     OrigConfigLiquidGlassEnabled);
-    WCLG_HOOK_CONFIG(@"refreshAtomicMirrors",
-                     HookConfigRefreshAtomicMirrors,
-                     OrigConfigRefreshAtomicMirrors);
-    WCLG_HOOK_CONFIG(@"maybeUpdateMirrorForKey:value:",
-                     HookConfigMaybeUpdateMirror,
-                     OrigConfigMaybeUpdateMirror);
-#undef WCLG_HOOK_CONFIG
-
+    BOOL ok =
+        WCLGHookInstanceMethod(cls, NSSelectorFromString(@"cachedObjectForKey:"), (IMP)HookConfigCachedObject, (IMP *)&OrigConfigCachedObject) &&
+        WCLGHookInstanceMethod(cls, NSSelectorFromString(@"setCachedObject:forKey:"), (IMP)HookConfigSetCachedObject, (IMP *)&OrigConfigSetCachedObject) &&
+        WCLGHookInstanceMethod(cls, NSSelectorFromString(@"boolForKey:defaultValue:"), (IMP)HookConfigBoolDefault, (IMP *)&OrigConfigBoolDefault) &&
+        WCLGHookInstanceMethod(cls, NSSelectorFromString(@"setBool:forKey:"), (IMP)HookConfigSetBool, (IMP *)&OrigConfigSetBool) &&
+        WCLGHookInstanceMethod(cls, NSSelectorFromString(@"liquidGlassEnabled"), (IMP)HookConfigLiquidGlassEnabled, (IMP *)&OrigConfigLiquidGlassEnabled) &&
+        WCLGHookInstanceMethod(cls, NSSelectorFromString(@"shouldForceTrueForUserDefaultsKey:"), (IMP)HookConfigShouldForceTrue, (IMP *)&OrigConfigShouldForceTrue) &&
+        WCLGHookInstanceMethod(cls, NSSelectorFromString(@"refreshAtomicMirrors"), (IMP)HookConfigRefreshAtomicMirrors, (IMP *)&OrigConfigRefreshAtomicMirrors);
     if (ok) {
         atomic_store_explicit(&gConfigHooksInstalled, true, memory_order_release);
-        WCLGSetStatus(WCLGHookStatusConfigHooks);
-        NSLog(@"%@ WCLGConfig hooks installed", WCLGHookLogPrefix);
-    } else {
-        NSLog(@"%@ WCLGConfig class found, one or more selectors missing", WCLGHookLogPrefix);
+        WCLGSetStatus(WCLGHookStatusConfig);
+        SEL shared = NSSelectorFromString(@"sharedConfig");
+        id config = [cls respondsToSelector:shared] ? ((id (*)(id, SEL))objc_msgSend)(cls, shared) : nil;
+        WCLGNormalizeAuthorization(config);
     }
     return ok;
 }
 
-#pragma mark - WCLGSettingsViewController hooks
-
-static id (*OrigAuthorizationColor)(id, SEL, BOOL);
-static void (*OrigApplyAuthorizationBackground)(id, SEL, id, BOOL);
-static void (*OrigConfigureSwitchCell)(id,
-                                       SEL,
-                                       id,
-                                       UISwitch *,
-                                       id,
-                                       id,
-                                       NSInteger,
-                                       BOOL,
-                                       BOOL);
-static id (*OrigRootCard)(id,
-                          SEL,
-                          CGRect,
-                          id,
-                          id,
-                          id,
-                          NSInteger,
-                          BOOL,
-                          UISwitch *);
-static void (*OrigToggleSwitch)(id, SEL, UISwitch *);
-
-static id HookAuthorizationColor(id self, SEL _cmd, BOOL allowed) {
-    return OrigAuthorizationColor(self, _cmd, YES);
-}
-
-static void HookApplyAuthorizationBackground(id self, SEL _cmd, id cell, BOOL allowed) {
-    OrigApplyAuthorizationBackground(self, _cmd, cell, YES);
-}
-
-static BOOL HookOfficialAccountReady(id self, SEL _cmd) {
-    return YES;
-}
-
-static void HookShowOfficialAccountAlert(id self, SEL _cmd) {
-    NSLog(@"%@ ignored official-account authorization alert", WCLGHookLogPrefix);
-}
-
-static void HookConfigureSwitchCell(id self,
-                                    SEL _cmd,
-                                    id cell,
-                                    UISwitch *toggle,
-                                    id title,
-                                    id detail,
-                                    NSInteger tag,
-                                    BOOL on,
-                                    BOOL enabled) {
-    OrigConfigureSwitchCell(self,
-                            _cmd,
-                            cell,
-                            toggle,
-                            title,
-                            detail,
-                            tag,
-                            on,
-                            YES);
-    toggle.enabled = YES;
-}
-
-static id HookRootCard(id self,
-                       SEL _cmd,
-                       CGRect frame,
-                       id title,
-                       id detail,
-                       id symbol,
-                       NSInteger tag,
-                       BOOL enabled,
-                       UISwitch *toggle) {
-    id card = OrigRootCard(self,
-                           _cmd,
-                           frame,
-                           title,
-                           detail,
-                           symbol,
-                           tag,
-                           YES,
-                           toggle);
-    toggle.enabled = YES;
-    return card;
-}
-
+#pragma mark - Settings hooks
+static id HookAuthorizationColor(id self, SEL _cmd, BOOL allowed) { return OrigAuthorizationColor(self, _cmd, YES); }
+static void HookApplyAuthorizationBackground(id self, SEL _cmd, id cell, BOOL allowed) { OrigApplyAuthorizationBackground(self, _cmd, cell, YES); }
+static BOOL HookOfficialAccountReady(id self, SEL _cmd) { BOOL original = OrigOfficialAccountReady(self, _cmd); return WCLGTargetIsActive() ? YES : original; }
+static void HookShowOfficialAccountAlert(id self, SEL _cmd) { if (!WCLGTargetIsActive()) OrigShowOfficialAccountAlert(self, _cmd); }
 static void HookToggleSwitch(id self, SEL _cmd, UISwitch *toggle) {
-    BOOL requestedOn = toggle.isOn;
-    NSInteger tag = toggle.tag;
-
-    if (requestedOn) {
-        WCLGApplyRuntimeGlobals();
-    }
-
     OrigToggleSwitch(self, _cmd, toggle);
-
-    if (requestedOn) {
-        WCLGApplyRuntimeGlobals();
-        [toggle setEnabled:YES];
-        NSLog(@"%@ switch event tag=%ld requested=1 resulting=%d",
-              WCLGHookLogPrefix,
-              (long)tag,
-              toggle.isOn);
+    if (WCLGTargetIsActive()) {
+        WCLGNormalizeAuthorization(NSClassFromString(@"WCLGConfig") ? ((id (*)(id, SEL))objc_msgSend)(NSClassFromString(@"WCLGConfig"), NSSelectorFromString(@"sharedConfig")) : nil);
+        toggle.enabled = YES;
     }
 }
-
 static BOOL WCLGInstallSettingsHooks(void) {
-    if (atomic_load_explicit(&gSettingsHooksInstalled, memory_order_acquire)) {
-        return YES;
-    }
-
+    if (atomic_load_explicit(&gSettingsHooksInstalled, memory_order_acquire)) return YES;
     Class cls = NSClassFromString(@"WCLGSettingsViewController");
-    if (!cls) {
-        return NO;
-    }
-
     BOOL ok =
-        WCLGHookInstanceMethod(cls,
-                               NSSelectorFromString(@"authorizationCellBackgroundColorForAllowed:"),
-                               (IMP)HookAuthorizationColor,
-                               (IMP *)&OrigAuthorizationColor) &&
-        WCLGHookInstanceMethod(cls,
-                               NSSelectorFromString(@"applyAuthorizationBackgroundToCell:allowed:"),
-                               (IMP)HookApplyAuthorizationBackground,
-                               (IMP *)&OrigApplyAuthorizationBackground) &&
-        WCLGHookInstanceMethod(cls,
-                               NSSelectorFromString(@"officialAccountReadyForAction"),
-                               (IMP)HookOfficialAccountReady,
-                               NULL) &&
-        WCLGHookInstanceMethod(cls,
-                               NSSelectorFromString(@"showOfficialAccountAlert"),
-                               (IMP)HookShowOfficialAccountAlert,
-                               NULL) &&
-        WCLGHookInstanceMethod(
-            cls,
-            NSSelectorFromString(@"configureSwitchCell:switch:title:detail:tag:on:enabled:"),
-            (IMP)HookConfigureSwitchCell,
-            (IMP *)&OrigConfigureSwitchCell) &&
-        WCLGHookInstanceMethod(
-            cls,
-            NSSelectorFromString(@"rootCardWithFrame:title:detail:symbol:tag:enabled:switchView:"),
-            (IMP)HookRootCard,
-            (IMP *)&OrigRootCard) &&
-        WCLGHookInstanceMethod(cls,
-                               NSSelectorFromString(@"toggleSwitch:"),
-                               (IMP)HookToggleSwitch,
-                               (IMP *)&OrigToggleSwitch);
-
-    if (ok) {
-        atomic_store_explicit(&gSettingsHooksInstalled, true, memory_order_release);
-        WCLGSetStatus(WCLGHookStatusSettingsHooks);
-        NSLog(@"%@ settings authorization hooks installed", WCLGHookLogPrefix);
-    } else {
-        NSLog(@"%@ settings class found, one or more selectors missing", WCLGHookLogPrefix);
-    }
+        WCLGHookInstanceMethod(cls, NSSelectorFromString(@"authorizationCellBackgroundColorForAllowed:"), (IMP)HookAuthorizationColor, (IMP *)&OrigAuthorizationColor) &&
+        WCLGHookInstanceMethod(cls, NSSelectorFromString(@"applyAuthorizationBackgroundToCell:allowed:"), (IMP)HookApplyAuthorizationBackground, (IMP *)&OrigApplyAuthorizationBackground) &&
+        WCLGHookInstanceMethod(cls, NSSelectorFromString(@"officialAccountReadyForAction"), (IMP)HookOfficialAccountReady, (IMP *)&OrigOfficialAccountReady) &&
+        WCLGHookInstanceMethod(cls, NSSelectorFromString(@"showOfficialAccountAlert"), (IMP)HookShowOfficialAccountAlert, (IMP *)&OrigShowOfficialAccountAlert) &&
+        WCLGHookInstanceMethod(cls, NSSelectorFromString(@"toggleSwitch:"), (IMP)HookToggleSwitch, (IMP *)&OrigToggleSwitch);
+    if (ok) { atomic_store_explicit(&gSettingsHooksInstalled, true, memory_order_release); WCLGSetStatus(WCLGHookStatusSettings); }
     return ok;
 }
 
+#pragma mark - UUID-gated native initializer replay
 static BOOL WCLGImageUUIDMatches(const struct mach_header *header) {
-    if (!header || header->magic != MH_MAGIC_64) {
-        return NO;
-    }
-
-    const uint8_t *cursor = (const uint8_t *)header + sizeof(struct mach_header_64);
-    const struct mach_header_64 *header64 = (const struct mach_header_64 *)header;
-    for (uint32_t index = 0; index < header64->ncmds; index++) {
-        const struct load_command *command = (const struct load_command *)cursor;
-        if (command->cmd == LC_UUID && command->cmdsize >= sizeof(struct uuid_command)) {
-            const struct uuid_command *uuidCommand = (const struct uuid_command *)cursor;
-            return memcmp(uuidCommand->uuid,
-                          kExpectedWCGlassUUID,
-                          sizeof(kExpectedWCGlassUUID)) == 0;
-        }
-        cursor += command->cmdsize;
+    if (!header || header->magic != MH_MAGIC_64) return NO;
+    const struct mach_header_64 *h = (const struct mach_header_64 *)header;
+    const uint8_t *cursor = (const uint8_t *)header + sizeof(*h);
+    for (uint32_t i = 0; i < h->ncmds; i++) {
+        const struct load_command *cmd = (const struct load_command *)cursor;
+        if (cmd->cmdsize < sizeof(*cmd)) return NO;
+        if (cmd->cmd == LC_UUID && cmd->cmdsize >= sizeof(struct uuid_command))
+            return memcmp(((const struct uuid_command *)cmd)->uuid, kWCLG3025Binding.uuid, 16) == 0;
+        cursor += cmd->cmdsize;
     }
     return NO;
 }
-
-static BOOL WCLGAddressInsideText(const struct mach_header *header,
-                                  intptr_t slide,
-                                  uintptr_t address) {
-    if (!header || header->magic != MH_MAGIC_64) {
-        return NO;
-    }
-
-    const uint8_t *cursor = (const uint8_t *)header + sizeof(struct mach_header_64);
-    const struct mach_header_64 *header64 = (const struct mach_header_64 *)header;
-    for (uint32_t index = 0; index < header64->ncmds; index++) {
-        const struct load_command *command = (const struct load_command *)cursor;
-        if (command->cmd == LC_SEGMENT_64) {
-            const struct segment_command_64 *segment =
-                (const struct segment_command_64 *)cursor;
-            if (strncmp(segment->segname, "__TEXT", sizeof(segment->segname)) == 0) {
-                uintptr_t start = (uintptr_t)(slide + (intptr_t)segment->vmaddr);
-                uintptr_t end = start + (uintptr_t)segment->vmsize;
-                return address >= start && address < end;
-            }
+static BOOL WCLGAddressInSegment(const struct mach_header *header, intptr_t slide, uintptr_t address, size_t size, BOOL requireWritable, const char *requiredName) {
+    const struct mach_header_64 *h = (const struct mach_header_64 *)header;
+    const uint8_t *cursor = (const uint8_t *)header + sizeof(*h);
+    for (uint32_t i = 0; i < h->ncmds; i++) {
+        const struct load_command *cmd = (const struct load_command *)cursor;
+        if (cmd->cmd == LC_SEGMENT_64 && cmd->cmdsize >= sizeof(struct segment_command_64)) {
+            const struct segment_command_64 *seg = (const struct segment_command_64 *)cmd;
+            uintptr_t start = (uintptr_t)(slide + (intptr_t)seg->vmaddr), end = start + (uintptr_t)seg->vmsize;
+            if ((!requiredName || strncmp(seg->segname, requiredName, 16) == 0) && (!requireWritable || (seg->initprot & VM_PROT_WRITE)) && address >= start && size <= end - address) return YES;
         }
-        cursor += command->cmdsize;
+        if (cmd->cmdsize < sizeof(*cmd)) return NO;
+        cursor += cmd->cmdsize;
     }
     return NO;
 }
-
-static BOOL WCLGAddressInsideWritableData(const struct mach_header *header,
-                                          intptr_t slide,
-                                          uintptr_t address,
-                                          size_t size) {
-    if (!header || header->magic != MH_MAGIC_64) {
-        return NO;
-    }
-
-    const uint8_t *cursor = (const uint8_t *)header + sizeof(struct mach_header_64);
-    const struct mach_header_64 *header64 = (const struct mach_header_64 *)header;
-    for (uint32_t index = 0; index < header64->ncmds; index++) {
-        const struct load_command *command = (const struct load_command *)cursor;
-        if (command->cmd == LC_SEGMENT_64) {
-            const struct segment_command_64 *segment =
-                (const struct segment_command_64 *)cursor;
-            uintptr_t start = (uintptr_t)(slide + (intptr_t)segment->vmaddr);
-            uintptr_t end = start + (uintptr_t)segment->vmsize;
-            BOOL writable = (segment->initprot & VM_PROT_WRITE) != 0;
-            if (writable && address >= start && address + size <= end) {
-                return YES;
-            }
-        }
-        cursor += command->cmdsize;
-    }
-    return NO;
-}
-
-static BOOL WCLGApplyRuntimeGlobals(void) {
-    const struct mach_header *header =
-        (const struct mach_header *)atomic_load_explicit(&gWCGlassHeader,
-                                                         memory_order_acquire);
-    intptr_t slide = atomic_load_explicit(&gWCGlassSlide, memory_order_acquire);
-    if (!header || !WCLGImageUUIDMatches(header)) {
-        return NO;
-    }
-
-    uintptr_t allowedAddress = (uintptr_t)(slide + (intptr_t)kAuthAllowedGlobalOffset);
-    uintptr_t blockedAddress = (uintptr_t)(slide + (intptr_t)kHardBlockedGlobalOffset);
-    uintptr_t expiresAddress = (uintptr_t)(slide + (intptr_t)kExpiresGlobalOffset);
-    uintptr_t verifiedAddress = (uintptr_t)(slide + (intptr_t)kVerifiedGlobalOffset);
-    uintptr_t masterAddress =
-        (uintptr_t)(slide + (intptr_t)kLiquidGlassEnabledGlobalOffset);
-
-    uintptr_t addresses[] = {
-        allowedAddress,
-        blockedAddress,
-        expiresAddress,
-        verifiedAddress,
-        masterAddress,
-    };
-    size_t sizes[] = {
-        sizeof(uint8_t),
-        sizeof(uint8_t),
-        sizeof(uint64_t),
-        sizeof(uint64_t),
-        sizeof(uint8_t),
-    };
-    for (NSUInteger index = 0; index < sizeof(addresses) / sizeof(addresses[0]); index++) {
-        if (!WCLGAddressInsideWritableData(header, slide, addresses[index], sizes[index])) {
-            NSLog(@"%@ writable-global validation failed at %p",
-                  WCLGHookLogPrefix,
-                  (void *)addresses[index]);
-            return NO;
-        }
-    }
-
-    __atomic_store_n((uint8_t *)allowedAddress, 1, __ATOMIC_RELEASE);
-    __atomic_store_n((uint8_t *)blockedAddress, 0, __ATOMIC_RELEASE);
-    __atomic_store_n((uint8_t *)masterAddress, 1, __ATOMIC_RELEASE);
-    double expires = WCLGFarFutureTimestamp();
-    double verified = NSDate.date.timeIntervalSince1970;
-    uint64_t expiresBits = 0;
-    uint64_t verifiedBits = 0;
-    memcpy(&expiresBits, &expires, sizeof(expiresBits));
-    memcpy(&verifiedBits, &verified, sizeof(verifiedBits));
-    __atomic_store_n((uint64_t *)expiresAddress, expiresBits, __ATOMIC_RELEASE);
-    __atomic_store_n((uint64_t *)verifiedAddress, verifiedBits, __ATOMIC_RELEASE);
-
-    WCLGSetStatus(WCLGHookStatusScalarGates);
-    return YES;
-}
-
 typedef void (*WCLGInitializerFunction)(void);
-
 static WCLGInitializerFunction WCLGCallableInitializer(uintptr_t address) {
     void *pointer = (void *)address;
-#if __has_feature(ptrauth_calls)
-    pointer = ptrauth_sign_unauthenticated(pointer,
-                                           ptrauth_key_function_pointer,
-                                           0);
+#if defined(__arm64e__) && __has_feature(ptrauth_calls)
+    pointer = ptrauth_sign_unauthenticated(pointer, ptrauth_key_function_pointer, 0);
 #endif
     return (WCLGInitializerFunction)pointer;
 }
-
 static BOOL WCLGReplayMissedFeatureInitializers(void) {
-    if (atomic_load_explicit(&gFeatureReplayAttempted, memory_order_acquire)) {
-        return atomic_load_explicit(&gFeatureReplaySucceeded, memory_order_acquire);
-    }
-
-    const struct mach_header *header =
-        (const struct mach_header *)atomic_load_explicit(&gWCGlassHeader,
-                                                         memory_order_acquire);
+    if (atomic_exchange_explicit(&gFeatureReplayAttempted, true, memory_order_acq_rel)) return atomic_load_explicit(&gFeatureReplaySucceeded, memory_order_acquire);
+    const struct mach_header *header = (const struct mach_header *)atomic_load_explicit(&gWCGlassHeader, memory_order_acquire);
     intptr_t slide = atomic_load_explicit(&gWCGlassSlide, memory_order_acquire);
-    if (!header || !WCLGImageUUIDMatches(header)) {
-        return NO;
+    if (!WCLGTargetIsActive() || !header || !WCLGImageUUIDMatches(header)) return NO;
+    NSUInteger replayed = 0, installed = 0;
+    for (size_t i = 0; i < kWCLG3025Binding.gatedInitializerCount; i++) {
+        WCLGGatedInitializerBinding binding = kWCLG3025Binding.gatedInitializers[i];
+        uintptr_t init = (uintptr_t)(slide + (intptr_t)binding.initializerOffset);
+        uintptr_t slot = (uintptr_t)(slide + (intptr_t)binding.originalSlotOffset);
+        if (!WCLGAddressInSegment(header, slide, init, 4, NO, "__TEXT") || !WCLGAddressInSegment(header, slide, slot, sizeof(uintptr_t), YES, NULL)) return NO;
+        if (__atomic_load_n((uintptr_t *)slot, __ATOMIC_ACQUIRE) == 0) { WCLGCallableInitializer(init)(); replayed++; }
+        if (__atomic_load_n((uintptr_t *)slot, __ATOMIC_ACQUIRE) != 0) installed++;
     }
-
-    uintptr_t firstOriginalSlot =
-        (uintptr_t)(slide + (intptr_t)kFirstFeatureOriginalSlotOffset);
-    if (!WCLGAddressInsideWritableData(header,
-                                       slide,
-                                       firstOriginalSlot,
-                                       sizeof(uintptr_t))) {
-        NSLog(@"%@ feature replay slot validation failed at %p",
-              WCLGHookLogPrefix,
-              (void *)firstOriginalSlot);
-        return NO;
-    }
-
-    uintptr_t existingOriginal =
-        __atomic_load_n((uintptr_t *)firstOriginalSlot, __ATOMIC_ACQUIRE);
-    if (existingOriginal != 0) {
-        atomic_store_explicit(&gFeatureReplayAttempted, true, memory_order_release);
-        atomic_store_explicit(&gFeatureReplaySucceeded, true, memory_order_release);
-        WCLGSetStatus(WCLGHookStatusFeatureReplay);
-        NSLog(@"%@ original feature initializers already installed hooks; replay skipped",
-              WCLGHookLogPrefix);
-        return YES;
-    }
-
-    for (NSUInteger index = 0;
-         index < sizeof(kGatedFeatureInitializerOffsets) /
-                     sizeof(kGatedFeatureInitializerOffsets[0]);
-         index++) {
-        uintptr_t address =
-            (uintptr_t)(slide + (intptr_t)kGatedFeatureInitializerOffsets[index]);
-        if (!WCLGAddressInsideText(header, slide, address)) {
-            NSLog(@"%@ feature initializer validation failed index=%lu address=%p",
-                  WCLGHookLogPrefix,
-                  (unsigned long)index,
-                  (void *)address);
-            return NO;
-        }
-    }
-
-    atomic_store_explicit(&gFeatureReplayAttempted, true, memory_order_release);
-    WCLGApplyRuntimeGlobals();
-
-    for (NSUInteger index = 0;
-         index < sizeof(kGatedFeatureInitializerOffsets) /
-                     sizeof(kGatedFeatureInitializerOffsets[0]);
-         index++) {
-        uintptr_t address =
-            (uintptr_t)(slide + (intptr_t)kGatedFeatureInitializerOffsets[index]);
-        WCLGCallableInitializer(address)();
-    }
-
-    uintptr_t installedOriginal =
-        __atomic_load_n((uintptr_t *)firstOriginalSlot, __ATOMIC_ACQUIRE);
-    BOOL succeeded = installedOriginal != 0;
-    atomic_store_explicit(&gFeatureReplaySucceeded, succeeded, memory_order_release);
-    if (succeeded) {
-        WCLGSetStatus(WCLGHookStatusFeatureReplay);
-    }
-    NSLog(@"%@ feature initializer replay complete: count=%lu installed=%d slot=%p",
-          WCLGHookLogPrefix,
-          (unsigned long)(sizeof(kGatedFeatureInitializerOffsets) /
-                          sizeof(kGatedFeatureInitializerOffsets[0])),
-          succeeded,
-          (void *)installedOriginal);
-    return succeeded;
+    BOOL ok = installed == kWCLG3025Binding.gatedInitializerCount;
+    atomic_store_explicit(&gFeatureReplaySucceeded, ok, memory_order_release);
+    if (ok) WCLGSetStatus(WCLGHookStatusFeatureReplay);
+    NSLog(@"%@ feature initializer replay: mapped=36 gated=23 registrations=%lu replayed=%lu installed=%lu ok=%d", WCLGHookLogPrefix, (unsigned long)kWCLG3025Binding.gatedInitializerCount, (unsigned long)replayed, (unsigned long)installed, ok);
+    return ok;
 }
 
-#pragma mark - Cache seed and retry
-
-static void WCLGSeedAuthorizationCache(void) {
-    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-    NSTimeInterval now = NSDate.date.timeIntervalSince1970;
-    NSDictionary<NSString *, id> *values = @{
-        @"FLGUnifiedServerAuthAllowed": @YES,
-        @"FLGUnifiedServerAuthHardBlocked": @NO,
-        @"FLGUnifiedServerAuthExpiresAt": @(WCLGFarFutureTimestamp()),
-        @"FLGUnifiedServerAuthVerifiedAt": @(now),
-        @"FLGUnifiedServerAuthFeatures": WCLGFeatureList(),
-        @"denied_features": @[],
-        @"FLGUnifiedServerAuthLastCode": @0,
-        @"FLGUnifiedServerAuthLastMessage": @"",
-        @"WCLGLocalOfficialOK": @YES,
-        @"WCLGLocalGroupOK": @YES,
-        @"WCLGLocalAuthScannedAt": @(now),
-        @"WCLGLocalGroupScannedAt": @(now),
-        @"xg_liquid_glass_enabled": @YES,
-    };
-
-    [values enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
-        (void)stop;
-        [defaults setObject:value forKey:key];
-    }];
-
-    Class configClass = NSClassFromString(@"WCLGConfig");
-    SEL sharedSelector = NSSelectorFromString(@"sharedConfig");
-    id config = nil;
-    if (configClass && [configClass respondsToSelector:sharedSelector]) {
-        config = ((id (*)(id, SEL))objc_msgSend)(configClass, sharedSelector);
-    }
-
-    SEL cacheSelector = NSSelectorFromString(@"setCachedObject:forKey:");
-    if (config && [config respondsToSelector:cacheSelector]) {
-        [values enumerateKeysAndObjectsUsingBlock:^(NSString *key, id value, BOOL *stop) {
-            (void)stop;
-            ((void (*)(id, SEL, id, id))objc_msgSend)(config, cacheSelector, value, key);
-        }];
-    }
-
-    WCLGSetStatus(WCLGHookStatusSeedApplied);
-    WCLGApplyRuntimeGlobals();
-    NSLog(@"%@ authorization cache seed applied", WCLGHookLogPrefix);
+#pragma mark - Image lifecycle
+static void WCLGInstallRuntimeHooks(void) {
+    bool expected = false;
+    if (!atomic_compare_exchange_strong(&gRuntimeHooksInstalled, &expected, true)) return;
+    Class cls = NSUserDefaults.class;
+    BOOL ok = WCLGHookInstanceMethod(cls, @selector(objectForKey:), (IMP)HookDefaultsObjectForKey, (IMP *)&OrigDefaultsObjectForKey) &&
+              WCLGHookInstanceMethod(cls, @selector(boolForKey:), (IMP)HookDefaultsBoolForKey, (IMP *)&OrigDefaultsBoolForKey) &&
+              WCLGHookInstanceMethod(cls, @selector(doubleForKey:), (IMP)HookDefaultsDoubleForKey, (IMP *)&OrigDefaultsDoubleForKey) &&
+              WCLGHookInstanceMethod(cls, @selector(setObject:forKey:), (IMP)HookDefaultsSetObjectForKey, (IMP *)&OrigDefaultsSetObjectForKey) &&
+              WCLGHookInstanceMethod(cls, @selector(setBool:forKey:), (IMP)HookDefaultsSetBoolForKey, (IMP *)&OrigDefaultsSetBoolForKey) &&
+              WCLGHookInstanceMethod(cls, @selector(setDouble:forKey:), (IMP)HookDefaultsSetDoubleForKey, (IMP *)&OrigDefaultsSetDoubleForKey);
+    if (ok) WCLGSetStatus(WCLGHookStatusRuntime);
 }
-
-static void WCLGRetryWCGlassHooks(NSUInteger attempt) {
-    BOOL configReady = WCLGInstallConfigHooks();
-    BOOL settingsReady = WCLGInstallSettingsHooks();
-
-    if (configReady) {
-        WCLGSeedAuthorizationCache();
-        WCLGReplayMissedFeatureInitializers();
-    }
-
-    if ((!configReady || !settingsReady) && attempt < 100) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
-                       dispatch_get_main_queue(), ^{
-            WCLGRetryWCGlassHooks(attempt + 1);
-        });
-    } else {
-        NSLog(@"%@ Objective-C hook pass complete: config=%d settings=%d attempt=%lu",
-              WCLGHookLogPrefix,
-              configReady,
-              settingsReady,
-              (unsigned long)attempt);
-    }
-}
-
-static BOOL WCLGFindImageInfo(const struct mach_header *header,
-                              NSString **pathOut,
-                              intptr_t *slideOut) {
-    uint32_t count = _dyld_image_count();
-    for (uint32_t index = 0; index < count; index++) {
-        if (_dyld_get_image_header(index) != header) {
-            continue;
-        }
-        const char *imageName = _dyld_get_image_name(index);
-        if (pathOut) {
-            *pathOut = imageName ? [NSString stringWithUTF8String:imageName] : @"";
-        }
-        if (slideOut) {
-            *slideOut = _dyld_get_image_vmaddr_slide(index);
-        }
+static BOOL WCLGFindImageInfo(const struct mach_header *header, NSString **pathOut, intptr_t *slideOut) {
+    for (uint32_t i = 0; i < _dyld_image_count(); i++) if (_dyld_get_image_header(i) == header) {
+        const char *name = _dyld_get_image_name(i);
+        if (pathOut) *pathOut = name ? [NSString stringWithUTF8String:name] : @"";
+        if (slideOut) *slideOut = _dyld_get_image_vmaddr_slide(i);
         return YES;
     }
     return NO;
 }
-
 static void WCLGImageAdded(const struct mach_header *header, intptr_t callbackSlide) {
     @autoreleasepool {
-        NSString *path = nil;
-        intptr_t slide = callbackSlide;
-        if (!WCLGFindImageInfo(header, &path, &slide)) {
-            return;
-        }
-        if (![[path lastPathComponent] isEqualToString:WCLGTargetImageName]) {
-            return;
-        }
-
-        uintptr_t expected = 0;
-        if (!atomic_compare_exchange_strong(&gWCGlassHeader,
-                                            &expected,
-                                            (uintptr_t)header)) {
-            return;
-        }
-
+        NSString *path = nil; intptr_t slide = callbackSlide;
+        if (!WCLGFindImageInfo(header, &path, &slide) || ![[path lastPathComponent] isEqualToString:WCLGTargetImageName]) return;
+        WCLGSetStatus(WCLGHookStatusImage);
+        if (!WCLGImageUUIDMatches(header)) { NSLog(@"%@ ignored WCGlass image with unmatched UUID: %@", WCLGHookLogPrefix, path); return; }
+        uintptr_t empty = 0;
+        if (!atomic_compare_exchange_strong(&gWCGlassHeader, &empty, (uintptr_t)header)) return;
         atomic_store_explicit(&gWCGlassSlide, slide, memory_order_release);
-        WCLGSetStatus(WCLGHookStatusImageDetected);
-        NSLog(@"%@ detected %@ header=%p slide=%p",
-              WCLGHookLogPrefix,
-              path,
-              header,
-              (void *)slide);
-
-        WCLGInstallConfigHooks();
-        WCLGInstallSettingsHooks();
-
-        dispatch_async(dispatch_get_main_queue(), ^{
-            WCLGRetryWCGlassHooks(0);
-        });
+        atomic_store_explicit(&gTargetValidated, true, memory_order_release);
+        WCLGSetStatus(WCLGHookStatusUUID);
+        BOOL config = WCLGInstallConfigHooks(), settings = WCLGInstallSettingsHooks();
+        if (config) WCLGReplayMissedFeatureInitializers();
+        NSLog(@"%@ 3.0.2-5 accepted %@ config=%d settings=%d", WCLGHookLogPrefix, path, config, settings);
     }
 }
 
-__attribute__((visibility("default")))
-NSDictionary<NSString *, id> *WCLGFreeModeHookStatus(void) {
-    return @{
-        @"status_bits": @(atomic_load_explicit(&gHookStatus, memory_order_relaxed)),
-        @"wcglass_header": @((unsigned long long)atomic_load_explicit(&gWCGlassHeader,
-                                                                      memory_order_relaxed)),
-        @"wcglass_slide": @((long long)atomic_load_explicit(&gWCGlassSlide,
-                                                            memory_order_relaxed)),
-        @"c_side_effect_functions_preserved": @YES,
-        @"feature_initializer_replay_attempted":
-            @(atomic_load_explicit(&gFeatureReplayAttempted, memory_order_relaxed)),
-        @"feature_initializer_replay_succeeded":
-            @(atomic_load_explicit(&gFeatureReplaySucceeded, memory_order_relaxed)),
-        @"config_hooks": @(atomic_load_explicit(&gConfigHooksInstalled,
-                                                memory_order_relaxed)),
-        @"settings_hooks": @(atomic_load_explicit(&gSettingsHooksInstalled,
-                                                  memory_order_relaxed)),
-    };
+__attribute__((visibility("default"))) NSDictionary<NSString *, id> *WCLGFreeModeHookStatus(void) {
+    return @{ @"status_bits": @(atomic_load(&gHookStatus)), @"target_validated": @(WCLGTargetIsActive()),
+              @"wcglass_header": @((unsigned long long)atomic_load(&gWCGlassHeader)), @"wcglass_slide": @((long long)atomic_load(&gWCGlassSlide)),
+              @"c_authorization_functions_replaced": @NO, @"feature_initializer_replay_attempted": @(atomic_load(&gFeatureReplayAttempted)),
+              @"feature_initializer_replay_succeeded": @(atomic_load(&gFeatureReplaySucceeded)), @"gated_initializer_registration_count": @(kWCLG3025Binding.gatedInitializerCount) };
 }
 
-__attribute__((constructor))
-static void WCLGFreeModeHookInitialize(void) {
+__attribute__((constructor)) static void WCLGFreeModeHookInitialize(void) {
     @autoreleasepool {
-        NSString *bundleIdentifier = NSBundle.mainBundle.bundleIdentifier ?: @"";
-        if (![bundleIdentifier isEqualToString:@"com.tencent.xin"]) {
-            return;
-        }
-
-        NSLog(@"%@ constructor", WCLGHookLogPrefix);
-        WCLGInstallEarlyRuntimeHooks();
+        if (![NSBundle.mainBundle.bundleIdentifier isEqualToString:@"com.tencent.xin"]) return;
+        WCLGInstallRuntimeHooks();
         _dyld_register_func_for_add_image(WCLGImageAdded);
-
-        [NSNotificationCenter.defaultCenter
-            addObserverForName:UIApplicationDidBecomeActiveNotification
-                        object:nil
-                         queue:NSOperationQueue.mainQueue
-                    usingBlock:^(NSNotification *note) {
-            (void)note;
-            if (atomic_load_explicit(&gWCGlassHeader, memory_order_acquire)) {
-                WCLGApplyRuntimeGlobals();
-                WCLGSeedAuthorizationCache();
-            }
-        }];
     }
 }
