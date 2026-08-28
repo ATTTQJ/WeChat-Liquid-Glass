@@ -1,0 +1,40 @@
+name: Build QQ Glass Probe
+
+on:
+  pull_request:
+    paths:
+      - "QQGlassProbe/**"
+      - ".github/workflows/build-qq-glass-probe.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build arm64 diagnostic dylib
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        working-directory: QQGlassProbe
+        run: make
+
+      - name: Upload dylib
+        uses: actions/upload-artifact@v4
+        with:
+          name: QQGlassProbe-arm64
+          path: QQGlassProbe/build/QQGlassProbe.dylib
+          if-no-files-found: error
+
+      - name: Upload integration files
+        uses: actions/upload-artifact@v4
+        with:
+          name: QQGlassProbe-integration
+          path: |
+            QQGlassProbe/README.md
+            QQGlassProbe/IPA-Integration.md
+            QQGlassProbe/QQFileSharing-Info.plist
