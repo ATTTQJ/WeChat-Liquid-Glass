@@ -111,10 +111,26 @@ static void QQlgCorners(UIView *view, CGFloat radius) {
     view.layer.masksToBounds = YES;
 }
 
+static UIView *QQlgMakeSwiftOverlay(void) {
+    Class overlayClass = NSClassFromString(@"QQlgNativeGlassOverlay");
+    if (!overlayClass) return nil;
+    return [[overlayClass alloc] initWithFrame:CGRectZero];
+}
+
 static UIView *QQlgMakeHost(void) {
     UIView *host = [[UIView alloc] initWithFrame:CGRectZero];
     host.userInteractionEnabled = NO; host.accessibilityElementsHidden = YES;
     host.backgroundColor = UIColor.clearColor; host.clipsToBounds = NO;
+    UIView *swiftOverlay = QQlgMakeSwiftOverlay();
+    if (swiftOverlay) {
+        swiftOverlay.userInteractionEnabled = NO;
+        [host addSubview:swiftOverlay];
+        objc_setAssociatedObject(host, @selector(QQlgMakeHost), @{
+            @"container": swiftOverlay, @"surface": (id)NSNull.null, @"selection": (id)NSNull.null,
+            @"native": @YES, @"swiftUI": @YES, @"refraction": (id)NSNull.null, @"border": (id)NSNull.null
+        }, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        return host;
+    }
     UIVisualEffect *containerEffect = QQlgRuntimeGlassContainerEffect();
     UIVisualEffect *barEffect = QQlgRuntimeGlassEffect(QQlgRuntimeGlassStyleRegular);
     UIVisualEffect *selectedEffect = QQlgRuntimeGlassEffect(QQlgRuntimeGlassStyleClear);
@@ -143,7 +159,7 @@ static UIView *QQlgMakeHost(void) {
     surface.userInteractionEnabled = NO; surface.backgroundColor = UIColor.clearColor;
     selection.userInteractionEnabled = NO; selection.backgroundColor = UIColor.clearColor; selection.alpha = 0.0;
     objc_setAssociatedObject(host, @selector(QQlgMakeHost), @{
-        @"container": container, @"surface": surface, @"selection": selection, @"native": @(nativeGlass),
+        @"container": container, @"surface": surface, @"selection": selection, @"native": @(nativeGlass), @"swiftUI": @NO,
         @"refraction": refraction ?: (id)NSNull.null, @"border": border ?: (id)NSNull.null
     }, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return host;
@@ -200,7 +216,7 @@ static void QQlgUpdateFloatingTab(UIView *tabBar, BOOL animateSelection) {
     if (!host) {
         host = QQlgMakeHost(); objc_setAssociatedObject(tabBar, QQlgFloatingHostKey, host, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         NSDictionary *parts = objc_getAssociatedObject(host, @selector(QQlgMakeHost));
-        QQlgLog(@"floating host created class=%@ items=%lu nativeGlass=%@", NSStringFromClass(tabBar.class), (unsigned long)items.count, [parts[@"native"] boolValue] ? @"yes" : @"no");
+        QQlgLog(@"floating host created class=%@ items=%lu nativeGlass=%@ swiftUI=%@", NSStringFromClass(tabBar.class), (unsigned long)items.count, [parts[@"native"] boolValue] ? @"yes" : @"no", [parts[@"swiftUI"] boolValue] ? @"yes" : @"no");
     }
     [tabBar insertSubview:host belowSubview:items.firstObject]; QQlgSuppressRectangle(tabBar, host);
     CGFloat safeBottom = MAX(0.0, tabBar.safeAreaInsets.bottom);
@@ -213,15 +229,25 @@ static void QQlgUpdateFloatingTab(UIView *tabBar, BOOL animateSelection) {
     host.layer.shadowRadius = 12.0; host.layer.shadowOffset = CGSizeMake(0, 5);
     host.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:host.bounds cornerRadius:height * 0.5].CGPath;
     NSDictionary *parts = objc_getAssociatedObject(host, @selector(QQlgMakeHost));
-    UIView *container = parts[@"container"]; UIVisualEffectView *surface = parts[@"surface"]; UIVisualEffectView *selection = parts[@"selection"];
-    container.frame = host.bounds; surface.frame = host.bounds; QQlgCorners(surface, height * 0.5);
-    if (![parts[@"native"] boolValue]) { surface.effect = [UIBlurEffect effectWithStyle:QQlgFallbackMaterialStyle()]; QQlgUpdateFallback(parts, tabBar.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark, surface.bounds, height * 0.5); }
+    UIView *container = parts[@"container"]; UIView *surface = parts[@"surface"]; id selection = parts[@"selection"];
+    BOOL swiftUI = [parts[@"swiftUI"] boolValue];
+    container.frame = host.bounds;
+    if (!swiftUI) {
+        surface.frame = host.bounds; QQlgCorners(surface, height * 0.5);
+        if (![parts[@"native"] boolValue]) { ((UIVisualEffectView *)surface).effect = [UIBlurEffect effectWithStyle:QQlgFallbackMaterialStyle()]; QQlgUpdateFallback(parts, tabBar.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark, surface.bounds, height * 0.5); }
+    }
     CGFloat slot = CGRectGetWidth(host.bounds) / items.count;
     for (NSUInteger i = 0; i < items.count; i++) items[i].frame = CGRectMake(CGRectGetMinX(host.frame) + slot * i, y, slot, height);
     UIControl *selected = QQlgSelectedControl(items); NSUInteger selectedIndex = NSNotFound;
     if (selected) for (NSUInteger i = 0; i < items.count; i++) if ([selected isDescendantOfView:items[i]]) { selectedIndex = i; break; }
-    if (selectedIndex == NSNotFound) QQlgSetSelection(selection, selection.frame, NO, NO);
-    else { CGFloat side = MAX(5.0, slot * 0.075); QQlgSetSelection(selection, CGRectMake(slot * selectedIndex + side, 5.0, slot - side * 2.0, height - 10.0), YES, animateSelection); }
+    if (swiftUI) {
+        SEL update = NSSelectorFromString(@"setSelectedSlot:itemCount:animated:");
+        if ([container respondsToSelector:update]) ((void (*)(id, SEL, NSInteger, NSInteger, BOOL))objc_msgSend)(container, update, selectedIndex == NSNotFound ? -1 : (NSInteger)selectedIndex, (NSInteger)items.count, animateSelection);
+    } else if (selectedIndex == NSNotFound) {
+        QQlgSetSelection((UIVisualEffectView *)selection, ((UIView *)selection).frame, NO, NO);
+    } else {
+        CGFloat side = MAX(5.0, slot * 0.075); QQlgSetSelection((UIVisualEffectView *)selection, CGRectMake(slot * selectedIndex + side, 5.0, slot - side * 2.0, height - 10.0), YES, animateSelection);
+    }
 }
 
 static void QQlgLayoutSubviews(UIView *self, SEL _cmd) { QQlgOriginalLayoutSubviews(self, _cmd); QQlgUpdateFloatingTab(self, NO); }
