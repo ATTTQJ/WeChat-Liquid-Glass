@@ -181,9 +181,12 @@ static void QQlgBootstrap(void) {
         hooksOK &= QQlgHook(UIViewController.class, @selector(viewDidLayoutSubviews), (IMP)QQlgViewDidLayoutSubviews, (IMP *)&QQlgOriginalViewDidLayoutSubviews);
         hooksOK &= QQlgHook(UIViewController.class, @selector(traitCollectionDidChange:), (IMP)QQlgTraitCollectionDidChange, (IMP *)&QQlgOriginalTraitCollectionDidChange);
         NSNotificationCenter *center = NSNotificationCenter.defaultCenter;
-        [center addObserverForName:UIKeyboardWillShowNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:QQlgKeyboardChanged];
-        [center addObserverForName:UIKeyboardWillHideNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:QQlgKeyboardChanged];
-        [center addObserverForName:UIKeyboardWillChangeFrameNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:QQlgKeyboardChanged];
+        void (^keyboardObserver)(NSNotification *) = ^(NSNotification *notification) {
+            QQlgKeyboardChanged(notification);
+        };
+        [center addObserverForName:UIKeyboardWillShowNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:keyboardObserver];
+        [center addObserverForName:UIKeyboardWillHideNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:keyboardObserver];
+        [center addObserverForName:UIKeyboardWillChangeFrameNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:keyboardObserver];
         QQlgLog(@"QQlg chat probe loaded; target=QQ 9.3.35 hooks=%d log=%@", hooksOK, QQlgLogPath());
     });
 }
