@@ -1,0 +1,42 @@
+name: Build QQlg input glass
+
+on:
+  push:
+    branches:
+      - "codex/qqlg-input-glass"
+    paths:
+      - "QQlgGlass/**"
+      - ".github/workflows/build-qqlg-input-glass.yml"
+  pull_request:
+    paths:
+      - "QQlgGlass/**"
+      - ".github/workflows/build-qqlg-input-glass.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build arm64 input-glass dylib
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        working-directory: QQlgGlass
+        run: make
+      - name: Verify Mach-O metadata
+        run: |
+          lipo -info QQlgGlass/build/QQlgGlass.dylib
+          otool -L QQlgGlass/build/QQlgGlass.dylib
+      - name: Upload dylib
+        uses: actions/upload-artifact@v4
+        with:
+          name: QQlgGlass-arm64
+          path: QQlgGlass/build/QQlgGlass.dylib
+          if-no-files-found: error
+      - name: Upload notes
+        uses: actions/upload-artifact@v4
+        with:
+          name: QQlgGlass-notes
+          path: QQlgGlass/README.md
