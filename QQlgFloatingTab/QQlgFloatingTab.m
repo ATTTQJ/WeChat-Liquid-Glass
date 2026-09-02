@@ -109,13 +109,6 @@ static void QQlgCorners(UIView *view, CGFloat radius) {
     view.layer.cornerRadius = radius;
     if (@available(iOS 13.0, *)) view.layer.cornerCurve = kCACornerCurveContinuous;
     view.layer.masksToBounds = YES;
-    // layer.cornerRadius only clips pixels. Native Liquid Glass reads the
-    // iOS 26 UIView corner configuration to determine the material geometry.
-    Class bridge = NSClassFromString(@"QQlgNativeGlassBridge");
-    SEL applyCapsule = NSSelectorFromString(@"applyCapsuleToView:");
-    if (bridge && [bridge respondsToSelector:applyCapsule]) {
-        ((void (*)(id, SEL, UIView *))objc_msgSend)(bridge, applyCapsule, view);
-    }
 }
 
 static UIView *QQlgMakeHost(void) {
