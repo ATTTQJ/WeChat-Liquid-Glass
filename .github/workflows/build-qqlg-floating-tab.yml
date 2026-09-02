@@ -1,0 +1,42 @@
+name: Build QQlg floating TabBar
+
+on:
+  push:
+    branches:
+      - "codex/qqlg-floating-tabbar"
+    paths:
+      - "QQlgFloatingTab/**"
+      - ".github/workflows/build-qqlg-floating-tab.yml"
+  pull_request:
+    paths:
+      - "QQlgFloatingTab/**"
+      - ".github/workflows/build-qqlg-floating-tab.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build arm64 floating TabBar dylib
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        working-directory: QQlgFloatingTab
+        run: make
+      - name: Verify Mach-O metadata
+        run: |
+          lipo -info QQlgFloatingTab/build/QQlgFloatingTab.dylib
+          otool -L QQlgFloatingTab/build/QQlgFloatingTab.dylib
+      - name: Upload dylib
+        uses: actions/upload-artifact@v4
+        with:
+          name: QQlgFloatingTab-arm64
+          path: QQlgFloatingTab/build/QQlgFloatingTab.dylib
+          if-no-files-found: error
+      - name: Upload test notes
+        uses: actions/upload-artifact@v4
+        with:
+          name: QQlgFloatingTab-notes
+          path: QQlgFloatingTab/README.md
