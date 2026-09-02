@@ -18,7 +18,6 @@ private struct QQlgGlassBar: View {
                         .frame(width: max(1, slotWidth - 10.0), height: max(1, proxy.size.height - 10.0))
                         .glassEffect(.clear, in: Capsule())
                         .position(x: slotWidth * (CGFloat(selectedSlot) + 0.5), y: proxy.size.height * 0.5)
-                        .transition(.glass)
                 }
             }
         }
@@ -27,6 +26,7 @@ private struct QQlgGlassBar: View {
 
 // This view is placed below QQ's original tab-item controls. It owns only the
 // Liquid Glass pixels; QQ retains hit testing, icons, text, badges, and state.
+@available(iOS 26.0, *)
 @objc(QQlgNativeGlassOverlay)
 public final class QQlgNativeGlassOverlay: UIView {
     private let hostingController: UIHostingController<QQlgGlassBar>
