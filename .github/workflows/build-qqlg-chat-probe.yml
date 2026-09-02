@@ -1,0 +1,44 @@
+name: Build QQlg chat probe
+
+on:
+  pull_request:
+    paths:
+      - "QQlg/**"
+      - ".github/workflows/build-qqlg-chat-probe.yml"
+  push:
+    branches:
+      - "codex/qq-chat-input-probe"
+    paths:
+      - "QQlg/**"
+      - ".github/workflows/build-qqlg-chat-probe.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build arm64 diagnostic dylib
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        working-directory: QQlg
+        run: make
+      - name: Verify Mach-O metadata
+        run: |
+          lipo -info QQlg/build/QQlgProbe.dylib
+          otool -L QQlg/build/QQlgProbe.dylib
+      - name: Upload dylib
+        uses: actions/upload-artifact@v4
+        with:
+          name: QQlgProbe-arm64
+          path: QQlg/build/QQlgProbe.dylib
+          if-no-files-found: error
+      - name: Upload integration notes
+        uses: actions/upload-artifact@v4
+        with:
+          name: QQlgProbe-integration
+          path: |
+            QQlg/README.md
+            QQlg/QQlgFileSharing-Info.plist
