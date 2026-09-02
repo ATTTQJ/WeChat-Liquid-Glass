@@ -10,6 +10,7 @@
 // The symbols are selected at runtime so one dylib can still load on iOS 15-25.
 
 static const void *QQlgFloatingHostKey = &QQlgFloatingHostKey;
+static const void *QQlgTransparentTabBarKey = &QQlgTransparentTabBarKey;
 static void (*QQlgOriginalLayoutSubviews)(UIView *, SEL);
 static void (*QQlgOriginalUpdateBackground)(id, SEL, BOOL);
 static void (*QQlgOriginalChangeStyle)(id, SEL, BOOL, id);
@@ -175,12 +176,13 @@ static void QQlgSuppressRectangle(UIView *tabBar, UIView *host) {
     if (![tabBar.superview isKindOfClass:UITabBar.class]) return;
     UITabBar *bar = (UITabBar *)tabBar.superview;
     bar.backgroundColor = UIColor.clearColor; bar.barTintColor = UIColor.clearColor; bar.translucent = YES; bar.opaque = NO; bar.clipsToBounds = NO;
-    if (@available(iOS 13.0, *)) {
+    if (@available(iOS 13.0, *) && !objc_getAssociatedObject(bar, QQlgTransparentTabBarKey)) {
         UITabBarAppearance *appearance = [[UITabBarAppearance alloc] init];
         [appearance configureWithTransparentBackground];
         appearance.backgroundColor = UIColor.clearColor; appearance.backgroundEffect = nil; appearance.shadowColor = UIColor.clearColor;
         bar.standardAppearance = appearance;
         if (@available(iOS 15.0, *)) bar.scrollEdgeAppearance = appearance;
+        objc_setAssociatedObject(bar, QQlgTransparentTabBarKey, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     for (UIView *child in bar.subviews) {
         if (child == tabBar || [child isDescendantOfView:tabBar]) continue;
@@ -218,7 +220,12 @@ static void QQlgUpdateFloatingTab(UIView *tabBar, BOOL animateSelection) {
         NSDictionary *parts = objc_getAssociatedObject(host, @selector(QQlgMakeHost));
         QQlgLog(@"floating host created class=%@ items=%lu nativeGlass=%@ swiftUI=%@", NSStringFromClass(tabBar.class), (unsigned long)items.count, [parts[@"native"] boolValue] ? @"yes" : @"no", [parts[@"swiftUI"] boolValue] ? @"yes" : @"no");
     }
-    [tabBar insertSubview:host belowSubview:items.firstObject]; QQlgSuppressRectangle(tabBar, host);
+    NSUInteger hostIndex = [tabBar.subviews indexOfObject:host];
+    NSUInteger firstItemIndex = [tabBar.subviews indexOfObject:items.firstObject];
+    if (host.superview != tabBar || hostIndex == NSNotFound || firstItemIndex == NSNotFound || hostIndex > firstItemIndex) {
+        [tabBar insertSubview:host belowSubview:items.firstObject];
+    }
+    QQlgSuppressRectangle(tabBar, host);
     CGFloat safeBottom = MAX(0.0, tabBar.safeAreaInsets.bottom);
     CGFloat contentHeight = MAX(48.0, CGRectGetHeight(tabBar.bounds) - safeBottom);
     CGFloat height = MIN(60.0, MAX(52.0, contentHeight - 2.0));

@@ -2,22 +2,27 @@ import SwiftUI
 import UIKit
 
 @available(iOS 26.0, *)
+private final class QQlgGlassState: ObservableObject {
+    @Published var selectedSlot = -1
+    @Published var itemCount = 4
+}
+
+@available(iOS 26.0, *)
 private struct QQlgGlassBar: View {
-    let selectedSlot: Int
-    let itemCount: Int
+    @ObservedObject var state: QQlgGlassState
 
     var body: some View {
         GeometryReader { proxy in
-            let slotWidth = proxy.size.width / CGFloat(max(itemCount, 1))
+            let slotWidth = proxy.size.width / CGFloat(max(state.itemCount, 1))
             GlassEffectContainer(spacing: 10.0) {
                 Color.clear
                     .glassEffect(.regular, in: Capsule())
 
-                if selectedSlot >= 0 && selectedSlot < itemCount {
+                if state.selectedSlot >= 0 && state.selectedSlot < state.itemCount {
                     Color.clear
                         .frame(width: max(1, slotWidth - 10.0), height: max(1, proxy.size.height - 10.0))
                         .glassEffect(.clear, in: Capsule())
-                        .position(x: slotWidth * (CGFloat(selectedSlot) + 0.5), y: proxy.size.height * 0.5)
+                        .position(x: slotWidth * (CGFloat(state.selectedSlot) + 0.5), y: proxy.size.height * 0.5)
                 }
             }
         }
@@ -29,10 +34,13 @@ private struct QQlgGlassBar: View {
 @available(iOS 26.0, *)
 @objc(QQlgNativeGlassOverlay)
 public final class QQlgNativeGlassOverlay: UIView {
+    private let state: QQlgGlassState
     private let hostingController: UIHostingController<QQlgGlassBar>
 
     @objc public override init(frame: CGRect) {
-        hostingController = UIHostingController(rootView: QQlgGlassBar(selectedSlot: -1, itemCount: 4))
+        let glassState = QQlgGlassState()
+        state = glassState
+        hostingController = UIHostingController(rootView: QQlgGlassBar(state: glassState))
         super.init(frame: frame)
         isUserInteractionEnabled = false
         backgroundColor = .clear
@@ -51,13 +59,18 @@ public final class QQlgNativeGlassOverlay: UIView {
 
     @objc(setSelectedSlot:itemCount:animated:)
     public func setSelectedSlot(_ selectedSlot: Int, itemCount: Int, animated: Bool) {
+        // QQ invokes layoutSubviews frequently. Rebuilding a UIHostingController
+        // root for every pass recreates the entire glass graph and causes hitches.
+        // Keep one graph alive and publish only a real selection/count change.
+        guard state.selectedSlot != selectedSlot || state.itemCount != itemCount else { return }
         let update = {
-            self.hostingController.rootView = QQlgGlassBar(selectedSlot: selectedSlot, itemCount: itemCount)
+            self.state.selectedSlot = selectedSlot
+            self.state.itemCount = itemCount
         }
         if animated {
-            UIView.animate(withDuration: 0.32, delay: 0.0, options: [.beginFromCurrentState, .curveEaseInOut], animations: update)
+            withAnimation(.easeInOut(duration: 0.28), update)
         } else {
-            UIView.performWithoutAnimation(update)
+            update()
         }
     }
 }
