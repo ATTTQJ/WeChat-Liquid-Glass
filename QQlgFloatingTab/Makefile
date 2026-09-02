@@ -3,7 +3,7 @@ CC := xcrun --sdk iphoneos clang
 OUT := build/QQlgFloatingTab.dylib
 
 CFLAGS := -arch arm64 -isysroot $(SDK) -miphoneos-version-min=15.0 -fobjc-arc -fvisibility=hidden -Wall -Wextra
-LDFLAGS := -dynamiclib -framework UIKit -framework Foundation -framework QuartzCore -Wl,-install_name,@rpath/QQlgFloatingTab.dylib
+LDFLAGS := -dynamiclib -framework UIKit -framework Foundation -framework QuartzCore -framework CoreGraphics -Wl,-install_name,@rpath/QQlgFloatingTab.dylib
 
 .PHONY: all clean
 all: $(OUT)

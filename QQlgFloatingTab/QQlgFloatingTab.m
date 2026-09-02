@@ -99,7 +99,7 @@ static UIBlurEffectStyle QQlgMaterialStyle(void) {
     return UIBlurEffectStyleLight;
 }
 
-static UIView *QQlgMakeHost(UIView *tabBar) {
+static UIView *QQlgMakeHost(void) {
     UIView *host = [[UIView alloc] initWithFrame:CGRectZero];
     host.userInteractionEnabled = NO;
     host.accessibilityElementsHidden = YES;
@@ -147,7 +147,7 @@ static void QQlgUpdateFloatingTab(UIView *tabBar) {
 
     UIView *host = objc_getAssociatedObject(tabBar, QQlgFloatingHostKey);
     if (!host) {
-        host = QQlgMakeHost(tabBar);
+        host = QQlgMakeHost();
         objc_setAssociatedObject(tabBar, QQlgFloatingHostKey, host, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         [tabBar insertSubview:host belowSubview:items.firstObject];
         QQlgLog(@"floating host created class=%@ items=%lu", NSStringFromClass(tabBar.class), (unsigned long)items.count);
@@ -201,9 +201,13 @@ static void QQlgUpdateFloatingTab(UIView *tabBar) {
 
     UIControl *selected = QQlgSelectedControl(items);
     if (selected) {
-        NSUInteger selectedIndex = [items indexOfObjectPassingTest:^BOOL(UIView *item, NSUInteger index, BOOL *stop) {
-            return [selected isDescendantOfView:item];
-        }];
+        NSUInteger selectedIndex = NSNotFound;
+        for (NSUInteger index = 0; index < items.count; index++) {
+            if ([selected isDescendantOfView:items[index]]) {
+                selectedIndex = index;
+                break;
+            }
+        }
         if (selectedIndex != NSNotFound) {
             CGFloat pillInsetX = MAX(3.0, slotWidth * 0.08);
             selection.frame = CGRectMake(slotWidth * selectedIndex + pillInsetX, 4.0, slotWidth - pillInsetX * 2.0, islandHeight - 8.0);
@@ -260,6 +264,16 @@ static UIView *QQlgFindTabBar(UIView *view, NSUInteger *budget) {
     return nil;
 }
 
+static NSArray<UIWindow *> *QQlgActiveWindows(void) {
+    NSMutableArray<UIWindow *> *windows = [NSMutableArray array];
+    for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+        if (![scene isKindOfClass:UIWindowScene.class]) continue;
+        if (scene.activationState == UISceneActivationStateUnattached) continue;
+        [windows addObjectsFromArray:((UIWindowScene *)scene).windows];
+    }
+    return windows;
+}
+
 static BOOL QQlgInstall(void) {
     if (QQlgHooksInstalled) return YES;
     Class tabBar = NSClassFromString(@"QQSkinTabBar");
@@ -271,7 +285,7 @@ static BOOL QQlgInstall(void) {
     result &= QQlgHook(tabBar, @selector(setTabBarSelectedAtIndex:), (IMP)QQlgSetSelectedIndex, (IMP *)&QQlgOriginalSetSelectedIndex);
     QQlgHooksInstalled = result;
     if (result) {
-        for (UIWindow *window in UIApplication.sharedApplication.windows) {
+        for (UIWindow *window in QQlgActiveWindows()) {
             NSUInteger budget = 1000;
             UIView *existing = QQlgFindTabBar(window, &budget);
             if (existing) { QQlgUpdateFloatingTab(existing); break; }
@@ -280,21 +294,22 @@ static BOOL QQlgInstall(void) {
     return result;
 }
 
+static void QQlgAttemptInstall(NSUInteger attempts) {
+    if (QQlgInstall()) {
+        QQlgLog(@"QQlg floating tab loaded; target=QQ 9.3.35 log=%@", QQlgLogPath());
+    } else if (attempts < 19) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            QQlgAttemptInstall(attempts + 1);
+        });
+    } else {
+        QQlgLog(@"QQSkinTabBar was unavailable after %lu attempts", (unsigned long)(attempts + 1));
+    }
+}
+
 __attribute__((constructor))
 static void QQlgBootstrap(void) {
     QQlgLogQueue = dispatch_queue_create("com.qqlg.floating-tab.log", DISPATCH_QUEUE_SERIAL);
     dispatch_async(dispatch_get_main_queue(), ^{
-        __block NSUInteger attempts = 0;
-        __block void (^installWhenReady)(void);
-        installWhenReady = ^{
-            if (QQlgInstall()) {
-                QQlgLog(@"QQlg floating tab loaded; target=QQ 9.3.35 log=%@", QQlgLogPath());
-            } else if (++attempts < 20) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), installWhenReady);
-            } else {
-                QQlgLog(@"QQSkinTabBar was unavailable after %lu attempts", (unsigned long)attempts);
-            }
-        };
-        installWhenReady();
+        QQlgAttemptInstall(0);
     });
 }
