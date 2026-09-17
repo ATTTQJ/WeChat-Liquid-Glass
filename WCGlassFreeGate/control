@@ -1,0 +1,9 @@
+Package: com.atttqj.wcglassfreegate
+Name: WCGlass Free Gate
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Owner-authorized free edition compatibility layer for WCGlass.
+Maintainer: ATTTQJ
+Author: ATTTQJ
+Section: Tweaks
+Depends: mobilesubstrate
